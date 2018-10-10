@@ -1,5 +1,12 @@
 {
-  "name": "docassist",
+  "name": "YarnRedirection",
+  "version": "1.0",
   "private": true,
-  "dependencies": {}
+  "scripts": {
+    "dependencies": "cd front_end && yarn",
+    "start": "cd front_end && yarn start",
+    "build": "cd front_end && yarn build",
+    "test": "cd front_end && yarn test",
+    "eject": "cd front_end && yarn eject"
+  }
 }

@@ -13,10 +13,6 @@
 !/log/.keep
 !/tmp/.keep
 
-
-/node_modules
-/yarn-error.log
-
 /public/assets
 .byebug_history
 
@@ -25,3 +21,25 @@
 
 # Ignore application configuration
 # /config/application.yml
+
+# Front end dependencies
+/node_modules
+/front_end/node_modules
+
+# Front end testing
+/coverage
+/front_end/coverage
+
+# Front end production
+/build
+/front_end/build
+
+# Front end misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

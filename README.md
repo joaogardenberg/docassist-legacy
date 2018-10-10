@@ -1,12 +1,13 @@
 # DocAssist
 
 ### Dependências
-| Dependência | Versão          |
-| ----------: | :-------------- |
-| Ruby        | 2.5.1           |
-| MongoDB     | 3.6.3 ou maior  |
-| MongoDB     | 4.0.9 ou maior  |
-| NodeJS      | 8.10.0 ou maior |
+| Dependência | Versão                 |
+| ----------: | :--------------------- |
+|        Ruby | 2.5.1                  |
+|     MongoDB | 3.6.3 ou mais recente  |
+|       Redis | 4.0.9 ou mais recente  |
+|      NodeJS | 8.10.0 ou mais recente |
+|        Yarn | 1.10.1 ou mais recente |
 
 ### Como rodar o ambiente de desenvolvimento
 Depois de instalar as dependências, você deverá clonar o projeto, através do seguinte comando no terminal:
@@ -18,9 +19,6 @@ Depois disso, você deverá abrir um terminal na pasta raiz do projeto e digitar
 $ bundle install
 ```
 ```sh
-$ rails db:migrate
-```
-```sh
 $ rails s
 ```
 Abra então outro terminal e digite os seguintes comandos:
@@ -28,9 +26,8 @@ Abra então outro terminal e digite os seguintes comandos:
 $ yarn
 ```
 ```sh
+$ yarn dependencies
+```
+```sh
 $ yarn start
-```
-Abra então seu navegador e acesse:
-```
-http://localhost:3000
 ```
