@@ -11,21 +11,41 @@
 
 ### Como rodar o ambiente de desenvolvimento
 Depois de instalar as dependências, você deverá clonar o projeto, através do seguinte comando no terminal:
+
 ```sh
 $ git clone git@gitlab.com:joaogardenberg/docassist.git -b master DocAssist
 ```
+
 Depois disso, você deverá abrir um terminal na pasta raiz do projeto e digitar os seguintes comandos:
+
 ```sh
 $ bundle install
 ```
+
 ```sh
 $ rails s
 ```
+
+A partir daqui, o backend vai estar rodando.
+
 Abra então outro terminal e digite os seguintes comandos:
+
 ```sh
 $ yarn dependencies
 ```
+
 ```sh
 $ yarn start
 ```
-Automaticamente será aberta no seu navegador uma aba com o projeto.
+
+Automaticamente será aberta no seu navegador uma aba com o front end rodando no seguinte endereço:
+
+```
+http://localhost:8080
+```
+
+Caso quiser acessar as apis do back end, é só acessar o seguinte endereço:
+
+```
+http://localhost:3000
+```
