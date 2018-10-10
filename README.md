@@ -28,6 +28,12 @@ $ rails s
 
 A partir daqui, o backend vai estar rodando.
 
+Caso quiser acessar as apis do back end, é só acessar o seguinte endereço:
+
+```
+http://localhost:3000
+```
+
 Abra então outro terminal e digite os seguintes comandos:
 
 ```sh
@@ -42,10 +48,4 @@ Automaticamente será aberta no seu navegador uma aba com o front end rodando no
 
 ```
 http://localhost:8080
-```
-
-Caso quiser acessar as apis do back end, é só acessar o seguinte endereço:
-
-```
-http://localhost:3000
 ```
