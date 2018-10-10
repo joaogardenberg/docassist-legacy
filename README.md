@@ -1,6 +1,7 @@
 # DocAssist
 
 ### Dependências
+
 | Dependência | Versão                 |
 | ----------: | :--------------------- |
 |        Ruby | 2.5.1                  |
@@ -10,6 +11,7 @@
 |        Yarn | 1.10.1 ou mais recente |
 
 ### Como rodar o ambiente de desenvolvimento
+
 Depois de instalar as dependências, você deverá clonar o projeto, através do seguinte comando no terminal:
 
 ```sh
@@ -37,7 +39,7 @@ http://localhost:3000/
 Abra então outro terminal e digite os seguintes comandos:
 
 ```sh
-$ yarn dependencies
+$ yarn front_yarn
 ```
 
 ```sh
@@ -48,4 +50,20 @@ Automaticamente será aberta no seu navegador uma aba com o front end rodando no
 
 ```
 http://localhost:8080/
+```
+
+### Como adicionar/remover dependências no front end
+
+NÃO é para utilizar os comandos `yarn add` e `yarn remove`! Ao invés disso...
+
+Para adicionar, basta digitar num terminal na pasta raiz do projeto:
+
+```sh
+$ yarn front_add <nome-da-dependencia>
+```
+
+Para remover, basta digitar num terminal na pasta raiz do projeto:
+
+```sh
+$ yarn front_rem <nome-da-dependencia>
 ```
