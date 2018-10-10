@@ -8,7 +8,7 @@
 | MongoDB     | 4.0.9 ou maior  |
 | NodeJS      | 8.10.0 ou maior |
 
-### Como rodar
+### Como rodar o ambiente de desenvolvimento
 Depois de instalar as dependências, você deverá clonar o projeto, através do seguinte comando no terminal:
 ```sh
 $ git clone git@gitlab.com:joaogardenberg/docassist.git -b master DocAssist
@@ -29,4 +29,8 @@ $ yarn
 ```
 ```sh
 $ yarn start
+```
+Abra então seu navegador e acesse:
+```
+http://localhost:3000
 ```
