@@ -1,6 +1,4 @@
 # DocAssist
-##### Sistema de agendamento online para clínicas
----
 
 ### Dependências
 | Dependência | Versão |
