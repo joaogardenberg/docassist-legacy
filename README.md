@@ -31,7 +31,7 @@ A partir daqui, o backend vai estar rodando.
 Caso quiser acessar suas apis, é só acessá-las através do seguinte endereço raiz:
 
 ```
-http://localhost:3000
+http://localhost:3000/
 ```
 
 Abra então outro terminal e digite os seguintes comandos:
@@ -47,5 +47,5 @@ $ yarn start
 Automaticamente será aberta no seu navegador uma aba com o front end rodando no seguinte endereço:
 
 ```
-http://localhost:8080
+http://localhost:8080/
 ```
