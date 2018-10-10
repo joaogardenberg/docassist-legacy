@@ -3,7 +3,9 @@
   "version": "1.0",
   "private": true,
   "scripts": {
-    "dependencies": "cd front_end && yarn",
+    "front_yarn": "cd front_end && yarn",
+    "front_add": "cd front_end && yarn add",
+    "front_rem": "cd front_end && yarn remove",
     "start": "cd front_end && yarn start",
     "build": "cd front_end && yarn build",
     "test": "cd front_end && yarn test",
