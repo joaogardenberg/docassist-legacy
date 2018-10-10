@@ -2,6 +2,7 @@
 
 ### Dependências
 | Dependência | Versão |
+| - | - |
 | Ruby | 2.5.1 |
 | MongoDB | 3.6.3 ou maior |
 | MongoDB | 4.0.9 ou maior |
