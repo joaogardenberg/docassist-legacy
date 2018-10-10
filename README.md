@@ -28,7 +28,7 @@ $ rails s
 
 A partir daqui, o backend vai estar rodando.
 
-Caso quiser acessar suas apis, é só acessar o seguinte endereço:
+Caso quiser acessar suas apis, é só acessá-las através do seguinte endereço raiz:
 
 ```
 http://localhost:3000
