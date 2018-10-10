@@ -23,11 +23,9 @@ $ rails s
 ```
 Abra então outro terminal e digite os seguintes comandos:
 ```sh
-$ yarn
-```
-```sh
 $ yarn dependencies
 ```
 ```sh
 $ yarn start
 ```
+Automaticamente será aberta no seu navegador uma aba com o projeto.
