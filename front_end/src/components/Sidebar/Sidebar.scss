@@ -1,6 +1,8 @@
+@import '../../variables/Variables';
+
 .app-sidebar {
-  background-color: #fff;
-  box-shadow: 1px 0 3px #999;
+  background-color: $sidebar-background-color;
+  box-shadow: 1px 0 3px $sidebar-box-shadow-color;
   height: 100vh;
   left: 0;
   overflow-x: hidden;
@@ -8,7 +10,7 @@
   position: fixed;
   top: 0;
   transition: width .2s, left .2s;
-  width: 15rem;
+  width: $sidebar-big-width;
   z-index: 10000;
 }
 
@@ -17,49 +19,51 @@
   flex-direction: column;
   margin: 0;
 
-  > li > a {
-    align-items: center;
-    color: #333;
-    display: flex;
-    flex-flow: row nowrap;
-    font-size: 1rem;
-    font-weight: lighter;
-    padding: 0.6rem 1.2rem;
-    text-decoration: none;
-    transition: background-color .2s, color .2s;
-    user-select: none;
-    word-break: break-word;
+  li {
+    &.active a,
+    a:hover {
+      background-color: $gradient-first-color;
 
-    > i {
-      color: #007fff;
-      font-size: 1.5rem;
-      margin-right: 1.2rem;
-      transition: color .2s;
-    }
-
-    > span {
-      min-width: 160px;
-    }
-  }
-
-  > li {
-    &.active a, a:hover {
-      background-color: #007fff;
-
-      &, i {
-        color: #fff;
+      &,
+      i {
+        color: $sidebar-item-hover-color;
       }
     }
 
     &.active a {
-      background-image: linear-gradient(to right, #007fff, #4a00e0);
+      background-image: linear-gradient(to right, $gradient-first-color, $gradient-second-color);
+    }
+
+    a {
+      align-items: center;
+      color: $sidebar-item-color;
+      display: flex;
+      flex-flow: row nowrap;
+      font-size: 1rem;
+      font-weight: lighter;
+      padding: .6rem 1.2rem;
+      text-decoration: none;
+      transition: background-color .2s, color .2s;
+      user-select: none;
+      word-break: break-word;
+
+      i {
+        color: $gradient-first-color;
+        font-size: 1.5rem;
+        margin-right: 1.2rem;
+        transition: color .2s;
+      }
+
+      span {
+        min-width: 160px;
+      }
     }
   }
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
   .app-sidebar:not(:hover) {
-    width: 4rem;
+    width: $sidebar-small-width;
   }
 }
 
@@ -77,6 +81,6 @@
 
 @media (max-width: 767px) {
   .app-sidebar {
-    left: -15rem;
+    left: -$sidebar-big-width;
   }
 }

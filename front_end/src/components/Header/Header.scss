@@ -1,20 +1,17 @@
+@import '../../variables/Variables';
+
 .app-header {
   .navbar {
-    background-image: linear-gradient(to right, #007fff, #4a00e0);
+    background-image: linear-gradient(to right, $gradient-first-color, $gradient-second-color);
   }
 
-  .navbar-toggle {
-    background-color: #4e54c8;
-    color: #fff;
-    // margin-left: 15px;
+  .sidebar-toggle {
+    background-color: $sidebar-toggle-background-color;
+    color: $sidebar-toggle-color;
   }
 
   .navbar-brand {
     padding: 0;
-
-    img + h1 {
-      display: none;
-    }
 
     h1 {
       font-size: 2rem;
@@ -26,6 +23,10 @@
     img {
       max-height: 50px;
       max-width: 300px;
+    }
+
+    img + h1 {
+      display: none;
     }
   }
 
@@ -44,7 +45,7 @@
 }
 
 @media (min-width: 768px) {
-  .navbar-toggle {
+  .sidebar-toggle {
     display: none;
   }
 }

@@ -7,7 +7,7 @@ class Header extends Component {
       <header className="app-header">
         <nav className="navbar navbar-dark bg-primary">
           <button
-            className="btn ripple navbar-toggle"
+            className="btn ripple sidebar-toggle"
             type="button"
             onClick={ this.onNavbarToggleClick }
           >

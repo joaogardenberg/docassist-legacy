@@ -1,10 +1,12 @@
+@import '../../variables/Variables';
+
 .app-footer {
-  background-color: #eee;
+  background-color: $footer-background-color;
   padding: 25px 0;
   text-align: center;
 
   p {
-    color: #666;
+    color: $footer-color;
     font-size: 14px;
     font-weight: lighter;
     margin: 0;

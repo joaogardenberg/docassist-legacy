@@ -1,3 +1,5 @@
+@import '../../variables/Variables';
+
 html,
 body {
   font-family: 'Open Sans', sans-serif;
@@ -8,7 +10,7 @@ body {
   position: relative;
 
   &::after {
-    background-image: radial-gradient(circle, #000 20%, transparent 20.01%);
+    background-image: radial-gradient(circle, $ripple-primary-color 20%, $ripple-secondary-color 20.01%);
     background-position: 50%;
     background-repeat: no-repeat;
     content: '';
@@ -19,7 +21,7 @@ body {
     pointer-events: none;
     position: absolute;
     top: 0;
-    transform: scale(10,10);
+    transform: scale(10, 10);
     transition: transform .5s, opacity 1s;
     width: 100%;
   }

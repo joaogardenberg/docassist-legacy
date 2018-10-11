@@ -1,8 +1,10 @@
+@import '../../variables/Variables';
+
 .app-container {
   display: flex;
   flex-flow: column nowrap;
   height: 100vh;
-  margin-left: 15rem;
+  margin-left: $sidebar-big-width;
   transition: margin-left .2s;
 
   p {
@@ -12,7 +14,7 @@
 
 @media (min-width: 768px) and (max-width: 991px) {
   .app-container {
-    margin-left: 4rem;
+    margin-left: $sidebar-small-width;
   }
 }
 
