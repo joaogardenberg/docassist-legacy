@@ -20,7 +20,7 @@ class Header extends Component {
             <li className="nav-item">
               <a className="nav-link text-white ripple" href="#!" onClick={ this.onLogoutClick }>
                 <span>Sair</span>
-                <i className="fa fa-sign-out" />
+                <i className="fas fa-sign-out-alt" />
               </a>
             </li>
           </ul>
