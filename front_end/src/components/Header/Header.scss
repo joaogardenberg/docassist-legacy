@@ -1,0 +1,50 @@
+.app-header {
+  .navbar {
+    background-image: linear-gradient(to right, #007fff, #4a00e0);
+  }
+
+  .navbar-toggle {
+    background-color: #4e54c8;
+    color: #fff;
+    // margin-left: 15px;
+  }
+
+  .navbar-brand {
+    padding: 0;
+
+    img + h1 {
+      display: none;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: lighter;
+      margin: 0;
+      padding: 0 15px 2px;
+    }
+
+    img {
+      max-height: 50px;
+      max-width: 300px;
+    }
+  }
+
+  .navbar-nav {
+    font-weight: bold;
+
+    .nav-link {
+      padding: 5px 15px;
+    }
+
+    i {
+      font-size: 16px;
+      margin-left: .4rem;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .navbar-toggle {
+    display: none;
+  }
+}
