@@ -10,7 +10,7 @@
     padding: 0 15px;
 
     &:hover {
-      background-color: rgba(0,0,0,0.1);
+      background-color: $navbar-item-hover-color;
     }
 
     i {
@@ -30,7 +30,7 @@
     padding: 0 15px;
 
     &:hover {
-      background-color: rgba(0,0,0,0.1);
+      background-color: $navbar-item-hover-color;
     }
 
     img {
