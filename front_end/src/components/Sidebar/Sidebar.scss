@@ -46,8 +46,8 @@
 
   &.current-user-info {
     background-color: $gradient-initial-color;
-    background-repeat: no-repeat;
     background-position: center;
+    background-repeat: no-repeat;
     background-size: cover;
 
     > span {
@@ -73,9 +73,9 @@
   > img {
     background-color: $gradient-middle-color;
     height: 2.5rem;
-    padding: 1px;
-    overflow: hidden;
     object-fit: cover;
+    overflow: hidden;
+    padding: 1px;
   }
 
   > span {
@@ -85,9 +85,9 @@
     font-weight: lighter;
     max-height: 100px;
     min-width: 169px;
+    overflow: hidden;
     transition: max-height .3s;
     word-break: break-word;
-    overflow: hidden;
   }
 }
 
