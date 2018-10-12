@@ -2,12 +2,12 @@
 
 .app-header {
   .navbar {
-    background-image: linear-gradient(to right, $gradient-first-color, $gradient-second-color);
+    background-image: linear-gradient(to right, $gradient-initial-color, $gradient-end-color);
   }
 
-  .sidebar-toggle {
-    background-color: $sidebar-toggle-background-color;
-    color: $sidebar-toggle-color;
+  .sidebar-toggler {
+    background-color: $sidebar-toggler-background-color;
+    color: $sidebar-toggler-color;
   }
 
   .navbar-brand {
@@ -45,7 +45,7 @@
 }
 
 @media (min-width: 768px) {
-  .sidebar-toggle {
+  .sidebar-toggler {
     display: none;
   }
 }
