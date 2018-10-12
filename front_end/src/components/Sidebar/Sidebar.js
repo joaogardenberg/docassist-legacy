@@ -9,15 +9,9 @@ const Sidebar = () => {
       <ul className="page-links">
         <CurrentUserInfo />
         <SidebarItem
-          active={ true }
-          iconClass="fas fa-users"
+          iconClass="fas fa-chart-line"
           link="#!"
-          name="Usuários"
-        />
-        <SidebarItem
-          iconClass="fas fa-address-card"
-          link="#!"
-          name="Pacientes"
+          name="Dashboard"
         />
         <SidebarItem
           iconClass="fas fa-calendar-alt"
@@ -25,14 +19,15 @@ const Sidebar = () => {
           name="Consultas"
         />
         <SidebarItem
-          iconClass="fas fa-file-contract"
+          iconClass="fas fa-address-card"
           link="#!"
-          name="Receita Médica"
+          name="Pacientes"
         />
         <SidebarItem
-          iconClass="fas fa-cog"
+          active={ true }
+          iconClass="fas fa-users"
           link="#!"
-          name="Item 5"
+          name="Usuários"
         />
       </ul>
     </nav>
