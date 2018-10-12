@@ -3,6 +3,7 @@
 .app-header {
   .navbar {
     background-image: linear-gradient(to right, $gradient-initial-color, $gradient-end-color);
+    padding: .5rem;
   }
 
   .sidebar-toggler {
