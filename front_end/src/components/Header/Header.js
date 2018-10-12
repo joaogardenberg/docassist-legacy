@@ -7,7 +7,7 @@ import HeaderNav      from './HeaderNav/HeaderNav';
 const Header = () => {
   return (
     <header className="app-header">
-      <nav className="navbar navbar-dark bg-primary">
+      <nav className="nav-wrapper">
         <SidebarToggler />
         <HeaderBrand />
         <HeaderNav />

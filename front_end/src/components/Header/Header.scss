@@ -1,29 +1,44 @@
 @import '../../variables/Variables';
 
 .app-header {
-  .navbar {
-    background-image: linear-gradient(to right, $gradient-initial-color, $gradient-end-color);
-    padding: .5rem;
-  }
-
   .sidebar-toggler {
-    background-color: $sidebar-toggler-background-color;
+    background: transparent;
+    border: 0;
     color: $sidebar-toggler-color;
+    height: 100%;
+    margin-top: -2px;
+    padding: 0 15px;
+
+    &:hover {
+      background-color: rgba(0,0,0,0.1);
+    }
+
+    i {
+      height: auto;
+    }
   }
 
-  .navbar-brand {
-    padding: 0;
+  .nav-wrapper {
+    background-color: $gradient-initial-color;
+    background-image: linear-gradient(to right, $gradient-initial-color, $gradient-end-color);
+    position: relative;
+  }
+
+  .brand-logo {
+    display: flex;
+    height: 100%;
+    padding: 0 15px;
+
+    img {
+      margin: auto 0;
+      max-height: 54px;
+      max-width: 250px;
+    }
 
     h1 {
       font-size: 2rem;
       font-weight: lighter;
-      margin: 0;
-      padding: 0 15px 2px;
-    }
-
-    img {
-      max-height: 50px;
-      max-width: 300px;
+      margin: auto 0;
     }
 
     img + h1 {
@@ -31,22 +46,33 @@
     }
   }
 
-  .navbar-nav {
+  .header-nav .nav-link {
+    align-items: center;
+    display: flex;
     font-weight: bold;
-
-    .nav-link {
-      padding: 5px 15px;
-    }
 
     i {
       font-size: 16px;
-      margin-left: .4rem;
+      height: auto;
+      margin-left: 5px;
     }
   }
 }
 
-@media (min-width: 768px) {
+@media only screen and (min-width: 768px) {
   .sidebar-toggler {
     display: none;
+  }
+
+  .my.brand-logo {
+    left: 0;
+    transform: none;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .my.brand-logo {
+    top: 0;
+    position: absolute;
   }
 }

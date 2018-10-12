@@ -3,7 +3,7 @@ import HeaderNavItem from './HeaderNavItem/HeaderNavItem';
 
 const HeaderNav = () => {
   return (
-    <ul className="navbar-nav">
+    <ul className="header-nav right">
       <HeaderNavItem
         iconClass="fas fa-sign-out-alt"
         link="#!"
