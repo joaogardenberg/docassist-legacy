@@ -14,6 +14,7 @@ const Sidebar = () => {
           name="Dashboard"
         />
         <SidebarItem
+          active={ true }
           iconClass="fas fa-calendar-alt"
           link="#!"
           name="Consultas"
@@ -24,7 +25,6 @@ const Sidebar = () => {
           name="Pacientes"
         />
         <SidebarItem
-          active={ true }
           iconClass="fas fa-users"
           link="#!"
           name="Usuários"
