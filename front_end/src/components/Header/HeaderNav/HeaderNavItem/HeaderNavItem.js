@@ -5,7 +5,7 @@ const HeaderNavItem = props => {
 
   return (
     <li className="nav-item">
-      <a className="nav-link text-white ripple" href={ link }>
+      <a className="nav-link text-white ripple white-ripple" href={ link }>
         <span>{ name }</span>
         <i className={ iconClass } />
       </a>
