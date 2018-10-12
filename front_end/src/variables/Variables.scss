@@ -1,10 +1,9 @@
-$ripple-black-color:               #000;
-$ripple-white-color:               #fff;
-$ripple-secondary-color:           transparent;
-
 $gradient-initial-color:           #007fff;
 $gradient-middle-color:            #2456E6;
 $gradient-end-color:               #4a00e0;
+$gradient-initial-transp-color:    rgba(0, 127, 255, .5);
+$gradient-middle-transp-color:     rgba(36, 86, 230, .5);
+$gradient-end-transp-color:        rgba(74, 0, 224, .5);
 
 $sidebar-big-width:                15rem;
 $sidebar-small-width:              4rem;
