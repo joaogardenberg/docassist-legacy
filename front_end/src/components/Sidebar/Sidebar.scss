@@ -44,6 +44,18 @@
   transition: background-color .2s, color .2s;
   user-select: none;
 
+  &.current-user-info {
+    background-color: $gradient-initial-color;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+
+    > span {
+      color: $sidebar-item-hover-color;
+      text-shadow: 1px 1px $sidebar-item-color;
+    }
+  }
+
   > i,
   > img {
     flex-shrink: 0;
@@ -75,6 +87,7 @@
     min-width: 169px;
     transition: max-height .3s;
     word-break: break-word;
+    overflow: hidden;
   }
 }
 

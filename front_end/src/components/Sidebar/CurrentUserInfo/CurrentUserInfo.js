@@ -2,8 +2,8 @@ import React           from 'react';
 
 const CurrentUserInfo = () => {
   return (
-    <a href="#!">
-      <img className="rounded-circle img-fluid" src="https://www.uni-regensburg.de/Fakultaeten/phil_Fak_II/Psychologie/Psy_II/beautycheck/english/durchschnittsgesichter/m(01-32)_gr.jpg" />
+    <a className="current-user-info ripple white-ripple" href="#!" style={{ backgroundImage: 'url(http://informationcommunicationtechnology.com/wp-content/uploads/2018/06/Blue-Sky-Background.jpg)' }}>
+      <img className="rounded-circle img-fluid" src="https://pixelmator-pro.s3.amazonaws.com/community/avatar_empty@2x.png" />
       <span>Usuário atual</span>
     </a>
   );
