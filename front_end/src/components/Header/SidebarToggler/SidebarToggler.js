@@ -1,8 +1,9 @@
-import React from 'react';
-import * as Toast from '../../../common/Toast';
+import React                  from 'react';
+import { connect as Connect } from 'react-redux';
+import { openSidebar }        from '../../../actions/Sidebar';
 
-const SidebarToggler = () => {
-  const onTogglerClick = () => Toast.info('Adicionar Redux e fazer o action creator para abrir o menu.');
+const SidebarToggler = props => {
+  const onTogglerClick = () => props.openSidebar();
 
   return (
     <button className="waves-effect sidebar-toggler" type="button" onClick={ onTogglerClick }>
@@ -11,4 +12,4 @@ const SidebarToggler = () => {
   );
 }
 
-export default SidebarToggler;
+export default Connect(null, { openSidebar })(SidebarToggler);
