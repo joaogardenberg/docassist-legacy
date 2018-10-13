@@ -9,7 +9,7 @@ const App = () => {
     <div className="app">
       <Sidebar />
       <Container />
-      <ToastContainer transition={ Flip } />
+      <ToastContainer transition={ Flip } className="toastify-container" />
     </div>
   );
 }

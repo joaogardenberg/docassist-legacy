@@ -33,11 +33,101 @@ body {
               -1px 0 5px 0 $sidebar-box-shadow-third-color;
 }
 
+.toastify-container {
+  transition: width .2s;
+}
+
+.toastify-body {
+  border-radius: 3px;
+  cursor: default;
+  min-height: 0;
+  padding: 5px;
+  position: relative;
+
+  &::before {
+    color: $white;
+    font-family: 'Font Awesome 5 Free';
+    font-size: 14px;
+    font-weight: 700;
+    left: 5px;
+    line-height: 14px;
+    opacity: .7;
+    position: absolute;
+    top: 5px;
+    width: 14px;
+  }
+
+  &.info {
+    background-color: #2e89ed;
+
+    &::before {
+      content: '\f05a';
+    }
+  }
+
+  &.success {
+    background-color: #22a65c;
+
+    &::before {
+      content: '\f058';
+    }
+  }
+
+  &.warning {
+    background-color: #ffb73f;
+
+    &::before {
+      content: '\f192';
+    }
+  }
+
+  &.error {
+    background-color: #f23e40;
+
+    &::before {
+      content: '\f06a';
+    }
+  }
+
+  button {
+    font-size: 0;
+    line-height: 12px;
+    opacity: 1;
+    position: relative;
+
+    &::before {
+      content: '\f00d';
+      font-family: 'Font Awesome 5 Free';
+      font-size: 16px;
+      line-height: 12px;
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 12px;
+    }
+  }
+
+  .text {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    margin: 15px 5px 5px;
+  }
+
+  .progress-bar {
+    background: $white;
+    height: 2px;
+  }
+}
+
 @media only screen and (max-width: 767px) {
   .top-shadow.desktop-only,
   .right-shadow.desktop-only,
   .bottom-shadow.desktop-only,
   .left-shadow.desktop-only {
     box-shadow: none;
+  }
+
+  .toastify-container {
+    width: calc(100% - 30px);
   }
 }
