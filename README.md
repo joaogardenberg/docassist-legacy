@@ -67,3 +67,11 @@ Para remover, basta digitar num terminal na pasta raiz do projeto:
 ```sh
 $ yarn front_rem <nome-da-dependencia>
 ```
+
+### Como fazer deploy do front end para o Heroku
+
+Basta apenas digitar num terminal na pasta raiz do projeto:
+
+```sh
+$ yarn deploy
+```
