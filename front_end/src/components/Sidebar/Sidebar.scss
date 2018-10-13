@@ -5,13 +5,20 @@
     background-color: $sidebar-background-color;
     height: 100vh;
     left: 0;
-    overflow-x: hidden;
-    overflow-y: auto;
+    overflow: hidden;
     position: fixed;
     top: 0;
     transition: width .2s, left .2s, box-shadow .2s;
     width: $sidebar-big-width;
     z-index: 2000;
+
+    &:hover {
+      overflow-y: auto;
+
+      a > .name {
+        min-width: auto;
+      }
+    }
   }
 
   .overlay {
