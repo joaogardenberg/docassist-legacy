@@ -58,7 +58,7 @@ body {
   }
 
   &.info {
-    background-color: #2e89ed;
+    background-color: $toast-info-color;
 
     &::before {
       content: '\f05a';
@@ -66,7 +66,7 @@ body {
   }
 
   &.success {
-    background-color: #22a65c;
+    background-color: $toast-success-color;
 
     &::before {
       content: '\f058';
@@ -74,7 +74,7 @@ body {
   }
 
   &.warning {
-    background-color: #ffb73f;
+    background-color: $toast-warning-color;
 
     &::before {
       content: '\f192';
@@ -82,7 +82,7 @@ body {
   }
 
   &.error {
-    background-color: #f23e40;
+    background-color: $toast-error-color;
 
     &::before {
       content: '\f06a';
