@@ -11,7 +11,7 @@ class Sidebar extends Component {
 
     return (
       <div className={ `app-sidebar${open ? ' open' : ''}` }>
-        <nav>
+        <nav className="right-shadow">
           <ul className="page-links">
             <CurrentUserInfo />
             <SidebarItem
