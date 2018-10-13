@@ -10,7 +10,9 @@
     "build": "cd front_end && yarn build",
     "test": "cd front_end && yarn test",
     "eject": "cd front_end && yarn eject",
+    "heroku_create": "cd front_end && git init && heroku create",
     "deploy_heroku": "cd front_end && mv '.heroku_git' '.git' && git add . && git commit -m 'Commit' && git push heroku master && mv '.git' '.heroku_git'",
+    "open_heroku": "cd front_end && mv '.heroku_git' '.git' && heroku open && mv '.git' '.heroku_git'",
     "fix_heroku": "cd front_end && mv '.git' '.heroku_git'"
   }
 }

@@ -70,8 +70,28 @@ $ yarn front_rem <nome-da-dependencia>
 
 ### Como fazer deploy do front end para o Heroku
 
-Basta apenas digitar num terminal na pasta raiz do projeto:
+Para criar o projeto no Heroku, basta digitar os seguinte comando num terminal na pasta raiz do projeto:
+
+```sh
+$ yarn create_heroku
+```
+
+Uma vez feito isso, não há a necessidade de fazer de novo a cada deploy.
+
+Em seguida, para fazer o deploy, digite:
 
 ```sh
 $ yarn deploy_heroku
+```
+
+Para abrir o Heroku no seu browser direto na página do projeto, digite:
+
+```sh
+$ yarn open_heroku
+```
+
+Caso dê algum problema relacionado a nome de diretório em algum destes comandos, talvez este comando ajude:
+
+```sh
+$ yarn fix_heroku
 ```
