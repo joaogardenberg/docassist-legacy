@@ -824,10 +824,10 @@
   resolved "https://registry.yarnpkg.com/@csstools/convert-colors/-/convert-colors-1.4.0.tgz#ad495dc41b12e75d588c6db8b9834f08fa131eb7"
   integrity sha512-5a6wqoJV/xEdbRNKVo6I4hO3VjyDq//8q2f9I6PBAvMesJHFauXDorcNCsr9RzvsZnaWi5NYCcfyqP1QeFHFbw==
 
-"@fortawesome/fontawesome-free@5.4.0":
-  version "5.4.0"
-  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.4.0.tgz#f3eea20ce4c216dc35e3c13f52f1caf9fc52d746"
-  integrity sha512-yOvY4vhouiTXMNHMlxdgjjC6rdmspQTFCMaRDcxzOK+LP9YfoIccXpOK9boyUgvA1U/pgzHlVZDHrWs6r3sRcA==
+"@fortawesome/fontawesome-free@^5.4.0":
+  version "5.4.1"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.4.1.tgz#6194786c1a705ab84253e06429834466670e3c3f"
+  integrity sha512-ZcxfUmLFl4RLG71cPeZcTXRa6rt3xLnMmomAb7aYKRzUmlRRj7E8EVqSwYSXBiV2x6XpSQmGOQmNQx6HSeSwVQ==
 
 "@svgr/core@^2.4.1":
   version "2.4.1"
@@ -5485,7 +5485,7 @@ joi@^11.1.1:
     isemail "3.x.x"
     topo "2.x.x"
 
-jquery@3.3.1:
+jquery@^3.3.1:
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
   integrity sha512-Ubldcmxp5np52/ENotGxlLe6aGMvmF4R8S6tZjsP6Knsaxd/xp3Zrh50cG93lR6nPXyUFwzN3ZSOQI0wRJNdGg==
@@ -5978,7 +5978,7 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-materialize-css@1.0.0:
+materialize-css@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/materialize-css/-/materialize-css-1.0.0.tgz#8d5db1c4a81c6d65f3b2e2ca83a8e08daa24d1be"
   integrity sha512-4/oecXl8y/1i8RDZvyvwAICyqwNoKU4or5uf8uoAd74k76KzZ0Llym4zhJ5lLNUskcqjO0AuMcvNyDkpz8Z6zw==
@@ -7982,7 +7982,7 @@ react-lifecycles-compat@^3.0.4:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
-react-materialize@2.4.6:
+react-materialize@^2.4.6:
   version "2.4.6"
   resolved "https://registry.yarnpkg.com/react-materialize/-/react-materialize-2.4.6.tgz#5d9799ca05741fa0981b4247c8f39051bed65aea"
   integrity sha512-JHiae+ZicUZTx8th+RauA1yZrEFZVnATDf0yjUZlVc7lwBl8v3hSS8K48LQ2qlya/BSuNnyY58qQ0Lhu8uV9qw==
@@ -8003,7 +8003,7 @@ react-redux@^5.0.7:
     loose-envify "^1.1.0"
     prop-types "^15.6.0"
 
-react-scripts@2.0.4:
+react-scripts@^2.0.4:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/react-scripts/-/react-scripts-2.0.4.tgz#244a69abbf5630a80ad81349a6d0d56d91583c6c"
   integrity sha512-zqsdYYeUqfURac6NEL9/5aImOINuMdm3OjBaIhGxEqJQOtlhsJTrvjY30zJpnCLUMv9B7BLIsmkvvOd0z+x1kQ==
@@ -8057,7 +8057,7 @@ react-scripts@2.0.4:
   optionalDependencies:
     fsevents "1.2.4"
 
-react-toastify@4.4.0:
+react-toastify@^4.4.0:
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/react-toastify/-/react-toastify-4.4.0.tgz#b10649c6d95c93c617ba4cadfddd16e6db34b559"
   integrity sha512-nTp084SO1rapKggtiWKpN2DE/wgWpJRT3OqAjpi52CeymhybA0IElmWWdqg1sUCBV1lFb4LlmPUIe5XrVz8q0g==
