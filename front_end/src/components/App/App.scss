@@ -4,3 +4,31 @@ html,
 body {
   font-family: 'Open Sans', sans-serif;
 }
+
+.no-overflow {
+  overflow: hidden;
+}
+
+.top-shadow {
+  box-shadow: 0 -2px 2px 0 $sidebar-box-shadow-first-color,
+              0 -3px 1px -2px $sidebar-box-shadow-second-color,
+              0 -1px 5px 0 $sidebar-box-shadow-third-color;
+}
+
+.right-shadow {
+  box-shadow: 2px 0 2px 0 $sidebar-box-shadow-first-color,
+              3px 0 1px -2px $sidebar-box-shadow-second-color,
+              1px 0 5px 0 $sidebar-box-shadow-third-color;
+}
+
+.bottom-shadow {
+  box-shadow: 0 2px 2px 0 $sidebar-box-shadow-first-color,
+              0 3px 1px -2px $sidebar-box-shadow-second-color,
+              0 1px 5px 0 $sidebar-box-shadow-third-color;
+}
+
+.left-shadow {
+  box-shadow: -2px 0 2px 0 $sidebar-box-shadow-first-color,
+              -3px 0 1px -2px $sidebar-box-shadow-second-color,
+              -1px 0 5px 0 $sidebar-box-shadow-third-color;
+}
