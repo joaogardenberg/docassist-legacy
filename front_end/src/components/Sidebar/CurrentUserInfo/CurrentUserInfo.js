@@ -1,9 +1,10 @@
-import React      from 'react';
-import * as Toast from '../../../common/Toast';
+import React                  from 'react';
+import { connect as Connect } from 'react-redux';
+import { closeSidebar }       from '../../../actions';
 
 const CurrentUserInfo = props => {
-  const { imageUrl } = props;
-  const onUserClick = () => Toast.info('Adicionar router e fazer o link.');
+  const { imageUrl, closeSidebar } = props;
+  const onUserClick = () => closeSidebar();
   const onImageError = ({ target }) => target.src = 'https://pixelmator-pro.s3.amazonaws.com/community/avatar_empty@2x.png';
 
   return (
@@ -24,4 +25,4 @@ const CurrentUserInfo = props => {
   );
 }
 
-export default CurrentUserInfo;
+export default Connect(null, { closeSidebar })(CurrentUserInfo);

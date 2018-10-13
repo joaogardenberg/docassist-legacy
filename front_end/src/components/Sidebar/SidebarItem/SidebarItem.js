@@ -1,9 +1,10 @@
-import React      from 'react';
-import * as Toast from '../../../common/Toast';
+import React                  from 'react';
+import { connect as Connect } from 'react-redux';
+import { closeSidebar }       from '../../../actions';
 
 const SidebarItem = props => {
-  const { active, iconClass, link, name } = props;
-  const onLinkClick = () => Toast.info('Adicionar router e fazer o link.');
+  const { active, iconClass, link, name, closeSidebar } = props;
+  const onLinkClick = () => closeSidebar();
 
   return (
     <li className={ `link ${active ? ' active' : ''}` }>
@@ -15,4 +16,4 @@ const SidebarItem = props => {
   );
 }
 
-export default SidebarItem;
+export default Connect(null, { closeSidebar })(SidebarItem);
