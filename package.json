@@ -9,6 +9,7 @@
     "start": "cd front_end && yarn dev",
     "build": "cd front_end && yarn build",
     "test": "cd front_end && yarn test",
-    "eject": "cd front_end && yarn eject"
+    "eject": "cd front_end && yarn eject",
+    "deploy": "cd front_end && git add . && git commit -m 'Commit' && git push heroku master"
   }
 }
