@@ -90,7 +90,7 @@ Para abrir o Heroku no seu browser direto na página do projeto, digite:
 $ yarn open_heroku
 ```
 
-Caso dê algum problema relacionado a nome de diretório em algum destes comandos, talvez este comando ajude:
+Caso dê algum problema relacionado a nome de diretório em algum destes comandos, ou então algum problema relacionado a git, talvez este comando ajude:
 
 ```sh
 $ yarn fix_heroku
