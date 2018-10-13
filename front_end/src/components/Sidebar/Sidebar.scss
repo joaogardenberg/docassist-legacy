@@ -130,6 +130,7 @@
   > .badge {
     background-color: $gradient-middle-transp-color;
     bottom: 2px;
+    box-shadow: 0 0 2px $white;
     opacity: 0;
     position: absolute;
     right: 2px;
