@@ -14,10 +14,6 @@
 
     &:hover {
       overflow-y: auto;
-
-      a > .name {
-        min-width: auto;
-      }
     }
   }
 
@@ -127,7 +123,8 @@
     font-weight: lighter;
     line-height: 1;
     max-height: 100px;
-    min-width: 159px;
+    max-width: 145px;
+    min-width: 145px;
     overflow: hidden;
     transition: max-height .3s, opacity .3s;
     word-break: break-word;
