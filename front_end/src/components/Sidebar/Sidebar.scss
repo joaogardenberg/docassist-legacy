@@ -9,7 +9,7 @@
     overflow-y: auto;
     position: fixed;
     top: 0;
-    transition: width .2s, left .2s;
+    transition: width .2s, left .2s, box-shadow .2s;
     width: $sidebar-big-width;
     z-index: 2000;
   }
@@ -160,7 +160,7 @@
 
 @media only screen and (max-width: 767px) {
   .app-sidebar nav {
-    left: -80%;
+    left: -70%;
     width: 70%;
   }
 }
