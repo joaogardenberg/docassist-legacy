@@ -73,5 +73,5 @@ $ yarn front_rem <nome-da-dependencia>
 Basta apenas digitar num terminal na pasta raiz do projeto:
 
 ```sh
-$ yarn deploy
+$ yarn deploy_heroku
 ```
