@@ -1,10 +1,11 @@
-import React from 'react';
-import            './Content.scss';
+import React  from 'react';
+import             './Content.scss';
+import Routes from '../../Routes/Routes';
 
 const Content = () => {
   return (
     <main className="page-content">
-      <p>Content</p>
+      <Routes />
     </main>
   );
 }

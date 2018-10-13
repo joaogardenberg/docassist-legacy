@@ -53,7 +53,7 @@
 
   > .link {
     a:hover,
-    &.active a {
+    a.active {
       background-color: $gradient-initial-color;
 
       i,
@@ -62,7 +62,7 @@
       }
     }
 
-    &.active a {
+    a.active {
       background-image: linear-gradient(to right, $gradient-initial-color, $gradient-end-color);
     }
   }

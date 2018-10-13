@@ -10,7 +10,7 @@ const CurrentUserInfo = props => {
   return (
     <a
       className="current-user-info waves-effect waves-light"
-      href="#!"
+      href="/usuário"
       style={{ backgroundImage: 'url(http://informationcommunicationtechnology.com/wp-content/uploads/2018/06/Blue-Sky-Background.jpg)' }}
       onClick={ onUserClick }
     >

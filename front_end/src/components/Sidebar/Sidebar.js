@@ -16,23 +16,22 @@ class Sidebar extends Component {
             <CurrentUserInfo />
             <SidebarItem
               iconClass="fas fa-chart-line"
-              link="#!"
+              path="/dashboard"
               name="Dashboard"
             />
             <SidebarItem
-              active={ true }
               iconClass="fas fa-calendar-alt"
-              link="#!"
+              path="/consultas"
               name="Consultas"
             />
             <SidebarItem
               iconClass="fas fa-address-card"
-              link="#!"
+              path="/pacientes"
               name="Pacientes"
             />
             <SidebarItem
               iconClass="fas fa-users"
-              link="#!"
+              path="/usuários"
               name="Usuários"
             />
           </ul>
@@ -65,4 +64,4 @@ function mapStateToProps({ sidebar: { open } }) {
   return { open };
 }
 
-export default Connect(mapStateToProps, { openSidebar, closeSidebar })(Sidebar);
+export default Connect(mapStateToProps, { openSidebar, closeSidebar }, null, { pure: false })(Sidebar);

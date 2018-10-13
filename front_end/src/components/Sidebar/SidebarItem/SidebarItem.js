@@ -1,19 +1,30 @@
-import React                  from 'react';
-import { connect as Connect } from 'react-redux';
-import { closeSidebar }       from '../../../actions';
+import React, { Component }    from 'react';
+import { connect as Connect }  from 'react-redux';
+import { closeSidebar }        from '../../../actions';
+import { NavLink, withRouter } from 'react-router-dom';
 
-const SidebarItem = props => {
-  const { active, iconClass, link, name, closeSidebar } = props;
-  const onLinkClick = () => closeSidebar();
+class SidebarItem extends Component {
+  render() {
+    const { iconClass, path, name } = this.props;
 
-  return (
-    <li className={ `link ${active ? ' active' : ''}` }>
-      <a href={ link } className="waves-effect" onClick={ onLinkClick }>
-        <i className={ iconClass } />
-        <span className="name">{ name }</span>
-      </a>
-    </li>
-  );
+    return (
+      <li className="link">
+        <NavLink
+          className="waves-effect"
+          activeClassName="active"
+          to={ path }
+          onClick={ this.onLinkClick.bind(this) }
+        >
+          <i className={ iconClass } />
+          <span className="name">{ name }</span>
+        </NavLink>
+      </li>
+    );
+  }
+
+  onLinkClick() {
+    this.props.closeSidebar();
+  }
 }
 
-export default Connect(null, { closeSidebar })(SidebarItem);
+export default withRouter(Connect(null, { closeSidebar })(SidebarItem));
