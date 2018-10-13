@@ -1,17 +1,47 @@
 @import '../../variables/Variables';
 
 .app-sidebar {
-  background-color: $sidebar-background-color;
-  box-shadow: 1px 0 3px $sidebar-box-shadow-color;
-  height: 100vh;
-  left: 0;
-  overflow-x: hidden;
-  overflow-y: auto;
-  position: fixed;
-  top: 0;
-  transition: width .2s, left .2s;
-  width: $sidebar-big-width;
-  z-index: 10000;
+  nav {
+    background-color: $sidebar-background-color;
+    box-shadow: 1px 0 3px $sidebar-box-shadow-color;
+    height: 100vh;
+    left: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: fixed;
+    top: 0;
+    transition: width .2s, left .2s;
+    width: $sidebar-big-width;
+    z-index: 2000;
+  }
+
+  .overlay {
+    background-color: #000;
+    bottom: 0;
+    display: none;
+    left: 0;
+    opacity: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 1000;
+  }
+
+  &.open {
+    nav {
+      left: 0;
+    }
+
+    .overlay {
+    animation: overlayOpacity .2s forwards;
+      display: block;
+    }
+
+    @keyframes overlayOpacity {
+      from { opacity: 0; }
+      to { opacity: .7; }
+    }
+  }
 }
 
 .page-links {
@@ -36,7 +66,7 @@
   }
 }
 
-.app-sidebar a {
+.app-sidebar nav a {
   align-items: center;
   display: flex;
   padding: .8rem .7rem;
@@ -111,7 +141,7 @@
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1199px) {
-  .app-sidebar:not(:hover) {
+  .app-sidebar nav:not(:hover) {
     width: $sidebar-small-width;
 
     a {
@@ -128,7 +158,8 @@
 }
 
 @media only screen and (max-width: 767px) {
-  .app-sidebar {
-    left: -$sidebar-big-width;
+  .app-sidebar nav {
+    left: -70%;
+    width: 70%;
   }
 }
