@@ -1,9 +1,23 @@
-import React from 'react';
+import React, { Component } from 'react';
+import                           './Appointments.scss';
+import Article              from '../common/Article/Article';
+import * as Toast           from '../../../common/Toast';
 
-const Appointments = () => {
-  return (
-    <p>Consultas</p>
-  );
+class Appointments extends Component {
+  render() {
+    return (
+      <Article
+        uniqueClass="appointments"
+        header="Consultas"
+        newButtonCallback={ this.onNewButtonClick }
+        newButtonTooltip="consulta"
+      />
+    );
+  }
+
+  onNewButtonClick() {
+    Toast.info('Fazer modal para adicionar consulta.');
+  }
 }
 
 export default Appointments;
