@@ -59,7 +59,7 @@ function options(time, type = INFO) {
 
   return {
     position: 'top-right',
-    autoClose: time,
+    autoClose: time === 0 ? false : time,
     hideProgressBar: false,
     closeOnClick: false,
     pauseOnHover: true,
