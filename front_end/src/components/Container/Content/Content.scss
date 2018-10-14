@@ -26,7 +26,7 @@
     right: 10px;
     top: calc(2.2rem - 15px);
 
-    button {
+    a {
       background-color: $gradient-initial-color;
 
       &:hover {
@@ -43,25 +43,63 @@
 
   section {
     margin-bottom: 10px;
+  }
 
-    tbody tr:hover {
-      background-color: $table-hover-color;
+  tbody tr:hover {
+    background-color: $table-hover-color;
+  }
+
+  th,
+  td {
+    padding: 5px 10px;
+  }
+
+  td .fixed-action-btn {
+    left: 0;
+    padding: 0;
+    position: relative;
+    top: 0;
+
+    .btn-floating.btn-small {
+      height: 32px;
+      padding: 0;
+      width: 32px;
     }
 
-    th,
-    td {
-      padding: 10px 5px;
+    .btn-small i {
+      font-size: 1rem;
     }
 
-    td button:not(:first-child) {
-      margin-left: 5px;
+    ul {
+      position: absolute;
+      right: 32px;
+      top: 0;
+      transform: none;
+    }
+
+    li {
+      margin-right: 10px;
+      margin-top: 0;
     }
   }
 }
 
 @media only screen and (min-width: 993px) {
-  section th.actions {
-    width: 220px;
+  section .actions {
+    width: 52px;
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  td .fixed-action-btn {
+    ul {
+      width: 136px !important;
+      left: 32px !important;
+
+      li {
+        float: right;
+      }
+    }
   }
 }
 
