@@ -4,11 +4,12 @@ import { removeBodyOverflow, addBodyOverflow } from '../../../../actions';
 
 class Modal extends Component {
   render() {
-    const { title, children, footerButtons } = this.props;
+    const { title, children, fixedFooter, footerButtons } = this.props;
 
     return (
-      <aside className="modal-background">
-        <div className="modal open">
+      <aside className="modal-container">
+        <div className="overlay" />
+        <div className={ `modal open${fixedFooter ? ' modal-fixed-footer' : ''}` }>
           <div className="modal-content">
             <h4>{ title }</h4>
             { children }
