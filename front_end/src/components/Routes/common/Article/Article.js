@@ -1,22 +1,30 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import { Link } from 'react-router-dom';
 
 class Article extends Component {
-  render() {
-    const { uniqueClass, header, newButtonCallback } = this.props;
-    const { newButtonTooltip, children }             = this.props;
-    let newButton;
+  constructor(props) {
+    super(props);
+    this.newButton = React.createRef();
+  }
 
-    if (newButtonCallback) {
-      newButton = (
+  render() {
+    const { uniqueClass, header, newButton, newButtonPath } = this.props;
+    const { newButtonTooltip, children }                    = this.props;
+    let newButtonElement;
+
+    if (newButton) {
+      newButtonElement = (
         <aside className={ `new ${uniqueClass}` }>
-          <button
+          <Link
+            to={ newButtonPath }
             className="btn-floating btn-large waves-effect waves-light tooltiped"
             data-position="left"
             data-tooltip={ newButtonTooltip ? `Adicionar ${newButtonTooltip}` : null }
-            onClick={ newButtonCallback }
+            ref={ this.newButton }
           >
             <i className="fas fa-plus" />
-          </button>
+          </Link>
         </aside>
       );
     }
@@ -25,13 +33,18 @@ class Article extends Component {
       <article className={ `page ${uniqueClass}` }>
         <header>
           <h2>{ header }</h2>
-          { newButton }
+          { newButtonElement }
         </header>
         <section>
           { children }
         </section>
       </article>
     );
+  }
+
+  componentDidMount() {
+    const button = ReactDOM.findDOMNode(this.newButton.current);
+    window.M.Tooltip.init(button);
   }
 }
 
