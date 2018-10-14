@@ -7,7 +7,7 @@ class Patients extends Component {
   render() {
     return (
       <Article
-        uniqueClass="patients"
+        uniqueClass="patients-index"
         header="Pacientes"
         newButtonCallback={ this.onNewButtonClick }
         newButtonTooltip="paciente"

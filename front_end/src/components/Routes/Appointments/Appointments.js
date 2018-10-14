@@ -7,7 +7,7 @@ class Appointments extends Component {
   render() {
     return (
       <Article
-        uniqueClass="appointments"
+        uniqueClass="appointments-index"
         header="Consultas"
         newButtonCallback={ this.onNewButtonClick }
         newButtonTooltip="consulta"
