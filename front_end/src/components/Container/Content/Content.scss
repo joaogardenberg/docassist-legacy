@@ -75,6 +75,7 @@
       right: 32px;
       top: 0;
       transform: none;
+      width: 136px !important;
     }
 
     li {
@@ -84,16 +85,56 @@
   }
 }
 
+.modal-container {
+  height: calc(100vh - 64px);
+  left: 0;
+  max-height: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 4000;
+
+  .modal {
+    margin-bottom: 20px;
+    margin-top: 20px;
+    max-height: calc(100% - 40px);
+    max-width: 768px;
+    position: absolute;
+    width: 70%;
+
+    &.open {
+      display: block;
+    }
+
+    &.modal-fixed-footer {
+      height: 100%;
+    }
+
+    .modal-footer a:not(:first-child) {
+      margin-left: 5px;
+    }
+  }
+
+  .overlay {
+    background-color: $black;
+    height: 100%;
+    left: 0;
+    opacity: .7;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+}
+
 @media only screen and (min-width: 993px) {
-  section .actions {
+  .page section .actions {
     width: 52px;
   }
 }
 
 @media only screen and (max-width: 992px) {
-  td .fixed-action-btn {
+  .page td .fixed-action-btn {
     ul {
-      width: 136px !important;
       left: 32px !important;
 
       li {
@@ -107,10 +148,22 @@
   .page-content {
     padding-top: 79px;
   }
+
+  .modal-container .modal {
+    margin-top: 84px;
+    max-height: calc(100% - 104px);
+    max-width: initial;
+    width: calc(100% - 40px);
+  }
 }
 
 @media only screen and (max-width: 600px) {
   .page-content {
     padding-top: 71px;
+  }
+
+  .modal-container .modal {
+    margin-top: 76px;
+    max-height: calc(100% - 96px);
   }
 }
