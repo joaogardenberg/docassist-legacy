@@ -57,7 +57,7 @@ class UsersIndex extends Component {
           <td className="actions">
             <div className="fixed-action-btn" ref={ refFab }>
               <button
-                className="btn-floating btn-small bg-success"
+                className="btn-floating btn-small bg-success waves-effect waves-light"
                 // data-position="left"
                 // data-tooltip="Ações"
                 // ref={ refPrimary }
@@ -68,7 +68,7 @@ class UsersIndex extends Component {
                 <li>
                   <Link
                     to={ `/usuários/${id}/remover` }
-                    className="btn-floating btn-small bg-error"
+                    className="btn-floating btn-small bg-error waves-effect waves-light"
                     data-position="top"
                     data-tooltip="Remover"
                     ref={ refDestroy }
@@ -79,7 +79,7 @@ class UsersIndex extends Component {
                 <li>
                   <Link
                     to={ `/usuários/${id}/editar` }
-                    className="btn-floating btn-small bg-success"
+                    className="btn-floating btn-small bg-success waves-effect waves-light"
                     data-position="bottom"
                     data-tooltip="Editar"
                     ref={ refEdit }
@@ -90,7 +90,7 @@ class UsersIndex extends Component {
                 <li>
                   <Link
                     to={ `/usuários/${id}` }
-                    className="btn-floating btn-small bg-info"
+                    className="btn-floating btn-small bg-info waves-effect waves-light"
                     data-position="top"
                     data-tooltip="Ver"
                     ref={ refShow }
