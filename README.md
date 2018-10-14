@@ -73,7 +73,7 @@ $ yarn front_rem <nome-da-dependencia>
 Para criar o projeto no Heroku, basta digitar o seguinte comando num terminal na pasta raiz do projeto:
 
 ```sh
-$ yarn create_heroku
+$ yarn heroku_create
 ```
 
 Uma vez feito isso, não há a necessidade de fazer de novo a cada deploy.
@@ -81,17 +81,17 @@ Uma vez feito isso, não há a necessidade de fazer de novo a cada deploy.
 Em seguida, para fazer o deploy, digite:
 
 ```sh
-$ yarn deploy_heroku
+$ yarn heroku_deploy
 ```
 
 Para abrir o Heroku no seu browser direto na página do projeto, digite:
 
 ```sh
-$ yarn open_heroku
+$ yarn heroku_open
 ```
 
 Caso dê algum problema relacionado a nome de diretório em algum destes comandos, ou então algum problema relacionado a git, talvez este comando ajude:
 
 ```sh
-$ yarn fix_heroku
+$ yarn heroku_fix
 ```
