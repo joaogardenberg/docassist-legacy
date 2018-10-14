@@ -16,7 +16,7 @@ const CurrentUserInfo = props => {
     >
       <img
         src={ imageUrl ? imageUrl : '' }
-        alt="Imagem do usuário"
+        alt="Foto do usuário"
         onError={ onImageError }
       />
     <span className="name">Usuário atual</span>
