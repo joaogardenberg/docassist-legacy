@@ -1,7 +1,6 @@
 import React, { Component }   from 'react';
 import { connect as Connect } from 'react-redux';
 import { Link }               from 'react-router-dom';
-import { fetchUsers }         from '../../../actions';
 import Modal                  from '../common/Modal/Modal';
 
 class UsersShow extends Component {
