@@ -30,7 +30,7 @@ const Routes = () => {
       {/* Users Index */}
       <Route path="/usuários" render={ props => <Multiple components={ [UsersIndex] } { ...props } /> } />
       {/* Default route if no routes above match */}
-      <Redirect to="/dashboard" />
+      <Redirect to="/usuários" />
     </Switch>
   );
 }
