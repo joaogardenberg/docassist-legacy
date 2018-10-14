@@ -79,7 +79,7 @@ class UsersIndex extends Component {
                 <li>
                   <Link
                     to={ `/usuários/${id}/editar` }
-                    className="btn-floating btn-small bg-success waves-effect waves-light"
+                    className="btn-floating btn-small bg-warning waves-effect waves-light"
                     data-position="bottom"
                     data-tooltip="Editar"
                     ref={ refEdit }
