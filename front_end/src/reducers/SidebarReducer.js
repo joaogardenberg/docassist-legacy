@@ -7,7 +7,7 @@ const INITIAL_STATE = {
   open: false
 };
 
-function SidebarTogglerReducer(state = INITIAL_STATE, action) {
+function SidebarReducer(state = INITIAL_STATE, action) {
   switch(action.type) {
     case OPEN_SIDEBAR:
       document.getElementsByTagName('body')[0].classList.add('no-overflow');
@@ -20,4 +20,4 @@ function SidebarTogglerReducer(state = INITIAL_STATE, action) {
   }
 }
 
-export default SidebarTogglerReducer;
+export default SidebarReducer;
