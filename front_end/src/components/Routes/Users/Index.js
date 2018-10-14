@@ -41,10 +41,11 @@ class UsersIndex extends Component {
     const rows = _.map(users, user => {
       const { id, name, username, type } = user;
       const refFab = React.createRef();
+      // const refPrimary = React.createRef();
       const refShow = React.createRef();
       const refEdit = React.createRef();
       const refDestroy = React.createRef();
-      
+
       this.fabRefs.push(refFab);
       this.tooltipRefs.push(...[refShow, refEdit, refDestroy]);
 
@@ -55,8 +56,13 @@ class UsersIndex extends Component {
           <td>{ type }</td>
           <td className="actions">
             <div className="fixed-action-btn" ref={ refFab }>
-              <button className="btn-floating btn-small bg-success">
-                <i className="fas fa-cog" />
+              <button
+                className="btn-floating btn-small bg-success"
+                // data-position="left"
+                // data-tooltip="Ações"
+                // ref={ refPrimary }
+              >
+                <i className="fas fa-ellipsis-h" />
               </button>
               <ul>
                 <li>
@@ -74,7 +80,7 @@ class UsersIndex extends Component {
                   <Link
                     to={ `/usuários/${id}/editar` }
                     className="btn-floating btn-small bg-success"
-                    data-position="top"
+                    data-position="bottom"
                     data-tooltip="Editar"
                     ref={ refEdit }
                   >
@@ -112,6 +118,13 @@ class UsersIndex extends Component {
         <tbody>
           { rows }
         </tbody>
+        <br />
+        <br />
+        <p>Todo:</p>
+        <p>- Ajeitar tooltip no FAB;</p>
+        <p>- Paginar;</p>
+        <p>- Transição de abertura do modal;</p>
+        <p>- Fazer funcionar como se tivesse back end.</p>
       </table>
     );
   }
@@ -139,7 +152,8 @@ class UsersIndex extends Component {
   initFabs() {
     this.fabRefs.forEach(({ current }) => {
       window.M.FloatingActionButton.init(current, {
-        direction: 'left'
+        direction: 'left',
+        hoverEnabled: false
       });
     });
 
