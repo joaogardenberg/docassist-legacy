@@ -1,16 +1,78 @@
+@import '../../../variables/Variables';
+
 .page-content {
   flex: 1;
-  padding: 1rem;
+  padding: 15px;
+  position: relative;
+}
+
+.page {
+  color: $default-color;
+
+  header {
+    border-bottom: 1px solid $header-line-color;
+    margin-bottom: 27px;
+    position: relative;
+
+    h2 {
+      font-size: 2.2rem;
+      line-height: 2.2rem;
+      margin: 0 0 14px;
+    }
+  }
+
+  aside.new {
+    position: absolute;
+    right: 10px;
+    top: calc(2.2rem - 15px);
+
+    button {
+      background-color: $gradient-initial-color;
+
+      &:hover {
+        box-shadow: 0 4px 7px 0 rgba(0,0,0,0.14),
+                    0 2px 12px 0 rgba(0,0,0,0.12),
+                    0 4px 5px -1px rgba(0,0,0,0.2);
+      }
+    }
+
+    i {
+      font-size: 1.5rem;
+    }
+  }
+
+  section {
+    margin-bottom: 10px;
+
+    tbody tr:hover {
+      background-color: $table-hover-color;
+    }
+
+    th,
+    td {
+      padding: 10px 5px;
+    }
+
+    td button:not(:first-child) {
+      margin-left: 5px;
+    }
+  }
+}
+
+@media only screen and (min-width: 993px) {
+  section th.actions {
+    width: 220px;
+  }
 }
 
 @media only screen and (max-width: 767px) {
   .page-content {
-    padding-top: calc(1rem + 64px);
+    padding-top: 79px;
   }
 }
 
 @media only screen and (max-width: 600px) {
   .page-content {
-    padding-top: calc(1rem + 56px);
+    padding-top: 71px;
   }
 }

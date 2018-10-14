@@ -1,6 +1,8 @@
 @import '../../variables/Variables';
 
 .app-header {
+  z-index: 5000;
+
   .sidebar-toggler {
     background: transparent;
     border: 0;
@@ -57,8 +59,9 @@
     font-weight: bold;
 
     i {
-      font-size: 16px;
-      height: auto;
+      font-size: 1.15rem;
+      height: 1.15rem;
+      line-height: 1.15rem;
       margin-left: 5px;
     }
   }

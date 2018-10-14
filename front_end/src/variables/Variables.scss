@@ -7,8 +7,8 @@ $gradient-end-transp-color:        rgba(74, 0, 224, .5);
 
 $navbar-item-hover-color:          rgba(0, 0, 0, .1);
 
-$sidebar-big-width:                16rem;
-$sidebar-small-width:              4rem;
+$sidebar-big-width:                240px;
+$sidebar-small-width:              58px;
 $sidebar-toggler-background-color: #4e54c8;
 $sidebar-toggler-color:            #fff;
 $sidebar-background-color:         #fff;
@@ -18,13 +18,17 @@ $sidebar-box-shadow-third-color:   rgba(0, 0, 0, .2);
 $sidebar-item-color:               #333;
 $sidebar-item-hover-color:         #fff;
 
+$default-color:                    #666;
+$header-line-color:                #dadada;
+$table-hover-color:                #eee;
+
 $footer-background-color:          #ddd;
 $footer-color:                     #666;
 
-$toast-info-color:                 #2e89ed;
-$toast-success-color:              #22a65c;
-$toast-warning-color:              #ffb73f;
-$toast-error-color:                #f23e40;
+$info-color:                 #2e89ed;
+$success-color:              #22a65c;
+$warning-color:              #ffb73f;
+$error-color:                #f23e40;
 
 $white:                            #fff;
 $black:                            #000;
