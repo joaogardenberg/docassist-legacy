@@ -23,8 +23,18 @@ class SidebarItem extends Component {
   }
 
   onLinkClick() {
-    this.props.closeSidebar();
+    const { clickCallback, closeSidebar, sidebar } = this.props;
+
+    if (clickCallback) {
+      clickCallback();
+    }
+
+    closeSidebar(sidebar.open);
   }
 }
 
-export default withRouter(Connect(null, { closeSidebar })(SidebarItem));
+function mapStateToProps({ sidebar }) {
+  return { sidebar };
+}
+
+export default withRouter(Connect(mapStateToProps, { closeSidebar })(SidebarItem));

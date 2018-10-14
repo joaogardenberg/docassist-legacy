@@ -1,9 +1,15 @@
-import React, { Component }          from 'react';
-import { connect as Connect }        from 'react-redux';
-import { openSidebar, closeSidebar } from '../../actions';
-import                                    './Sidebar.scss';
-import CurrentUserInfo               from './CurrentUserInfo/CurrentUserInfo';
-import SidebarItem                   from './SidebarItem/SidebarItem';
+import React, { Component }                      from 'react';
+import { connect as Connect }                    from 'react-redux';
+import                                                './Sidebar.scss';
+import CurrentUserInfo                           from './CurrentUserInfo/CurrentUserInfo';
+import SidebarItem                               from './SidebarItem/SidebarItem';
+
+import {
+  openSidebar,
+  closeSidebar,
+  openLoader,
+  fetchUsers
+} from '../../actions';
 
 class Sidebar extends Component {
   render() {
@@ -33,6 +39,7 @@ class Sidebar extends Component {
               iconClass="fas fa-users"
               path="/usuários"
               name="Usuários"
+              clickCallback={ this.onUsersClick.bind(this) }
             />
           </ul>
         </nav>
@@ -49,19 +56,27 @@ class Sidebar extends Component {
     window.removeEventListener('resize', this.checkDimensions.bind(this));
   }
 
+  onUsersClick() {
+    if (window.location.pathname.includes('/usu%C3%A1rios')) {
+      this.props.openLoader();
+      this.props.fetchUsers();
+    }
+  }
+
   onOverlayClick() {
-    this.props.closeSidebar();
+    const { closeSidebar, open } = this.props;
+    closeSidebar(open);
   }
 
   checkDimensions() {
     if (window.innerWidth >= 768) {
-      this.props.closeSidebar();
+      this.onOverlayClick();
     }
   }
 }
 
-function mapStateToProps({ sidebar: { open } }) {
-  return { open };
+function mapStateToProps({ sidebar }) {
+  return sidebar;
 }
 
-export default Connect(mapStateToProps, { openSidebar, closeSidebar }, null, { pure: false })(Sidebar);
+export default Connect(mapStateToProps, { openSidebar, closeSidebar, openLoader, fetchUsers }, null, { pure: false })(Sidebar);
