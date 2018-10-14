@@ -20,7 +20,7 @@ class Users extends Component {
 
     return (
       <Article
-        uniqueClass="user"
+        uniqueClass="users"
         header="Usuários"
         newButtonCallback={ this.onNewButtonClick }
         newButtonTooltip="usuário"
