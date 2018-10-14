@@ -1,8 +1,13 @@
-import React from 'react';
+import React   from 'react';
+import              './Dashboard.scss';
+import Article from '../common/Article/Article';
 
 const Dashboard = () => {
   return (
-    <p>Dashboard</p>
+    <Article
+      uniqueClass="dashboard"
+      header="Dashboard"
+    />
   );
 }
 
