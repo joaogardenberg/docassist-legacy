@@ -4,19 +4,22 @@ class Article extends Component {
   render() {
     const { uniqueClass, header, newButtonCallback } = this.props;
     const { newButtonTooltip, children }             = this.props;
+    let newButton;
 
-    const newButton = (
-      <aside className={ `new ${uniqueClass}` }>
-        <button
-          className="btn-floating btn-large waves-effect waves-light tooltiped"
-          data-position="left"
-          data-tooltip={ newButtonTooltip ? `Adicionar ${newButtonTooltip}` : null }
-          onClick={ newButtonCallback }
-        >
-          <i className="fas fa-plus" />
-        </button>
-      </aside>
-    );
+    if (newButtonCallback) {
+      newButton = (
+        <aside className={ `new ${uniqueClass}` }>
+          <button
+            className="btn-floating btn-large waves-effect waves-light tooltiped"
+            data-position="left"
+            data-tooltip={ newButtonTooltip ? `Adicionar ${newButtonTooltip}` : null }
+            onClick={ newButtonCallback }
+          >
+            <i className="fas fa-plus" />
+          </button>
+        </aside>
+      );
+    }
 
     return (
       <article className={ `page ${uniqueClass}` }>
