@@ -3,10 +3,20 @@ import {
   CLOSE_SIDEBAR
 } from './Types';
 
+import { removeBodyOverflow, addBodyOverflow } from '.';
+
 export function openSidebar() {
-  return { type: OPEN_SIDEBAR };
+  return dispatch => {
+    dispatch(removeBodyOverflow());
+    return dispatch({ type: OPEN_SIDEBAR });
+  };
 }
 
-export function closeSidebar() {
-  return { type: CLOSE_SIDEBAR };
+export function closeSidebar(active) {
+  return dispatch => {
+    if (active) {
+      dispatch(addBodyOverflow());
+      return dispatch({ type: CLOSE_SIDEBAR });
+    }
+  };
 }

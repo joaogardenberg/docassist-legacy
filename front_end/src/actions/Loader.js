@@ -3,10 +3,18 @@ import {
   CLOSE_LOADER
 } from './Types';
 
+import { removeBodyOverflow, addBodyOverflow } from '.';
+
 export function openLoader() {
-  return { type: OPEN_LOADER };
+  return dispatch => {
+    dispatch(removeBodyOverflow());
+    return dispatch({ type: OPEN_LOADER });
+  };
 }
 
 export function closeLoader() {
-  return { type: CLOSE_LOADER };
+  return dispatch => {
+    dispatch(addBodyOverflow());
+    return dispatch({ type: CLOSE_LOADER });
+  };
 }
