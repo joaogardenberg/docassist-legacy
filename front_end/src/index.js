@@ -13,7 +13,17 @@ import App                              from './components/App/App';
 import * as serviceWorker               from './serviceWorker';
 import Reducers                         from './reducers';
 
-window.M = require('materialize-css/dist/js/materialize.min.js');
+window.alert = () => {};
+window.M = require('materialize-css');
+window.jquery = window.jQuery = window.$ = require('jquery');
+window.$.DataTable = require('datatables');
+window.$.fn.DataTable.ext.pager.numbers_length = 7;
+window.$.fn.DataTable.ext.classes = {
+  ...window.$.fn.DataTable.ext.classes,
+  sPageButton: 'btn-flat waves-effect waves-light'
+}
+
+console.log(window.$.fn.DataTable.ext);
 
 Fonts.add({
   'Open Sans': ['300', '400', '700']
