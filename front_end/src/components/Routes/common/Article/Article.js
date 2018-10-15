@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import { Link } from 'react-router-dom';
+import ReactDOM             from 'react-dom';
+import { Link }             from 'react-router-dom';
+import * as BrowserChecks   from '../../../../checks/Browser.js';
 
 class Article extends Component {
   constructor(props) {
@@ -43,8 +44,10 @@ class Article extends Component {
   }
 
   componentDidMount() {
-    const button = ReactDOM.findDOMNode(this.newButton.current);
-    window.M.Tooltip.init(button);
+    if (!BrowserChecks.hasTouch()) {
+      const button = ReactDOM.findDOMNode(this.newButton.current);
+      window.M.Tooltip.init(button);
+    }
   }
 }
 
