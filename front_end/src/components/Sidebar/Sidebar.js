@@ -37,9 +37,8 @@ class Sidebar extends Component {
             />
             <SidebarItem
               iconClass="fas fa-users"
-              path="/usuários"
+              path="/usuarios"
               name="Usuários"
-              clickCallback={ this.onUsersClick.bind(this) }
             />
           </ul>
         </nav>
@@ -54,13 +53,6 @@ class Sidebar extends Component {
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.checkDimensions.bind(this));
-  }
-
-  onUsersClick() {
-    if (window.location.pathname.includes('/usu%C3%A1rios')) {
-      this.props.openLoader();
-      this.props.fetchUsers();
-    }
   }
 
   onOverlayClick() {
