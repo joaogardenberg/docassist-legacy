@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.4.0",
+    "datatables": "^1.10.18",
     "google-fonts": "^1.0.0",
     "jquery": "^3.3.1",
     "lodash": "^4.17.11",
@@ -11,6 +12,7 @@
     "node-sass": "^4.9.3",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
+    "react-pose": "^3.3.6",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
     "react-scripts": "^2.0.4",
