@@ -2,12 +2,13 @@
 
 .page-loader {
   background-color: $white;
-  bottom: 0;
+  height: calc(100vh - 64px);
   left: 0;
+  max-height: 100%;
   position: absolute;
   right: 0;
   top: 0;
-  z-index: 4000;
+  z-index: $page-loader-z-index;
 
   &.active {
     display: block;
@@ -20,7 +21,7 @@
   .spinner {
     left: 50%;
     position: absolute;
-    top: 100px;
-    transform: translateX(-50%);
+    top: 50%;
+    transform: translate(-50%, -50%);
   }
 }

@@ -1,7 +1,7 @@
 @import '../../variables/Variables';
 
 .app-header {
-  z-index: 5000;
+  z-index: $header-z-index;
 
   .sidebar-toggler {
     background: transparent;

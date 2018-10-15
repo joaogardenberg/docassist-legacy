@@ -21,6 +21,7 @@ $sidebar-item-hover-color:         #fff;
 $default-color:                    #666;
 $header-line-color:                #dadada;
 $table-hover-color:                #eee;
+$pagination-disabled-color:        #ccc;
 
 $footer-background-color:          #ddd;
 $footer-color:                     #666;
@@ -33,3 +34,11 @@ $error-color:                      #f23e40;
 $white:                            #fff;
 $black:                            #000;
 $black-transparent:                rgba(0, 0, 0, .7);
+
+$sidebar-z-index:                  12000;
+$sidebar-overlay-z-index:          11000;
+$sidebar-container-z-index:        10000;
+$header-z-index:                   5000;
+$footer-z-index:                   5000;
+$page-loader-z-index:              4000;
+$modal-z-index:                    3000;

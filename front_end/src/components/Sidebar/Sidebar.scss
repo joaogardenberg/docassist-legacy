@@ -1,7 +1,7 @@
 @import '../../variables/Variables';
 
 .app-sidebar {
-  z-index: 10000;
+  z-index: $sidebar-container-z-index;
 
   nav {
     background-color: $sidebar-background-color;
@@ -12,7 +12,7 @@
     top: 0;
     transition: width .2s, left .2s, box-shadow .2s;
     width: $sidebar-big-width;
-    z-index: 12000;
+    z-index: $sidebar-z-index;
 
     &:hover {
       overflow-y: auto;
@@ -28,7 +28,7 @@
     position: fixed;
     right: 0;
     top: 0;
-    z-index: 11000;
+    z-index: $sidebar-overlay-z-index;
   }
 
   &.open {
@@ -60,7 +60,7 @@
 
       i,
       .name {
-        color: $sidebar-item-hover-color;
+        color: $sidebar-item-hover-color !important;
       }
     }
 
@@ -136,6 +136,7 @@
     background-color: $gradient-middle-transp-color;
     bottom: 2px;
     box-shadow: 0 0 1px 0 $white;
+    font-size: .8rem;
     opacity: 0;
     position: absolute;
     right: 2px;
@@ -167,6 +168,52 @@
 @media only screen and (max-width: 767px) {
   .app-sidebar nav {
     left: -70%;
+    overflow-y: auto;
     width: 70%;
+  }
+
+  .app-sidebar nav a {
+    padding-bottom: 20px;
+    padding-top: 20px;
+
+    &.current-user-info {
+      padding-bottom: 40px;
+      padding-top: 40px;
+    }
+
+    > i,
+    > img {
+      margin-right: 10px;
+      width: 48px;
+    }
+
+    > i {
+      font-size: 2rem;
+      height: 2rem;
+      line-height: 2rem;
+    }
+
+    > img {
+      height: 48px;
+      padding: 2px;
+    }
+
+    > .name {
+      font-size: 1.3rem;
+      line-height: 1.3rem;
+      max-height: initial;
+      max-width: initial;
+      min-width: initial;
+    }
+
+    > .badge {
+      bottom: 4px;
+      font-size: 1rem;
+      height: 26px;
+      line-height: 26px;
+      opacity: 1;
+      padding: 0 10px;
+      right: 4px;
+    }
   }
 }
