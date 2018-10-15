@@ -1,32 +1,32 @@
 import React, { Component } from 'react';
-import Modal                from '../common/Modal/Modal';
+import PageModal            from '../common/PageModal/PageModal';
 import { Link }             from 'react-router-dom';
 
 class UsersNew extends Component {
   render() {
     return (
-      <Modal
+      <PageModal
         title="Novo usuário"
-        fixedFooter={ true }
-        footerButtons={ this.footerButtons() }
+        footer={ this.modalFooter() }
+        backTo="/usuarios"
       >
         <p>Formulário...</p>
-      </Modal>
+      </PageModal>
     );
   }
 
-  footerButtons() {
+  modalFooter() {
     return (
       <div>
         <a href="#!" className="btn waves-effect waves-light bg-success">
           <i className="fas fa-plus left" />
           Criar
         </a>
-        <a href="#!" className="btn waves-effect bg-warning">
+        <a href="#!" className="btn waves-effect waves-light bg-warning">
           <i className="fas fa-eraser left" />
           Limpar
         </a>
-        <Link to="/usuários" className="btn-flat waves-effect">
+        <Link to="/usuarios" className="btn-flat waves-effect">
           <i className="fas fa-arrow-left left" />
           Voltar
         </Link>

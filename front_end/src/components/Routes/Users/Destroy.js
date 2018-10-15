@@ -1,7 +1,7 @@
 import React, { Component }   from 'react';
 import { connect as Connect } from 'react-redux';
 import { Link }               from 'react-router-dom';
-import Modal                  from '../common/Modal/Modal';
+import PageModal              from '../common/PageModal/PageModal';
 
 class UsersDestroy extends Component {
   render() {
@@ -15,23 +15,24 @@ class UsersDestroy extends Component {
     const user = users[id];
 
     return (
-      <Modal
+      <PageModal
         title="Remover usuário"
-        footerButtons={ this.footerButtons() }
+        footer={ this.modalFooter() }
+        backTo="/usuarios"
       >
         <p>Você tem certeza de que deseja remover o usuário "{ user.name }"?</p>
-      </Modal>
+      </PageModal>
     );
   }
 
-  footerButtons() {
+  modalFooter() {
     return (
       <div>
         <a href="#!" className="btn waves-effect waves-light bg-error">
           <i className="fas fa-trash-alt left" />
           Remover
         </a>
-        <Link to="/usuários" className="btn-flat waves-effect">
+        <Link to="/usuarios" className="btn-flat waves-effect">
           <i className="fas fa-arrow-left left" />
           Voltar
         </Link>

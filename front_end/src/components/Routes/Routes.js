@@ -20,17 +20,17 @@ const Routes = () => {
       {/* Patients */}
       <Route path="/pacientes" component={ Patients } />
       {/* Users New */}
-      <Route path="/usuários/novo" render={ props => <Multiple components={ [UsersIndex, UsersNew] } { ...props } /> } />
+      <Route path="/usuarios/novo" render={ props => <Multiple components={ [UsersIndex, UsersNew] } { ...props } /> } />
       {/* Users Edit */}
-      <Route path="/usuários/:id/editar" render={ props => <Multiple components={ [UsersIndex, UsersEdit] } { ...props } /> } />
+      <Route path="/usuarios/:id/editar" render={ props => <Multiple components={ [UsersIndex, UsersEdit] } { ...props } /> } />
       {/* Users Destroy */}
-      <Route path="/usuários/:id/remover" render={ props => <Multiple components={ [UsersIndex, UsersDestroy] } { ...props } /> } />
+      <Route path="/usuarios/:id/remover" render={ props => <Multiple components={ [UsersIndex, UsersDestroy] } { ...props } /> } />
       {/* Users Show */}
-      <Route path="/usuários/:id" render={ props => <Multiple components={ [UsersIndex, UsersShow] } { ...props } /> } />
+      <Route path="/usuarios/:id" render={ props => <Multiple components={ [UsersIndex, UsersShow] } { ...props } /> } />
       {/* Users Index */}
-      <Route path="/usuários" render={ props => <Multiple components={ [UsersIndex] } { ...props } /> } />
+      <Route path="/usuarios" render={ props => <Multiple components={ [UsersIndex] } { ...props } /> } />
       {/* Default route if no routes above match */}
-      <Redirect to="/usuários" />
+      <Redirect to="/usuarios" />
     </Switch>
   );
 }

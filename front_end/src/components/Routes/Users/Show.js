@@ -1,7 +1,7 @@
 import React, { Component }   from 'react';
 import { connect as Connect } from 'react-redux';
 import { Link }               from 'react-router-dom';
-import Modal                  from '../common/Modal/Modal';
+import PageModal              from '../common/PageModal/PageModal';
 
 class UsersShow extends Component {
   render() {
@@ -15,21 +15,21 @@ class UsersShow extends Component {
     const user = users[id];
 
     return (
-      <Modal
+      <PageModal
         title="Usuário"
-        fixedFooter={ true }
-        footerButtons={ this.footerButtons() }
+        footer={ this.modalFooter() }
+        backTo="/usuarios"
       >
         <p>Informações...</p>
         <p>{ JSON.stringify(user) }</p>
-      </Modal>
+      </PageModal>
     );
   }
 
-  footerButtons() {
+  modalFooter() {
     return (
       <div>
-        <Link to="/usuários" className="btn-flat waves-effect">
+        <Link to="/usuarios" className="btn-flat waves-effect">
           <i className="fas fa-arrow-left left" />
           Voltar
         </Link>
