@@ -1,11 +1,14 @@
-import React, { Component }                    from 'react';
-import ReactDOM                                from 'react-dom';
-import { connect as Connect }                  from 'react-redux';
-import { Link }                                from 'react-router-dom';
-import { fetchUsers, openLoader, closeLoader } from '../../../actions';
-import _                                       from 'lodash';
-import                                              './Users.scss';
-import Article                                 from '../common/Article/Article';
+import React, { Component }       from 'react';
+import ReactDOM                   from 'react-dom';
+import { connect as Connect }     from 'react-redux';
+import { Link }                   from 'react-router-dom';
+import { fetchUsers, openLoader } from '../../../actions';
+import _                          from 'lodash';
+import                                 './Users.scss';
+import Article                    from '../common/Article/Article';
+import SearchBar                  from '../common/SearchBar/SearchBar';
+import * as BrowserChecks         from '../../../checks/Browser.js';
+import * as DataTable             from '../../../common/DataTable';
 
 class UsersIndex extends Component {
   render() {
@@ -23,7 +26,7 @@ class UsersIndex extends Component {
         uniqueClass="users-index"
         header="Usuários"
         newButton={ true }
-        newButtonPath="/usuários/novo"
+        newButtonPath="/usuarios/novo"
         newButtonTooltip="usuário"
       >
         { content }
@@ -41,7 +44,6 @@ class UsersIndex extends Component {
     const rows = _.map(users, user => {
       const { id, name, username, type } = user;
       const refFab = React.createRef();
-      // const refPrimary = React.createRef();
       const refShow = React.createRef();
       const refEdit = React.createRef();
       const refDestroy = React.createRef();
@@ -56,18 +58,13 @@ class UsersIndex extends Component {
           <td>{ type }</td>
           <td className="actions">
             <div className="fixed-action-btn" ref={ refFab }>
-              <button
-                className="btn-floating btn-small bg-success waves-effect waves-light"
-                // data-position="left"
-                // data-tooltip="Ações"
-                // ref={ refPrimary }
-              >
+              <button className="btn-floating btn-small bg-success waves-effect waves-light">
                 <i className="fas fa-ellipsis-h" />
               </button>
               <ul>
                 <li>
                   <Link
-                    to={ `/usuários/${id}/remover` }
+                    to={ `/usuarios/${id}/remover` }
                     className="btn-floating btn-small bg-error waves-effect waves-light"
                     data-position="top"
                     data-tooltip="Remover"
@@ -78,7 +75,7 @@ class UsersIndex extends Component {
                 </li>
                 <li>
                   <Link
-                    to={ `/usuários/${id}/editar` }
+                    to={ `/usuarios/${id}/editar` }
                     className="btn-floating btn-small bg-warning waves-effect waves-light"
                     data-position="bottom"
                     data-tooltip="Editar"
@@ -89,7 +86,7 @@ class UsersIndex extends Component {
                 </li>
                 <li>
                   <Link
-                    to={ `/usuários/${id}` }
+                    to={ `/usuarios/${id}` }
                     className="btn-floating btn-small bg-info waves-effect waves-light"
                     data-position="top"
                     data-tooltip="Ver"
@@ -106,38 +103,40 @@ class UsersIndex extends Component {
     });
 
     return (
-      <table className="highlight responsive-table">
-        <thead>
-          <tr>
-            <th>Nome</th>
-            <th>Usuário</th>
-            <th>Tipo</th>
-            <th className="actions"></th>
-          </tr>
-        </thead>
-        <tbody>
-          { rows }
-        </tbody>
-        <br />
-        <br />
-        <p>Todo:</p>
-        <p>- Ajeitar tooltip no FAB;</p>
-        <p>- Paginar;</p>
-        <p>- Transição de abertura do modal;</p>
-        <p>- Fazer funcionar como se tivesse back end.</p>
-      </table>
+      <div>
+        <SearchBar
+          callback={ this.onSearchBarChange.bind(this) }
+        />
+        <table
+          className="highlight responsive-table"
+          ref={ this.tableRef }
+        >
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Usuário</th>
+              <th>Tipo</th>
+              <th className="actions"></th>
+            </tr>
+          </thead>
+          <tbody>
+            { rows }
+          </tbody>
+        </table>
+      </div>
     );
   }
 
-  componentWillMount() {
+  constructor(props) {
+    super(props);
+
     this.fabRefs = [];
     this.tooltipRefs = [];
+    this.tableRef = React.createRef();
   }
 
   componentDidMount() {
-    this.initFabs();
-    this.props.openLoader();
-    this.props.fetchUsers();
+    this.fetchUsers();
   }
 
   componentWillUpdate() {
@@ -145,8 +144,19 @@ class UsersIndex extends Component {
     this.tooltipRefs = [];
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     this.initFabs();
+    this.addDataTable(prevProps);
+  }
+
+  componentWillUnmount() {
+    this.removeDataTable();
+  }
+
+  fetchUsers() {
+    this.removeDataTable();
+    this.props.openLoader();
+    this.props.fetchUsers();
   }
 
   initFabs() {
@@ -157,10 +167,47 @@ class UsersIndex extends Component {
       });
     });
 
-    this.tooltipRefs.forEach(({ current }) => {
-      const button = ReactDOM.findDOMNode(current);
-      window.M.Tooltip.init(button);
-    });
+    if (!BrowserChecks.hasTouch()) {
+      this.tooltipRefs.forEach(({ current }) => {
+        const button = ReactDOM.findDOMNode(current);
+        window.M.Tooltip.init(button);
+      });
+    }
+  }
+
+  addDataTable(prevProps) {
+    const { users } = this.props;
+    const { current } = this.tableRef;
+
+    if (prevProps.users !== users) {
+      this.table = window.$(current).DataTable({
+        columnDefs: [{
+          targets: 3,
+          searchable: false,
+          orderable: false
+        }],
+        destroy: true,
+        dom: 't<"row"<"col s12 m12 l4 xl3"i><"col s12 m12 l8 xl9"p>>',
+        language: DataTable.language(),
+        order: [[0, 'asc'], [1, 'asc']],
+        pageLength: 10,
+        pagingType: 'simple_numbers'
+      });
+    }
+  }
+
+  removeDataTable() {
+    if (this.table) {
+      this.table.destroy();
+    }
+  }
+
+  onSearchBarChange(string) {
+    const { users } = this.props;
+
+    if (users && Object.keys(users).length > 0) {
+      window.$(this.tableRef.current).DataTable().search(string).draw();
+    }
   }
 }
 
@@ -168,4 +215,4 @@ function mapStateToProps({ users }) {
   return users;
 }
 
-export default Connect(mapStateToProps, { fetchUsers, openLoader, closeLoader })(UsersIndex);
+export default Connect(mapStateToProps, { fetchUsers, openLoader })(UsersIndex);
