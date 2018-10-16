@@ -5,7 +5,7 @@ export function fetchUsers() {
       const random = Math.floor(Math.random() * 71) + 30;
 
       for (let i = 0; i < random; i++) {
-        objects.push({ id: i, name: `Johnny ${i}`, username: `johnny${i}`, type: 'Médico' });
+        objects.push({ id: i, name: `João Lucas Gardenberg ${i}`, username: `johnny${i}`, type: 'Médico' });
       }
 
       resolve(objects);
