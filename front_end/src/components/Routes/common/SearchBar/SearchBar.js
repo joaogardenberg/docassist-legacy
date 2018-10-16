@@ -7,8 +7,17 @@ const INITIAL_STATE = {
 };
 
 const Container = posed.div({
-  closed: { width: 'calc(1.5em + 40px)' },
-  open: { width: '100%' }
+  closed: {
+    transition: { duration: 200 },
+    width: '50%',
+    maxWidth: 500
+  },
+  open: {
+    transition: { duration: 200 },
+    width: '100%',
+    maxWidth: '100%'
+  }
+
 });
 
 class SearchBar extends Component {
