@@ -109,8 +109,8 @@ class Sidebar extends Component {
             swipeHappened = true;
         } else if (xDiff < -100) {
             // Right swipe
-            const { openSidebar } = this.props;
-            openSidebar();
+            // const { openSidebar } = this.props;
+            // openSidebar();
             swipeHappened = true;
         }
     } else {
