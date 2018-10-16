@@ -107,10 +107,7 @@ class UsersIndex extends Component {
         <SearchBar
           callback={ this.onSearchBarChange.bind(this) }
         />
-        <table
-          className="highlight responsive-table"
-          ref={ this.tableRef }
-        >
+        <table ref={ this.tableRef }>
           <thead>
             <tr>
               <th>Nome</th>
@@ -181,6 +178,7 @@ class UsersIndex extends Component {
 
     if (prevProps.users !== users) {
       this.table = window.$(current).DataTable({
+        autoWidth: 0,
         columnDefs: [{
           targets: 3,
           searchable: false,
@@ -188,8 +186,16 @@ class UsersIndex extends Component {
         }],
         destroy: true,
         dom: 't<"row"<"col s12 m12 l4 xl3"i><"col s12 m12 l8 xl9"p>>',
-        language: DataTable.language(),
-        order: [[0, 'asc'], [1, 'asc']],
+        language: {
+          ...DataTable.language(),
+          emptyTable: 'Não há nenhum usuário',
+          info: 'Mostrando _START_ - _END_ de _TOTAL_ usuários',
+          infoEmpty: 'Mostrando 0 usuários',
+          infoFiltered: '(filtrados de um total de _MAX_ usuários)',
+          lengthMenu: '_MENU_ usuários por página',
+          zeroRecords: 'Não foi encontrado nenhum usuário para esta pesquisa.',
+        },
+        order: [[0, 'asc']],
         pageLength: 10,
         pagingType: 'simple_numbers'
       });
