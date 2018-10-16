@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import posed                from 'react-pose';
+import                           './SearchBar.scss';
 
 const INITIAL_STATE = {
   active: false,

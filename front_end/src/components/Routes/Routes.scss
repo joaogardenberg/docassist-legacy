@@ -1,0 +1,223 @@
+@import '../../variables/Variables';
+
+.page {
+  color: $default-color;
+
+  header {
+    border-bottom: 1px solid $header-line-color;
+    margin-bottom: 27px;
+    position: relative;
+
+    h2 {
+      font-size: 2.2rem;
+      line-height: 2.2rem;
+      margin: 0 0 14px;
+    }
+  }
+
+  aside.new {
+    position: absolute;
+    right: 10px;
+    top: calc(2.2rem - 15px);
+
+    a {
+      background-color: $gradient-initial-color;
+
+      &:hover {
+        box-shadow: 0 4px 7px 0 rgba(0,0,0,0.14),
+                    0 2px 12px 0 rgba(0,0,0,0.12),
+                    0 4px 5px -1px rgba(0,0,0,0.2);
+      }
+    }
+
+    i {
+      font-size: 1.5rem;
+    }
+  }
+
+  section {
+    margin-bottom: 10px;
+    margin-top: 37px;
+  }
+
+  table {
+    margin: 10px 0 15px;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  table + .row {
+    margin: 0;
+
+    .col {
+      padding: 0;
+    }
+
+    .dataTables_info {
+      color: $default-color;
+      font-size: 1rem;
+      font-weight: lighter;
+    }
+
+    .dataTables_paginate {
+      text-align: right;
+
+      .btn-flat {
+        color: $default-color;
+        font-weight: lighter;
+        margin: 0 2px;
+        padding: 0 16px;
+
+        &.disabled {
+          color: $disabled-color !important;
+        }
+      }
+
+      .current {
+        color: $white;
+        background-color: $gradient-initial-color;
+        font-weight: bold;
+      }
+
+      .previous, .next {
+        font-size: 0;
+        width: calc(.8rem + 32px);
+
+        &::before {
+          font-family: 'Font Awesome 5 Free';
+          font-size: 1.35rem;
+          font-weight: bold;
+          height: inherit;
+          left: 16px;
+          line-height: inherit;
+          position: absolute;
+          top: 0;
+          width: .8rem;
+        }
+      }
+
+      .previous::before {
+        content: '\f053';
+      }
+
+      .next::before {
+        content: '\f054';
+      }
+
+      span.ellipsis {
+        margin: 0 5px;
+      }
+    }
+  }
+
+  tbody tr:hover {
+    background-color: $table-hover-color;
+  }
+
+  th,
+  td {
+    padding: 5px 10px;
+
+    &.actions {
+      width: 52px !important;
+    }
+  }
+
+  th[class*="sort"]:not(.sorting_disabled) {
+    position: relative;
+    cursor: pointer;
+    outline: none;
+
+    &::after {
+      bottom: 0;
+      color: $disabled-color;
+      content: '\f0dc';
+      font-family: 'Font Awesome 5 Free';
+      font-size: 1.5rem;
+      height: 100%;
+      line-height: inherit;
+      position: absolute;
+      right: 0;
+    }
+
+    &.sorting_asc,
+    &.sorting_desc {
+      &::after {
+        color: inherit;
+      }
+    }
+
+    &.sorting_asc {
+      &::after {
+        content: '\f0de';
+      }
+    }
+
+    &.sorting_desc {
+      &::after {
+        content: '\f0dd';
+      }
+    }
+  }
+
+  td .fixed-action-btn {
+    left: 0;
+    padding: 0;
+    position: relative;
+    top: 0;
+    width: 32px;
+
+    .btn-floating.btn-small {
+      height: 32px;
+      padding: 0;
+      width: 32px;
+    }
+
+    .btn-small i {
+      font-size: 1rem;
+    }
+
+    ul {
+      position: absolute;
+      right: 32px;
+      top: 0;
+      transform: none;
+      width: 136px !important;
+    }
+
+    li {
+      margin-right: 10px;
+      margin-top: 0;
+    }
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .page table + .row {
+    .dataTables_info {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .dataTables_paginate {
+      text-align: center;
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .page table + .row .dataTables_paginate {
+    .btn-flat {
+      margin: 0;
+      padding: 0 10px;
+    }
+
+    .previous, .next {
+      width: calc(.8rem + 20px);
+
+      &::before {
+        left: 10px;
+      }
+    }
+  }
+}

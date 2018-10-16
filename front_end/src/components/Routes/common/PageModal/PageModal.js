@@ -2,6 +2,7 @@ import React, { Component }                    from 'react';
 import { connect as Connect }                  from 'react-redux';
 import { removeBodyOverflow, addBodyOverflow } from '../../../../actions';
 import { Link }                                from 'react-router-dom';
+import                                              './PageModal.scss';
 import * as Window                             from '../../../../actions/Window';
 
 class PageModal extends Component {

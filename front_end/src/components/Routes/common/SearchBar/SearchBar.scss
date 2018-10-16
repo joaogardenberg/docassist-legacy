@@ -1,0 +1,57 @@
+@import '../../../../variables/Variables';
+
+.search-bar {
+  background-color: $white;
+  border-radius: 3px;
+  position: relative;
+  transition: width 2s;
+  margin: 0 auto;
+
+  &, * {
+    height: 40px !important;
+    line-height: 40px !important;
+    color: $black;
+    transition: color .2s, background-color .2s;
+    cursor: text;
+  }
+
+  i {
+    font-size: 1.5rem;
+    padding: 0 20px;
+  }
+
+  .search-label {
+    left: 0;
+    position: absolute;
+    top: 0;
+  }
+
+  input.search-input {
+    border: none !important;
+    box-shadow: none !important;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 10px calc(1.5em + 50px);
+  }
+
+  .close-button {
+    cursor: pointer;
+    display: none;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  &.active {
+    .close-button {
+      animation: buttonOpacity .2s forwards;
+      display: block;
+    }
+
+    @keyframes buttonOpacity {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  }
+}

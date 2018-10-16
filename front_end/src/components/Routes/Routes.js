@@ -1,5 +1,6 @@
 import React                       from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
+import                                  './Routes.scss';
 import Dashboard                   from './Dashboard/Dashboard';
 import Appointments                from './Appointments/Appointments';
 import Patients                    from './Patients/Patients';
