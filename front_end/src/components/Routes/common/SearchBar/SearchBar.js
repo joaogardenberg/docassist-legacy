@@ -49,6 +49,7 @@ class SearchBar extends Component {
           id="search"
           className="search-input"
           type="search"
+          autocomplete="off"
           value={ this.state.value }
           onChange={ this.onSearchBarChange.bind(this) }
           onFocus={ this.onSearchBarFocus.bind(this) }
