@@ -1,25 +1,48 @@
 import React, { Component }                    from 'react';
 import { connect as Connect }                  from 'react-redux';
-import { removeBodyOverflow, addBodyOverflow } from '../../../../actions';
-import { Link }                                from 'react-router-dom';
+import { Link, withRouter }                    from 'react-router-dom';
+import posed                                   from 'react-pose';
 import                                              './PageModal.scss';
+import { removeBodyOverflow, addBodyOverflow } from '../../../../actions';
 import * as Window                             from '../../../../actions/Window';
+
+const INITIAL_STATE = {
+  open: false
+}
+
+const DURATION = 200;
+
+const Container = posed.div({
+  closed: {
+    transition: { duration: DURATION },
+    opacity: 0
+  },
+  open: {
+    transition: { duration: DURATION },
+    opacity: 1
+  }
+});
 
 class PageModal extends Component {
   render() {
     const { title, children, footer, backTo } = this.props;
+    const { active }                          = this.state;
     let closeButton;
 
     if (backTo) {
       closeButton = (
-        <Link to={ backTo }>
-          <i className="fas fa-times" />
-        </Link>
+        <i
+          className="fas fa-times"
+          onClick={ this.onCloseButtonClick.bind(this) }
+        />
       );
     }
 
     return (
-      <aside className="page-modal-container open">
+      <Container
+        className="page-modal-container open"
+        pose={ active ? 'open' : 'closed' }
+      >
         <div className="overlay" />
         <article className="page-modal">
           <header>
@@ -37,18 +60,32 @@ class PageModal extends Component {
             { footer }
           </footer>
         </article>
-      </aside>
+      </Container>
     );
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = INITIAL_STATE;
   }
 
   componentDidMount() {
     Window.scrollToTop(true);
     this.props.removeBodyOverflow();
+    this.setState({ active: true });
   }
 
   componentWillUnmount() {
     this.props.addBodyOverflow();
   }
+
+  onCloseButtonClick() {
+    const { backTo } = this.props;
+    const { history } = this.props;
+
+    this.setState({ active: false });
+    setTimeout(() => history.push(backTo), DURATION);
+  }
 }
 
-export default Connect(null, { removeBodyOverflow, addBodyOverflow })(PageModal);
+export default withRouter(Connect(null, { removeBodyOverflow, addBodyOverflow })(PageModal));
