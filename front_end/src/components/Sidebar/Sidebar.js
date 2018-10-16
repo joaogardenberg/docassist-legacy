@@ -48,7 +48,8 @@ class Sidebar extends Component {
   }
 
   componentDidMount() {
-    window.addEventListener('resize', this.checkDimensions.bind(this));
+    this.addResizeListener();
+    this.addSwipeListeners();
   }
 
   componentWillUnmount() {
@@ -60,10 +61,81 @@ class Sidebar extends Component {
     closeSidebar(open);
   }
 
+  addResizeListener() {
+    window.addEventListener('resize', this.checkDimensions.bind(this));
+  }
+
   checkDimensions() {
     if (window.innerWidth >= 768) {
       this.onOverlayClick();
     }
+  }
+
+  addSwipeListeners() {
+    window.addEventListener('touchstart', this.handleTouchStart.bind(this), false);
+    window.addEventListener('touchend', this.handleTouchEnd.bind(this), false);
+    window.addEventListener('touchmove', this.handleTouchMove.bind(this), false);
+
+    this.resetVars();
+  }
+
+  handleTouchStart(event) {
+    if (window.innerWidth < 768) {
+      this.xDown = this.getTouches(event)[0].clientX;
+      this.yDown = this.getTouches(event)[0].clientY;
+    }
+  }
+
+  handleTouchEnd() {
+    this.resetVars();
+  }
+
+  handleTouchMove(event) {
+    if (!this.xDown || !this.yDown) {
+        return;
+    }
+
+    const xUp = event.touches[0].clientX;
+    const yUp = event.touches[0].clientY;
+    const xDiff = this.xDown - xUp;
+    const yDiff = this.yDown - yUp;
+    let swipeHappened = false;
+
+    if (Math.abs(xDiff) > Math.abs(yDiff)) {
+        if (xDiff > 100) {
+            // Left swipe
+            const { closeSidebar, open } = this.props;
+            closeSidebar(open);
+            swipeHappened = true;
+        } else if (xDiff < -100) {
+            // Right swipe
+            const { openSidebar } = this.props;
+            openSidebar();
+            swipeHappened = true;
+        }
+    } else {
+        if (yDiff > 100) {
+            // Up swipe
+            swipeHappened = true;
+        } else if (yDiff < -100) {
+            // Down swipe
+            swipeHappened = true;
+        }
+    }
+
+    if (swipeHappened) {
+      this.resetVars();
+    }
+  }
+
+  getTouches(event) {
+    return event.touches ||
+           event.originalEvent.touches;
+  }
+
+  resetVars() {
+    this.xDown = null;
+    this.yDown = null;
   }
 }
 
