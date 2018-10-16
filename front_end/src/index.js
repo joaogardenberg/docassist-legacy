@@ -23,8 +23,6 @@ window.$.fn.DataTable.ext.classes = {
   sPageButton: 'btn-flat waves-effect'
 }
 
-console.log(window.$.fn.DataTable.ext);
-
 Fonts.add({
   'Open Sans': ['300', '400', '700']
 });
