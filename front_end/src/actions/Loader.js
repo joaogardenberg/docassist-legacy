@@ -6,7 +6,6 @@ import {
 import { removeBodyOverflow, addBodyOverflow } from '.';
 import * as Window                             from './Window';
 
-
 export function openLoader() {
   return dispatch => {
     Window.scrollToTop();
