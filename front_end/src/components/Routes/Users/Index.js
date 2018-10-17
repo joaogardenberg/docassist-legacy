@@ -1,14 +1,14 @@
-import React, { Component }       from 'react';
-import ReactDOM                   from 'react-dom';
-import { connect as Connect }     from 'react-redux';
-import { Link }                   from 'react-router-dom';
-import { fetchUsers, openLoader } from '../../../actions';
-import _                          from 'lodash';
-import                                 './Users.scss';
-import Article                    from '../common/Article/Article';
-import SearchBar                  from '../common/SearchBar/SearchBar';
-import * as BrowserChecks         from '../../../checks/Browser.js';
-import * as DataTable             from '../../../common/DataTable';
+import React, { Component }   from 'react';
+import ReactDOM               from 'react-dom';
+import { connect as Connect } from 'react-redux';
+import { Link }               from 'react-router-dom';
+import { fetchUsers }         from '../../../actions';
+import _                      from 'lodash';
+import                             './Users.scss';
+import Article                from '../common/Article/Article';
+import SearchBar              from '../common/SearchBar/SearchBar';
+import * as BrowserChecks     from '../../../checks/Browser.js';
+import * as DataTable         from '../../../common/DataTable';
 
 class UsersIndex extends Component {
   render() {
@@ -25,7 +25,6 @@ class UsersIndex extends Component {
       <Article
         uniqueClass="users-index"
         header="Usuários"
-        newButton={ true }
         newButtonPath="/usuarios/novo"
         newButtonTooltip="usuário"
       >
@@ -133,31 +132,36 @@ class UsersIndex extends Component {
   }
 
   componentDidMount() {
-    this.fetchUsers();
+    if (Object.keys(this.props.users).length > 0) {
+      this.addDataTable();
+      this.initFabs();
+    } else {
+      this.props.fetchUsers();
+    }
   }
 
-  componentWillUpdate() {
-    this.fabRefs = [];
-    this.tooltipRefs = [];
+  componentWillUpdate(nextProps) {
+    if (!_.isEqual(this.props.users, nextProps.users)) {
+      this.removeDataTable();
+      this.removeFabs();
+    }
   }
 
   componentDidUpdate(prevProps) {
+    if (!_.isEqual(prevProps.users, this.props.users)) {
+      this.addDataTable();
+    }
+
     this.initFabs();
-    this.addDataTable(prevProps);
   }
 
   componentWillUnmount() {
+    this.removeFabs();
     this.removeDataTable();
-  }
-
-  fetchUsers() {
-    this.removeDataTable();
-    this.props.openLoader();
-    this.props.fetchUsers();
   }
 
   initFabs() {
-    this.fabRefs.forEach(({ current }) => {
+    this.fabRefs.filter(({ current }) => !!current).forEach(({ current }) => {
       window.M.FloatingActionButton.init(current, {
         direction: 'left',
         hoverEnabled: false
@@ -165,46 +169,68 @@ class UsersIndex extends Component {
     });
 
     if (!BrowserChecks.hasTouch()) {
-      this.tooltipRefs.forEach(({ current }) => {
+      this.tooltipRefs.filter(({ current }) => !!current).forEach(({ current }) => {
         const button = ReactDOM.findDOMNode(current);
         window.M.Tooltip.init(button);
       });
     }
   }
 
-  addDataTable(prevProps) {
-    const { users } = this.props;
-    const { current } = this.tableRef;
+  removeFabs() {
+    this.fabRefs.filter(({ current }) => !!current).forEach(({ current }) => {
+      const instance = window.M.FloatingActionButton.getInstance(current);
 
-    if (prevProps.users !== users) {
-      this.table = window.$(current).DataTable({
-        autoWidth: 0,
-        columnDefs: [{
-          targets: 3,
-          searchable: false,
-          orderable: false
-        }],
-        destroy: true,
-        dom: 't<"row"<"col s12 m12 l4 xl3"i><"col s12 m12 l8 xl9"p>>',
-        language: {
-          ...DataTable.language(),
-          emptyTable: 'Não há nenhum usuário',
-          info: 'Mostrando _START_ - _END_ de _TOTAL_ usuários',
-          infoEmpty: 'Mostrando 0 usuários',
-          infoFiltered: '(filtrados de um total de _MAX_ usuários)',
-          lengthMenu: '_MENU_ usuários por página',
-          zeroRecords: 'Não foi encontrado nenhum usuário para esta pesquisa.',
-        },
-        order: [[0, 'asc']],
-        pageLength: 10,
-        pagingType: 'simple_numbers'
+      if (instance) {
+        instance.destroy();
+      }
+    });
+
+    if (!BrowserChecks.hasTouch()) {
+      this.tooltipRefs.filter(({ current }) => !!current).forEach(({ current }) => {
+        const button = ReactDOM.findDOMNode(current);
+        const instance = window.M.Tooltip.getInstance(button);
+
+        if (instance) {
+          instance.destroy();
+        }
       });
     }
+
+    this.fabRefs = [];
+    this.tooltipRefs = [];
+  }
+
+  addDataTable() {
+    const { current } = this.tableRef;
+
+    this.table = window.$(current).DataTable({
+      autoWidth: false,
+      columnDefs: [{
+        targets: 3,
+        searchable: false,
+        orderable: false
+      }],
+      destroy: true,
+      dom: 't<"row"<"col s12 m12 l4 xl3"i><"col s12 m12 l8 xl9"p>>',
+      language: {
+        ...DataTable.language(),
+        emptyTable: 'Não há nenhum usuário',
+        info: 'Mostrando _START_ - _END_ de _TOTAL_ usuários',
+        infoEmpty: 'Mostrando 0 usuários',
+        infoFiltered: '(filtrados de um total de _MAX_ usuários)',
+        lengthMenu: '_MENU_ usuários por página',
+        zeroRecords: 'Não foi encontrado nenhum usuário para esta pesquisa.',
+      },
+      order: [[0, 'asc']],
+      pageLength: 10,
+      pagingType: 'simple_numbers'
+    });
   }
 
   removeDataTable() {
     if (this.table) {
       this.table.destroy();
+      this.table = null;
     }
   }
 
@@ -218,7 +244,7 @@ class UsersIndex extends Component {
 }
 
 function mapStateToProps({ users }) {
-  return users;
+  return { users };
 }
 
-export default Connect(mapStateToProps, { fetchUsers, openLoader })(UsersIndex);
+export default Connect(mapStateToProps, { fetchUsers })(UsersIndex);
