@@ -1,6 +1,6 @@
 import React, { Component }   from 'react';
 import { connect as Connect } from 'react-redux';
-import { Link }               from 'react-router-dom';
+import { Link, withRouter }   from 'react-router-dom';
 import { fetchUsers }         from '../../../actions';
 import PageModal              from '../common/PageModal/PageModal';
 
@@ -18,6 +18,7 @@ class UsersEdit extends Component {
     return (
       <PageModal
         title="Editar usuário"
+        iconClass="fas fa-clipboard"
         footer={ this.modalFooter() }
         backTo="/usuarios"
       >
@@ -44,7 +45,7 @@ class UsersEdit extends Component {
 }
 
 function mapStateToProps({ users }) {
-  return users;
+  return { users };
 }
 
-export default Connect(mapStateToProps, { fetchUsers })(UsersEdit);
+export default withRouter(Connect(mapStateToProps, { fetchUsers })(UsersEdit));
