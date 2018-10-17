@@ -1,28 +1,30 @@
 import React, { Component } from 'react';
 import ReactDOM             from 'react-dom';
 import { Link }             from 'react-router-dom';
+import { connect as Connect }               from 'react-redux';
 import * as BrowserChecks   from '../../../../checks/Browser.js';
 
-class Article extends Component {
-  constructor(props) {
-    super(props);
-    this.newButton = React.createRef();
-  }
+const INITIAL_STATE = {
+  newButtonPulse: true
+};
 
+class Article extends Component {
   render() {
-    const { uniqueClass, header, newButton, newButtonPath } = this.props;
-    const { newButtonTooltip, children }                    = this.props;
+    const { uniqueClass, header, newButtonPath, newButtonTooltip } = this.props;
+    const { children }                                             = this.props;
+    const { newButtonPulse }                                       = this.state;
     let newButtonElement;
 
-    if (newButton) {
+    if (newButtonPath) {
       newButtonElement = (
         <aside className={ `new ${uniqueClass}` }>
           <Link
             to={ newButtonPath }
-            className="btn-floating btn-large waves-effect waves-light tooltiped"
+            className={ `btn-floating btn-large waves-effect waves-light tooltiped${newButtonPulse ? ' pulse' : ''}` }
             data-position="left"
             data-tooltip={ newButtonTooltip ? `Adicionar ${newButtonTooltip}` : null }
             ref={ this.newButton }
+            onClick={ this.onNewButtonClick.bind(this) }
           >
             <i className="fas fa-plus" />
           </Link>
@@ -43,12 +45,71 @@ class Article extends Component {
     );
   }
 
+  constructor(props) {
+    super(props);
+
+    this.state = INITIAL_STATE;
+    this.newButton = React.createRef();
+  }
+
   componentDidMount() {
+    this.handlePulse();
+    this.addTooltips();
+  }
+
+  componentDidUpdate() {
+    this.handlePulse();
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.pulseTimeout);
+    this.removeTooltips();
+  }
+
+  handlePulse() {
+    const { pageModal }      = this.props;
+    const { newButtonPulse } = this.state;
+
+    if (newButtonPulse) {
+      if (pageModal.active) {
+        this.clearPulse();
+      } else if (!this.pulseTimeout) {
+        this.pulseTimeout = setTimeout(() => this.clearPulse(), 5000);
+      }
+    }
+  }
+
+  addTooltips() {
     if (!BrowserChecks.hasTouch()) {
       const button = ReactDOM.findDOMNode(this.newButton.current);
       window.M.Tooltip.init(button);
     }
   }
+
+  removeTooltips() {
+    if (!BrowserChecks.hasTouch() && this.newButton.current) {
+      const button = ReactDOM.findDOMNode(this.newButton.current);
+      const instance = window.M.Tooltip.getInstance(button);
+
+      if (instance) {
+        instance.destroy();
+      }
+    }
+  }
+
+  onNewButtonClick() {
+    this.clearPulse();
+  }
+
+  clearPulse() {
+    clearTimeout(this.pulseTimeout);
+    this.pulseTimeout = null;
+    this.setState({ newButtonPulse: false });
+  }
 }
 
-export default Article;
+function mapStateToProps({ pageModal }) {
+  return { pageModal };
+}
+
+export default Connect(mapStateToProps)(Article);
