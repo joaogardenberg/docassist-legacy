@@ -17,6 +17,7 @@ class UsersShow extends Component {
     return (
       <PageModal
         title="Usuário"
+        iconClass="fas fa-user"
         footer={ this.modalFooter() }
         backTo="/usuarios"
       >
@@ -39,7 +40,7 @@ class UsersShow extends Component {
 }
 
 function mapStateToProps({ users }) {
-  return users;
+  return { users };
 }
 
 export default Connect(mapStateToProps)(UsersShow);
