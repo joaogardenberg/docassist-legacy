@@ -44,6 +44,10 @@
     margin: 10px 0 15px;
     max-width: 100%;
     overflow-x: auto;
+
+    tr {
+      border-color: $header-line-color;
+    }
   }
 
   table + .row {
@@ -54,7 +58,7 @@
     }
 
     .dataTables_info {
-      color: $default-color;
+      color: $default-color-lighter;
       font-size: 1rem;
       font-weight: lighter;
     }
@@ -63,7 +67,7 @@
       text-align: right;
 
       .btn-flat {
-        color: $default-color;
+        color: $default-color-lighter;
         font-weight: lighter;
         margin: 0 2px;
         padding: 0 16px;
