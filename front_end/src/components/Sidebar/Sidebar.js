@@ -6,9 +6,7 @@ import SidebarItem                               from './SidebarItem/SidebarItem
 
 import {
   openSidebar,
-  closeSidebar,
-  openLoader,
-  fetchUsers
+  closeSidebar
 } from '../../actions';
 
 class Sidebar extends Component {
@@ -54,6 +52,9 @@ class Sidebar extends Component {
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.checkDimensions.bind(this));
+    window.removeEventListener('touchstart', this.handleTouchStart.bind(this));
+    window.removeEventListener('touchend', this.handleTouchEnd.bind(this));
+    window.removeEventListener('touchmove', this.handleTouchMove.bind(this));
   }
 
   onOverlayClick() {
@@ -143,4 +144,4 @@ function mapStateToProps({ sidebar }) {
   return sidebar;
 }
 
-export default Connect(mapStateToProps, { openSidebar, closeSidebar, openLoader, fetchUsers }, null, { pure: false })(Sidebar);
+export default Connect(mapStateToProps, { openSidebar, closeSidebar }, null, { pure: false })(Sidebar);
