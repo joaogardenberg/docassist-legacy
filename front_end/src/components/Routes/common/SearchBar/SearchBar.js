@@ -10,13 +10,11 @@ const INITIAL_STATE = {
 const Container = posed.div({
   closed: {
     transition: { duration: 200 },
-    width: '50%',
-    maxWidth: 500
+    width: '50%'
   },
   open: {
     transition: { duration: 200 },
-    width: '100%',
-    maxWidth: '100%'
+    width: '100%'
   }
 
 });
@@ -49,7 +47,7 @@ class SearchBar extends Component {
           id="search"
           className="search-input"
           type="search"
-          autocomplete="off"
+          autoComplete="off"
           value={ this.state.value }
           onChange={ this.onSearchBarChange.bind(this) }
           onFocus={ this.onSearchBarFocus.bind(this) }
