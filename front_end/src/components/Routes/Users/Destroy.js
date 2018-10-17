@@ -1,12 +1,12 @@
 import React, { Component }   from 'react';
 import { connect as Connect } from 'react-redux';
-import { Link }               from 'react-router-dom';
+import { Link, withRouter }   from 'react-router-dom';
 import PageModal              from '../common/PageModal/PageModal';
+import { destroyUser }        from '../../../actions';
 
 class UsersDestroy extends Component {
   render() {
-    const { id }    = this.props.match.params;
-    const { users } = this.props;
+    const { users, match: { params: { id } } } = this.props;
 
     if (!users) {
       return null;
@@ -17,6 +17,7 @@ class UsersDestroy extends Component {
     return (
       <PageModal
         title="Remover usuário"
+        iconClass="fas fa-trash-alt"
         footer={ this.modalFooter() }
         backTo="/usuarios"
       >
@@ -28,10 +29,13 @@ class UsersDestroy extends Component {
   modalFooter() {
     return (
       <div>
-        <a href="#!" className="btn waves-effect waves-light bg-error">
+        <button
+          className="btn waves-effect waves-light bg-error"
+          onClick={ this.onDestroyButtonClick.bind(this) }
+        >
           <i className="fas fa-trash-alt left" />
           Remover
-        </a>
+        </button>
         <Link to="/usuarios" className="btn-flat waves-effect">
           <i className="fas fa-arrow-left left" />
           Voltar
@@ -39,10 +43,16 @@ class UsersDestroy extends Component {
       </div>
     );
   }
+
+  onDestroyButtonClick() {
+    const { destroyUser, history, match: { params: { id } } } = this.props;
+    destroyUser(id);
+    history.push('/usuarios');
+  }
 }
 
 function mapStateToProps({ users }) {
-  return users;
+  return { users };
 }
 
-export default Connect(mapStateToProps)(UsersDestroy);
+export default withRouter(Connect(mapStateToProps, { destroyUser })(UsersDestroy));
