@@ -1,9 +1,9 @@
-import React, { Component }       from 'react';
-import                                 './Patients.scss';
-import { connect as Connect }     from 'react-redux';
-import { fetchUsers, openLoader } from '../../../actions';
-import Article                    from '../common/Article/Article';
-import * as Toast                 from '../../../common/Toast';
+import React, { Component }   from 'react';
+import                             './Patients.scss';
+import { connect as Connect } from 'react-redux';
+import { fetchUsers }         from '../../../actions';
+import Article                from '../common/Article/Article';
+import * as Toast             from '../../../common/Toast';
 
 class Patients extends Component {
   render() {
@@ -18,7 +18,6 @@ class Patients extends Component {
   }
 
   componentDidMount() {
-    // this.props.openLoader();
     // this.props.fetchUsers();
   }
 
@@ -27,4 +26,4 @@ class Patients extends Component {
   }
 }
 
-export default Connect(null, { fetchUsers, openLoader })(Patients);
+export default Connect(null, { fetchUsers })(Patients);
