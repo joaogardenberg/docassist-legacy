@@ -1,14 +1,9 @@
-import React, { Component }                    from 'react';
-import { connect as Connect }                  from 'react-redux';
-import { Link, withRouter }                    from 'react-router-dom';
-import posed                                   from 'react-pose';
-import                                              './PageModal.scss';
-import { removeBodyOverflow, addBodyOverflow } from '../../../../actions';
-import * as Window                             from '../../../../actions/Window';
-
-const INITIAL_STATE = {
-  open: false
-}
+import React, { Component }                 from 'react';
+import { connect as Connect }               from 'react-redux';
+import { withRouter }                       from 'react-router-dom';
+import posed                                from 'react-pose';
+import                                           './PageModal.scss';
+import { pageModalOpened, pageModalClosed } from '../../../../actions';
 
 const DURATION = 200;
 
@@ -25,17 +20,21 @@ const Container = posed.div({
 
 class PageModal extends Component {
   render() {
-    const { title, children, footer, backTo } = this.props;
-    const { active }                          = this.state;
+    const { active, title, children, footer, iconClass, backTo } = this.props;
+    let icon;
     let closeButton;
 
+    if (iconClass) {
+      icon = <i
+        className={ iconClass }
+      />;
+    }
+
     if (backTo) {
-      closeButton = (
-        <i
-          className="fas fa-times"
-          onClick={ this.onCloseButtonClick.bind(this) }
-        />
-      );
+      closeButton = <i
+        className="fas fa-times"
+        onClick={ this.onCloseButtonClick.bind(this) }
+      />;
     }
 
     return (
@@ -47,7 +46,10 @@ class PageModal extends Component {
         <article className="page-modal">
           <header>
             <div className="title">
-              <h4>{ title }</h4>
+              <h4>
+                { icon }
+                { title }
+              </h4>
             </div>
             <div className="close-button">
               { closeButton }
@@ -64,28 +66,25 @@ class PageModal extends Component {
     );
   }
 
-  constructor(props) {
-    super(props);
-    this.state = INITIAL_STATE;
-  }
-
   componentDidMount() {
-    Window.scrollToTop(true);
-    this.props.removeBodyOverflow();
-    this.setState({ active: true });
+    this.props.pageModalOpened();
   }
 
   componentWillUnmount() {
-    this.props.addBodyOverflow();
+    this.props.pageModalClosed();
   }
 
   onCloseButtonClick() {
     const { backTo } = this.props;
     const { history } = this.props;
 
-    this.setState({ active: false });
+    this.props.pageModalClosed();
     setTimeout(() => history.push(backTo), DURATION);
   }
 }
 
-export default withRouter(Connect(null, { removeBodyOverflow, addBodyOverflow })(PageModal));
+function mapStateToProps({ pageModal }) {
+  return pageModal;
+}
+
+export default withRouter(Connect(mapStateToProps, { pageModalOpened, pageModalClosed })(PageModal));
