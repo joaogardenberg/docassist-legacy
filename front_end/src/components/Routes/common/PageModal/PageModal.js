@@ -8,13 +8,24 @@ import { pageModalOpened, pageModalClosed } from '../../../../actions';
 const DURATION = 200;
 
 const Container = posed.div({
-  closed: {
+  inactive: {
     transition: { duration: DURATION },
     opacity: 0
   },
-  open: {
+  active: {
     transition: { duration: DURATION },
     opacity: 1
+  }
+});
+
+const Modal = posed.article({
+  inactive: {
+    transition: { duration: DURATION },
+    "max-width": 0
+  },
+  active: {
+    transition: { duration: DURATION },
+    "max-width": '992px'
   }
 });
 
@@ -40,10 +51,13 @@ class PageModal extends Component {
     return (
       <Container
         className="page-modal-container open"
-        pose={ active ? 'open' : 'closed' }
+        pose={ active ? 'active' : 'inactive' }
       >
         <div className="overlay" />
-        <article className="page-modal">
+        <Modal
+          className="page-modal"
+          pose={ active ? 'active' : 'inactive' }
+        >
           <header>
             <div className="title">
               <h4>
@@ -61,13 +75,21 @@ class PageModal extends Component {
           <footer>
             { footer }
           </footer>
-        </article>
+        </Modal>
       </Container>
     );
   }
 
   componentDidMount() {
     this.props.pageModalOpened();
+  }
+
+  componentDidUpdate() {
+    const { shouldClose } = this.props;
+
+    if (shouldClose) {
+      this.onCloseButtonClick();
+    }
   }
 
   componentWillUnmount() {
