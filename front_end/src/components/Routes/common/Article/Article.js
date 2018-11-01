@@ -67,14 +67,14 @@ class Article extends Component {
   }
 
   handlePulse() {
-    const { pageModal }      = this.props;
-    const { newButtonPulse } = this.state;
+    const { pageModal, loader } = this.props;
+    const { newButtonPulse }    = this.state;
 
     if (newButtonPulse) {
       if (pageModal.active) {
         this.clearPulse();
-      } else if (!this.pulseTimeout) {
-        this.pulseTimeout = setTimeout(() => this.clearPulse(), 5000);
+      } else if (!this.pulseTimeout && !loader.active) {
+        this.pulseTimeout = setTimeout(() => this.clearPulse(), 3000);
       }
     }
   }
@@ -108,8 +108,8 @@ class Article extends Component {
   }
 }
 
-function mapStateToProps({ pageModal }) {
-  return { pageModal };
+function mapStateToProps({ pageModal, loader }) {
+  return { pageModal, loader };
 }
 
 export default Connect(mapStateToProps)(Article);
