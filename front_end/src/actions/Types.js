@@ -1,6 +1,6 @@
 /* Body */
-export const REMOVE_BODY_OVERFLOW   = 'REMOVE_BODY_OVERFLOW'
-export const ADD_BODY_OVERFLOW      = 'ADD_BODY_OVERFLOW'
+export const REMOVE_BODY_OVERFLOW   = 'REMOVE_BODY_OVERFLOW';
+export const ADD_BODY_OVERFLOW      = 'ADD_BODY_OVERFLOW';
 
 /* Sidebar */
 export const OPEN_SIDEBAR           = 'OPEN_SIDEBAR';
