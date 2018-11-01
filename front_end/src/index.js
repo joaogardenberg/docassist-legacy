@@ -13,7 +13,7 @@ import App                              from './components/App/App';
 import * as serviceWorker               from './serviceWorker';
 import Reducers                         from './reducers';
 
-window.alert = () => {};
+// window.alert = () => {};
 window.M = require('materialize-css');
 window.jquery = window.jQuery = window.$ = require('jquery');
 window.$.DataTable = require('datatables');
