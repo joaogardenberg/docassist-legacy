@@ -221,4 +221,8 @@ function mapStateToProps({ users }) {
   return { users };
 }
 
-export default Connect(mapStateToProps)(Form);
+Form = Connect(
+  mapStateToProps
+)(Form);
+
+export default Form;
