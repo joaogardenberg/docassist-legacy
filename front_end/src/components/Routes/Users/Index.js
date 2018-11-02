@@ -4,7 +4,6 @@ import { connect as Connect } from 'react-redux';
 import { Link }               from 'react-router-dom';
 import { fetchUsers }         from '../../../actions';
 import _                      from 'lodash';
-import                             './Users.scss';
 import Article                from '../common/Article/Article';
 import SearchBar              from '../common/SearchBar/SearchBar';
 import * as BrowserChecks     from '../../../checks/Browser.js';
