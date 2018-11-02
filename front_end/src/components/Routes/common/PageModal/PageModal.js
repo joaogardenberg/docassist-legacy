@@ -99,21 +99,21 @@ class PageModal extends Component {
     this.props.pageModalOpened();
   }
 
-  componentWillUpdate() {
-    const { shouldReload } = this.props;
-
-    if (shouldReload) {
-      this.reload();
-    }
-  }
-
   componentDidUpdate() {
-    const { shouldGoBack, history } = this.props;
+    const { shouldGoBack, shouldReload, history } = this.props;
 
     if (shouldGoBack) {
       this.props.pageModalClosed();
       clearTimeout(this.backTimeout);
       this.backTimeout = setTimeout(() => history.goBack(), DURATION);
+    }
+
+    if (shouldReload) {
+      this.reload();
+
+      if (!this.props.active) {
+        this.props.pageModalOpened();
+      }
     }
   }
 
