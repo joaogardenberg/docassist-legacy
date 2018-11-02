@@ -1,6 +1,6 @@
 import React, { Component }   from 'react';
 import { connect as Connect } from 'react-redux';
-import { Link, browserHistory }               from 'react-router-dom';
+import { Link }               from 'react-router-dom';
 import PageModal              from '../common/PageModal/PageModal';
 
 const INITIAL_STATE = {
