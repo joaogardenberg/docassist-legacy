@@ -3,8 +3,12 @@ import { Route, Redirect, Switch } from 'react-router-dom';
 import                                  './Routes.scss';
 import Dashboard                   from './Dashboard/Dashboard';
 import Appointments                from './Appointments/Appointments';
-import Patients                    from './Patients/Patients';
 import Multiple                    from './common/Multiple/Multiple';
+import PatientsIndex               from './Patients/Index';
+import PatientsNew                 from './Patients/New.js';
+import PatientsEdit                from './Patients/Edit';
+import PatientsDestroy             from './Patients/Destroy';
+import PatientsShow                from './Patients/Show';
 import UsersIndex                  from './Users/Index';
 import UsersNew                    from './Users/New.js';
 import UsersEdit                   from './Users/Edit';
@@ -18,8 +22,16 @@ const Routes = () => {
       <Route path="/dashboard" component={ Dashboard } />
       {/* Appointments */}
       <Route path="/consultas" component={ Appointments } />
-      {/* Patients */}
-      <Route path="/pacientes" component={ Patients } />
+      {/* Patients New */}
+      <Route path="/pacientes/novo" render={ props => <Multiple components={ [PatientsIndex, PatientsNew] } { ...props } /> } />
+      {/* Patients Edit */}
+      <Route path="/pacientes/:id/editar" render={ props => <Multiple components={ [PatientsIndex, PatientsEdit] } { ...props } /> } />
+      {/* Patients Destroy */}
+      <Route path="/pacientes/:id/remover" render={ props => <Multiple components={ [PatientsIndex, PatientsDestroy] } { ...props } /> } />
+      {/* Patients Show */}
+      <Route path="/pacientes/:id" render={ props => <Multiple components={ [PatientsIndex, PatientsShow] } { ...props } /> } />
+      {/* Patients Index */}
+      <Route path="/pacientes" render={ props => <Multiple components={ [PatientsIndex] } { ...props } /> } />
       {/* Users New */}
       <Route path="/usuarios/novo" render={ props => <Multiple components={ [UsersIndex, UsersNew] } { ...props } /> } />
       {/* Users Edit */}
@@ -31,7 +43,7 @@ const Routes = () => {
       {/* Users Index */}
       <Route path="/usuarios" render={ props => <Multiple components={ [UsersIndex] } { ...props } /> } />
       {/* Default route if no routes above match */}
-      <Redirect to="/usuarios" />
+      <Redirect to="/pacientes" />
     </Switch>
   );
 }
