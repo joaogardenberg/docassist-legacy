@@ -3,14 +3,24 @@ export function fetchUsers() {
     setTimeout(() => {
       const objects = [];
       const random = 5;
+      const ids = [];
 
-      for (let i = 0; i < random; i++) {
+      for (let i = 1; i <= random; i++) {
+        const id = i < random ? `${new Date().getTime()}${Math.floor(Math.random() * 10001)}` : 'id_estatico';
+
         objects.push({
-          id: `${new Date().getTime()}${Math.floor(Math.random() * 10001)}`,
-          name: `João Lucas Gardenberg ${i}`,
+          id,
+          name: `João Lucas ${i}`,
           username: `johnny${i}`,
-          type: 'Médico(a)'
+          email: 'johnny@docassist.com.br',
+          type: i < random ? '1' : '2',
+          typeName: i < random ? 'Médico(a)' : 'Secretário(a)',
+          typeOf: i < random ? [] : ids
         });
+
+        if (i < random) {
+          ids.push(id);
+        }
       }
 
       resolve(objects);
