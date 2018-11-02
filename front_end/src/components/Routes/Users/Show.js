@@ -4,14 +4,14 @@ import { Link }               from 'react-router-dom';
 import PageModal              from '../common/PageModal/PageModal';
 
 const INITIAL_STATE = {
-  shouldClose: false,
+  shouldGoBack: false,
   shouldReload: false,
   user: {}
 }
 
 class UsersShow extends Component {
   render() {
-    const { shouldClose, shouldReload, user } = this.state;
+    const { shouldGoBack, shouldReload, user } = this.state;
 
     if (Object.keys(user).length < 1) {
       return null;
@@ -23,7 +23,7 @@ class UsersShow extends Component {
         iconClass="fas fa-user"
         footer={ this.modalFooter() }
         backTo="/usuarios"
-        shouldClose={ shouldClose }
+        shouldGoBack={ shouldGoBack }
         shouldReload={ shouldReload }
       >
         <div className="show">
@@ -79,10 +79,10 @@ class UsersShow extends Component {
   }
 
   componentDidUpdate() {
-    const { shouldClose, shouldReload } = this.state;
+    const { shouldGoBack, shouldReload } = this.state;
 
-    if (shouldClose) {
-      this.setState({ shouldClose: false });
+    if (shouldGoBack) {
+      this.setState({ shouldGoBack: false });
     }
 
     if (shouldReload) {
@@ -93,7 +93,7 @@ class UsersShow extends Component {
   }
 
   onBackButtonClick() {
-    this.setState({ shouldClose: true });
+    this.setState({ shouldGoBack: true });
   }
 
   loadUser() {

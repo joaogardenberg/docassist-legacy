@@ -92,6 +92,7 @@ class PageModal extends Component {
 
     this.state = INITIAL_STATE;
     this.reloadTimeout = null;
+    this.backTimeout = null;
   }
 
   componentDidMount() {
@@ -107,14 +108,19 @@ class PageModal extends Component {
   }
 
   componentDidUpdate() {
-    const { shouldClose } = this.props;
+    const { shouldGoBack, history } = this.props;
 
-    if (shouldClose) {
-      this.onCloseButtonClick();
+    if (shouldGoBack) {
+      this.props.pageModalClosed();
+      clearTimeout(this.backTimeout);
+      this.backTimeout = setTimeout(() => history.goBack(), DURATION);
     }
   }
 
   componentWillUnmount() {
+    clearTimeout(this.reloadTimeout);
+    clearTimeout(this.backTimeout);
+    clearTimeout(this.closeTimeout);
     this.props.pageModalClosed();
   }
 
@@ -123,7 +129,8 @@ class PageModal extends Component {
     const { history } = this.props;
 
     this.props.pageModalClosed();
-    setTimeout(() => history.push(backTo), DURATION);
+    clearTimeout(this.closeTimeout);
+    this.closeTimeout = setTimeout(() => history.push(backTo), DURATION);
   }
 
   reload() {

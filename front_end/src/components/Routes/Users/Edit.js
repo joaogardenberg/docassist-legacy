@@ -7,12 +7,12 @@ import { loadUser, updateUser } from '../../../actions';
 import * as Regex               from '../../../checks/Regex';
 
 const INITIAL_STATE = {
-  shouldClose: false
+  shouldGoBack: false
 }
 
 class UsersEdit extends Component {
   render() {
-    const { shouldClose } = this.state;
+    const { shouldGoBack } = this.state;
 
     return (
       <PageModal
@@ -20,7 +20,7 @@ class UsersEdit extends Component {
         iconClass="fas fa-pencil-alt"
         footer={ this.modalFooter() }
         backTo="/usuarios"
-        shouldClose={ shouldClose }
+        shouldGoBack={ shouldGoBack }
       >
         <Form />
       </PageModal>
@@ -46,8 +46,8 @@ class UsersEdit extends Component {
       }
     }
 
-    if (this.state.shouldClose) {
-      this.setState({ shouldClose: false });
+    if (this.state.shouldGoBack) {
+      this.setState({ shouldGoBack: false });
     }
   }
 
@@ -84,7 +84,7 @@ class UsersEdit extends Component {
   }
 
   onBackButtonClick() {
-    this.setState({ shouldClose: true });
+    this.setState({ shouldGoBack: true });
   }
 
   clearForm() {
