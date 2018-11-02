@@ -168,6 +168,42 @@
         }
       }
     }
+
+    .show {
+      .row {
+        margin: 0;
+
+        .col {
+          padding-top: 0.75rem;
+          padding-bottom: 0.75rem;
+        }
+      }
+
+      h5 {
+        font-size: 1.1rem;
+        font-weight: lighter;
+        margin: 0;
+      }
+
+      p {
+        font-size: 1.3rem;
+        font-weight: normal;
+
+        a.user {
+          background-color: $gradient-initial-color;
+          border-radius: 4px;
+          color: $white;
+          font-size: 1rem;
+          font-weight: bold;
+          margin: 0 1px;
+          padding: 4px 6px;
+
+          &:hover {
+            background: $gradient-middle-color;
+          }
+        }
+      }
+    }
   }
 
   .overlay {
@@ -186,11 +222,9 @@
     height: 100vh;
 
     .page-modal {
-      left: 20px;
       max-height: calc(100% - 104px);
       max-width: initial;
       top: 84px;
-      transform: none;
       width: calc(100% - 40px);
     }
   }
