@@ -134,7 +134,7 @@ class UsersShow extends Component {
         return (
           <span key={ id } className="user-container">
             <Link
-              className="link"
+              className="link waves-effect waves-light"
               to={ `/usuarios/${id}` }
             >
               { users[id].name }

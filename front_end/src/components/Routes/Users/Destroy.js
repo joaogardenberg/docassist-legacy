@@ -29,7 +29,7 @@ class UsersDestroy extends Component {
           Você tem certeza de que deseja remover o usuário&nbsp;
           <Link
             to={ `/usuarios/${user.id}` }
-            className="link"
+            className="link waves-effect waves-light"
           >
             { user.name }
           </Link>

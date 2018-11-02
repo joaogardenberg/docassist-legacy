@@ -29,7 +29,7 @@ class PatientsDestroy extends Component {
           Você tem certeza de que deseja remover o paciente&nbsp;
           <Link
             to={ `/pacientes/${patient.id}` }
-            className="link"
+            className="link waves-effect waves-light"
           >
             { patient.name }
           </Link>
