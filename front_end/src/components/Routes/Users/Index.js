@@ -41,7 +41,7 @@ class UsersIndex extends Component {
 
   tableJSXWith(users) {
     const rows = _.map(users, user => {
-      const { id, name, username, type } = user;
+      const { id, name, username, typeName } = user;
       const refFab = React.createRef();
       const refShow = React.createRef();
       const refEdit = React.createRef();
@@ -54,7 +54,7 @@ class UsersIndex extends Component {
         <tr key={ `user-${id}` }>
           <td>{ name }</td>
           <td>{ username }</td>
-          <td>{ type }</td>
+          <td>{ typeName }</td>
           <td className="actions">
             <div className="fixed-action-btn" ref={ refFab }>
               <button className="btn-floating btn-small bg-success waves-effect waves-light">

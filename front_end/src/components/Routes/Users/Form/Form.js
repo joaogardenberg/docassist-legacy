@@ -1,23 +1,29 @@
-import React, { Component }                  from 'react';
-import { Field, change as changeFieldValue } from 'redux-form';
-import { connect as Connect }                from 'react-redux';
-import _                                     from 'lodash';
-import posed                                 from 'react-pose';
+import React, { Component }   from 'react';
+import { Field }              from 'redux-form';
+import { connect as Connect } from 'react-redux';
+import _                      from 'lodash';
+import posed                  from 'react-pose';
 
 const INITIAL_STATE = {
   showTypeOf: false
 }
 
 const Container = posed.div({
-  open: {
-    // display: 'block',
-    width: '100px',
-    padding: '15px'
+  transition: { duration: 200 },
+  inactive: {
+    height: 0,
+    opacity: 0,
+    width: 0
   },
-  closed: {
-    // display: 'none',
-    width: '0px',
-    padding: '0px'
+  active: {
+    applyAtStart: {
+      height: 0,
+      opacity: 0,
+      width: 0
+    },
+    height: 'auto',
+    opacity: 1,
+    width: '100%'
   }
 });
 
@@ -35,34 +41,36 @@ class Form extends Component {
             className="col l6 s12"
             reference={ this.typeSelectRef }
             component={ this.renderSelect }
+            onChange={ event => this.onTypeChange(event) }
           >
             <option key="1" value="1">Médico(a)</option>
             <option key="2" value="2">Secretário(a)</option>
           </Field>
-          <Container
-            className="col l6 s12"
-            pose={ showTypeOf ? 'open' : 'closed' }
-            style={{ overflow: 'hidden' }}
-          >
-            <Field
-              id="typeOf"
-              name="typeOf"
-              label="Secretário(a) de quem(ns)?"
-              reference={ this.typeOfSelectRef }
-              multiple={ true }
-              format={ value => value || [] }
-              component={ this.renderSelect }
+          <div className="col l6 s12">
+            <Container
+              style={{ display: showTypeOf ? 'block' : 'none' }}
+              pose={ showTypeOf ? 'active' : 'inactive' }
             >
-              { this.renderDoctorOptions() }
-            </Field>
-          </Container>
+              <Field
+                id="typeOf"
+                name="typeOf"
+                label="Secretário(a) de quem(ns)?"
+                reference={ this.typeOfSelectRef }
+                multiple={ true }
+                format={ value => value || [] }
+                component={ this.renderSelect }
+              >
+                { this.renderDoctorOptions() }
+              </Field>
+            </Container>
+          </div>
         </div>
         <div className="row">
           <Field
             id="name"
             name="name"
             type="text"
-            label="Nome *"
+            label="Nome"
             className="col l6 s12"
             autoComplete="off"
             component={ this.renderField }
@@ -71,7 +79,7 @@ class Form extends Component {
             id="username"
             name="username"
             type="text"
-            label="Usuário *"
+            label="Usuário"
             className="col l6 s12"
             autoComplete="off"
             component={ this.renderField }
@@ -80,7 +88,7 @@ class Form extends Component {
             id="email"
             name="email"
             type="email"
-            label="E-mail *"
+            label="E-mail"
             className="col l6 s12"
             autoComplete="off"
             component={ this.renderField }
@@ -89,7 +97,7 @@ class Form extends Component {
             id="emailConfirmation"
             name="emailConfirmation"
             type="email"
-            label="Confirmação de e-mail *"
+            label="Confirmação de e-mail"
             className="col l6 s12"
             autoComplete="off"
             component={ this.renderField }
@@ -98,7 +106,7 @@ class Form extends Component {
             id="password"
             name="password"
             type="password"
-            label="Senha *"
+            label="Senha"
             className="col l6 s12"
             autoComplete="off"
             component={ this.renderField }
@@ -107,7 +115,7 @@ class Form extends Component {
             id="passwordConfirmation"
             name="passwordConfirmation"
             type="password"
-            label="Confirmação de senha *"
+            label="Confirmação de senha"
             className="col l6 s12"
             autoComplete="off"
             component={ this.renderField }
@@ -118,8 +126,7 @@ class Form extends Component {
   }
 
   renderDoctorOptions() {
-    const users = _.map(this.props.users, user => user).filter(user => user.type === 'Médico(a)');
-
+    let users = _.map(this.props.users, user => user).filter(user => user.type === '1');
     return users.map(user => <option key={ user.id } value={ user.id }>{ user.name }</option>);
   }
 
@@ -157,6 +164,7 @@ class Form extends Component {
           ref={ reference }
           disabled={ disabled }
           multiple={ multiple }
+          onChange={ event => { input.onChange(event); input.onBlur(event) } }
         >
           { children }
         </select>
@@ -177,22 +185,15 @@ class Form extends Component {
   }
 
   componentDidMount() {
-    const { typeSelectRef, typeOfSelectRef, props: { users } } = this;
-
-    if (typeSelectRef.current) {
-      window.M.FormSelect.init(typeSelectRef.current);
-      this.typeSelectLoaded = true;
-    }
-
-    if (typeOfSelectRef.current && Object.keys(users).length > 0) {
-      window.M.FormSelect.init(typeOfSelectRef.current);
-      this.typeOfSelectLoaded = true;
-    }
-
-    setTimeout(() => this.setState({ showTypeOf: true }), 5000);
+    this.initFormSelects();
   }
 
   componentDidUpdate() {
+    this.initFormSelects();
+    window.M.updateTextFields();
+  }
+
+  initFormSelects() {
     const { typeSelectRef, typeOfSelectRef, typeSelectLoaded } = this;
     const { typeOfSelectLoaded, props: { users } }             = this;
 
@@ -207,17 +208,11 @@ class Form extends Component {
     }
   }
 
-  onMultipleSelectChange(e) {
-    let options = e.target.options;
-
-    if (options) {
-      const selectedOptions = Array.from(e.target.options)
-                                   .filter(x => x.selected)
-                                   .map(x => x.value);
-
-      if (changeFieldValue) {
-        changeFieldValue('typeOf', selectedOptions);
-      }
+  onTypeChange({ target: { options } }) {
+    if (options[options.selectedIndex].value === '2') {
+      this.setState({ showTypeOf: true });
+    } else {
+      this.setState({ showTypeOf: false });
     }
   }
 }

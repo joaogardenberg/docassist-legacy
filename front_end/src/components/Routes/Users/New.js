@@ -1,62 +1,116 @@
 import React, { Component }   from 'react';
-import { Link, withRouter }   from 'react-router-dom';
 import { reduxForm }          from 'redux-form';
 import { connect as Connect } from 'react-redux';
 import PageModal              from '../common/PageModal/PageModal';
 import Form                   from './Form/Form';
 import { createUser }         from '../../../actions';
+import * as Regex             from '../../../checks/Regex';
+
+const INITIAL_STATE = {
+  shouldClose: false
+}
 
 class UsersNew extends Component {
   render() {
+    const { shouldClose } = this.state;
+
     return (
       <PageModal
         title="Novo usuário"
         iconClass="fas fa-clipboard"
         footer={ this.modalFooter() }
         backTo="/usuarios"
+        shouldClose={ shouldClose }
       >
         <Form />
       </PageModal>
     );
   }
 
-  modalFooter() {
-    const { handleSubmit } = this.props;
+  constructor(props) {
+    super(props);
 
+    this.state = INITIAL_STATE;
+  }
+
+  componentDidUpdate() {
+    if (this.state.shouldClose) {
+      this.setState({ shouldClose: false });
+    }
+  }
+
+  modalFooter() {
     return (
       <div>
         <button
           className="btn waves-effect waves-light bg-success"
-          onClick={ handleSubmit(this.onSubmit.bind(this)) }
+          onClick={ this.props.handleSubmit(this.onSubmit.bind(this)) }
         >
           <i className="fas fa-plus left" />
           Criar
         </button>
         <button
           className="btn waves-effect waves-light bg-warning"
-          onClick={ this.clearForm.bind(this) }
+          onClick={ this.onClearButtonClick.bind(this) }
         >
           <i className="fas fa-eraser left" />
           Limpar
         </button>
-        <Link to="/usuarios" className="btn-flat waves-effect">
+        <button
+          className="btn-flat waves-effect"
+          onClick={ this.onBackButtonClick.bind(this) }
+        >
           <i className="fas fa-arrow-left left" />
           Voltar
-        </Link>
+        </button>
       </div>
     );
   }
 
+  onClearButtonClick() {
+    this.clearForm();
+  }
+
+  onBackButtonClick() {
+    this.setState({ shouldClose: true });
+  }
+
   clearForm() {
-    this.props.initialize();
+    this.props.reset();
   }
 
   onSubmit(values) {
     const { createUser, history } = this.props;
+    let typeName;
 
+    switch(values.type) {
+      case '2':
+        typeName = 'Secretário(a)'
+        break;
+      default:
+        typeName = 'Médico(a)'
+    }
+
+    values.typeName = typeName;
     createUser(values);
     history.push('/usuarios');
   }
+}
+
+function validateType(type) {
+  if (!['1', '2'].includes(type)) {
+    return 'Opção inválida. Favor recarregar a página';
+  }
+
+  return null;
+}
+
+function validateTypeOf(type, typeOf) {
+  if (type === '2' && (!typeOf || typeOf.length < 1)) {
+    return 'Campo obrigatório';
+  }
+
+  return null;
 }
 
 function validateName(name) {
@@ -68,7 +122,7 @@ function validateName(name) {
     return 'Máximo 100 caracteres';
   }
 
-  if (!name.toLowerCase().match(/^[a-záéíóúàèâêôãõäöü'\s]+$/)) {
+  if (!name.toLowerCase().match(Regex.Name)) {
     return 'Não pode conter caracteres especiais';
   }
 
@@ -84,7 +138,7 @@ function validateUsername(username) {
     return 'Máximo 50 caracteres';
   }
 
-  if (!username.toLowerCase().match(/^[a-z0-9]+$/)) {
+  if (!username.toLowerCase().match(Regex.Username)) {
     return 'Só pode conter letras e números'
   }
 
@@ -100,7 +154,7 @@ function validateEmail(email) {
     return 'Máximo 50 caracteres';
   }
 
-  if (!email.toLowerCase().match(/^[^@]+@[^@]+\.[^@]+$/)) {
+  if (!email.toLowerCase().match(Regex.Email)) {
     return 'E-mail inválido.';
   }
 
@@ -148,8 +202,9 @@ function validatePasswordConfirmation(password, passwordConfirmation) {
 }
 
 function validate(values) {
-  console.log(values);
   const errors = {
+    type: validateType(values['type']),
+    typeOf: validateTypeOf(values['type'], values['typeOf']),
     name: validateName(values['name']),
     username: validateUsername(values['username']),
     email: validateEmail(values['email']),
