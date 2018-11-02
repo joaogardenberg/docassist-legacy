@@ -1,5 +1,6 @@
 import React, { Component }   from 'react';
 import { Field }              from 'redux-form';
+import { connect as Connect } from 'react-redux';
 
 class Form extends Component {
   render() {
@@ -44,5 +45,13 @@ class Form extends Component {
     window.M.updateTextFields();
   }
 }
+
+function mapStateToProps({ patients }) {
+  return { patients };
+}
+
+Form = Connect(
+  mapStateToProps
+)(Form);
 
 export default Form;
