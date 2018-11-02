@@ -10,9 +10,7 @@ const Multiple = props => {
 
   temp.push(
     <div key="temp">
-      <p>Todo Usuários:</p>
-      <p>- Construir conteúdos dos modais;</p>
-      <p>- Fazer funcionar como se tivesse back end, reiniciando tudo quando der refresh.</p>
+      
     </div>
   );
 
