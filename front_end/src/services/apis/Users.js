@@ -6,20 +6,30 @@ export function fetchUsers() {
       const ids = [];
 
       for (let i = 1; i <= random; i++) {
-        const id = i < random ? `${new Date().getTime()}${Math.floor(Math.random() * 10001)}` : 'id_estatico';
-
-        objects.push({
-          id,
-          name: `João Lucas ${i}`,
-          username: `johnny${i}`,
-          email: 'johnny@docassist.com.br',
-          type: i < random ? '1' : '2',
-          typeName: i < random ? 'Médico(a)' : 'Secretário(a)',
-          typeOf: i < random ? [] : ids
-        });
+        const id = `${new Date().getTime()}${Math.floor(Math.random() * 10001)}`;
 
         if (i < random) {
           ids.push(id);
+
+          objects.push({
+            id,
+            name: `Médico ${i}`,
+            username: `medico${i}`,
+            email: `medico${i}@docassist.com.br`,
+            type: '1',
+            typeName: 'Médico(a)',
+            typeOf: []
+          });
+        } else {
+          objects.push({
+            id,
+            name: `Secretário 1`,
+            username: `secretario1`,
+            email: `secretario1@docassist.com.br`,
+            type: '2',
+            typeName: 'Secretário(a)',
+            typeOf: ids
+          });
         }
       }
 
