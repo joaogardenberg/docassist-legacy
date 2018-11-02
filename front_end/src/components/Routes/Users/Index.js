@@ -128,14 +128,23 @@ class UsersIndex extends Component {
     this.fabRefs = [];
     this.tooltipRefs = [];
     this.tableRef = React.createRef();
+    this.lastPage = 0;
   }
 
   componentDidMount() {
+    const { params } = this.props.match;
+
     if (Object.keys(this.props.users).length > 0) {
       this.addDataTable();
       this.initFabs();
     } else {
       this.props.fetchUsers();
+    }
+
+    this.mapSearchToParams();
+
+    if (params.p && this.table) {
+      this.table.page(params.p);
     }
   }
 
@@ -147,11 +156,22 @@ class UsersIndex extends Component {
   }
 
   componentDidUpdate(prevProps) {
+    const { params } = this.props.match;
+
     if (!_.isEqual(prevProps.users, this.props.users)) {
       this.addDataTable();
     }
 
     this.initFabs();
+    this.mapSearchToParams();
+
+    if (this.table) {
+      if (params.p && this.table.page() !== parseInt(params.p)) {
+        this.table.page(parseInt(params.p) - 1).draw('page');
+      } else {
+        this.table.page('first').draw('page');
+      }
+    }
   }
 
   componentWillUnmount() {
@@ -221,8 +241,9 @@ class UsersIndex extends Component {
         zeroRecords: 'Não foi encontrado nenhum usuário para esta pesquisa.',
       },
       order: [[0, 'asc']],
-      pageLength: 10,
-      pagingType: 'simple_numbers'
+      pageLength: 1,
+      pagingType: 'simple_numbers',
+      drawCallback: this.onTableDraw.bind(this)
     });
   }
 
@@ -233,12 +254,50 @@ class UsersIndex extends Component {
     }
   }
 
+  onTableDraw() {
+    const { params, path } = this.props.match;
+
+    if (this.table) {
+      params.p = this.table.page() + 1;
+
+      if (params.p !== this.lastPage) {
+        console.log(params.p, this.lastPage);
+        let paramsArray = _.map(params, (val, key) => {
+          if (val && (key === 'p' ? val > 1 : true)) {
+            return `${key}=${encodeURI(val).replace(/%20/g, '+')}`;
+          } else {
+            return null;
+          }
+        });
+
+        paramsArray = paramsArray.filter(i => !!i);
+
+        this.lastPage = params.p;
+        console.log(`${path}?${paramsArray.join('&')}`);
+        this.props.history.push(`${path}?${paramsArray.join('&')}`);
+      }
+    }
+  }
+
   onSearchBarChange(string) {
     const { users } = this.props;
 
     if (users && Object.keys(users).length > 0) {
       window.$(this.tableRef.current).DataTable().search(string).draw();
     }
+  }
+
+  mapSearchToParams() {
+    const { location: { search }, match: { params } } = this.props;
+
+    search
+      .substr(1, search.length - 1)
+      .split('&')
+      .filter(param => param.length > 0)
+      .forEach(param => {
+        const [ key, value ] = param.split('=');
+        params[key] = value;
+      });
   }
 }
 
