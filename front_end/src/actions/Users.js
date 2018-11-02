@@ -1,5 +1,6 @@
 import {
   FETCH_USERS,
+  LOAD_USER,
   CREATE_USER,
   UPDATE_USER,
   DESTROY_USER,
@@ -35,6 +36,13 @@ export function fetchUsers() {
       });
     });
   };
+}
+
+export function loadUser(user) {
+  return {
+    type: LOAD_USER,
+    payload: user
+  }
 }
 
 export function createUser(attributes) {

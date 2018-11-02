@@ -5,6 +5,7 @@ import BodyReducer                from './BodyReducer';
 import LoaderReducer              from './LoaderReducer';
 import PageModalReducer           from './PageModalReducer';
 import UsersReducer               from './UsersReducer';
+import LoadedUserReducer          from './LoadedUserReducer';
 
 const RootReducer = combineReducers({
   body: BodyReducer,
@@ -12,6 +13,7 @@ const RootReducer = combineReducers({
   loader: LoaderReducer,
   pageModal: PageModalReducer,
   users: UsersReducer,
+  loadedUser: LoadedUserReducer,
   form: formReducer
 });
 

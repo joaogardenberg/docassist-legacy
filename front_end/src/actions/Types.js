@@ -16,6 +16,7 @@ export const PAGE_MODAL_CLOSED      = 'PAGE_MODAL_CLOSED';
 
 /* Users */
 export const FETCH_USERS            = 'FETCH_USERS';
+export const LOAD_USER              = 'LOAD_USER';
 export const CREATE_USER            = 'CREATE_USER';
 export const UPDATE_USER            = 'UPDATE_USER';
 export const DESTROY_USER           = 'DESTROY_USER';
