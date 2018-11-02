@@ -83,7 +83,6 @@ class SearchBar extends Component {
 
     if (prevProps.match.params.q && prevProps.match.params.q.replace(/\s/g, '+') !== params.q) {
       if (params.q) {
-        console.log(prevProps.match.params.q, params.q);
         this.setState({ value: decodeURI(params.q.replace(/\+/g, '%20')), shouldUpdate: false });
       } else {
         this.setState({ value: '' });

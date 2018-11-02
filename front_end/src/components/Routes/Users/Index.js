@@ -261,7 +261,6 @@ class UsersIndex extends Component {
       params.p = this.table.page() + 1;
 
       if (params.p !== this.lastPage) {
-        console.log(params.p, this.lastPage);
         let paramsArray = _.map(params, (val, key) => {
           if (val && (key === 'p' ? val > 1 : true)) {
             return `${key}=${encodeURI(val).replace(/%20/g, '+')}`;
@@ -273,7 +272,6 @@ class UsersIndex extends Component {
         paramsArray = paramsArray.filter(i => !!i);
 
         this.lastPage = params.p;
-        console.log(`${path}?${paramsArray.join('&')}`);
         this.props.history.push(`${path}?${paramsArray.join('&')}`);
       }
     }
