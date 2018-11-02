@@ -21,17 +21,24 @@ const Container = posed.div({
 const Modal = posed.article({
   inactive: {
     transition: { duration: DURATION },
-    "max-width": 0
+    opacity: 0,
+    transform: 'translate(-50%) scale(0)'
   },
   active: {
     transition: { duration: DURATION },
-    "max-width": '992px'
+    opacity: 1,
+    transform: 'translate(-50%) scale(1)'
   }
 });
+
+const INITIAL_STATE = {
+  reload: false
+}
 
 class PageModal extends Component {
   render() {
     const { active, title, children, footer, iconClass, backTo } = this.props;
+    const { reload }                                             = this.state;
     let icon;
     let closeButton;
 
@@ -56,7 +63,7 @@ class PageModal extends Component {
         <div className="overlay" />
         <Modal
           className="page-modal"
-          pose={ active ? 'active' : 'inactive' }
+          pose={ active ? reload ? 'inactive' : 'active' : 'inactive' }
         >
           <header>
             <div className="title">
@@ -80,8 +87,23 @@ class PageModal extends Component {
     );
   }
 
+  constructor(props) {
+    super(props);
+
+    this.state = INITIAL_STATE;
+    this.reloadTimeout = null;
+  }
+
   componentDidMount() {
     this.props.pageModalOpened();
+  }
+
+  componentWillUpdate() {
+    const { shouldReload } = this.props;
+
+    if (shouldReload) {
+      this.reload();
+    }
   }
 
   componentDidUpdate() {
@@ -102,6 +124,12 @@ class PageModal extends Component {
 
     this.props.pageModalClosed();
     setTimeout(() => history.push(backTo), DURATION);
+  }
+
+  reload() {
+    this.setState({ reload: true });
+    clearTimeout(this.reloadTimeout);
+    this.reloadTimeout = setTimeout(() => this.setState({ reload: false }), DURATION);
   }
 }
 
