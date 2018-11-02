@@ -15,6 +15,7 @@ function BodyReducer(state = INITIAL_STATE, action) {
     case ADD_BODY_OVERFLOW:
       if (state.wants - 1 <= 0) {
         document.getElementsByTagName('body')[0].classList.remove('no-overflow');
+        return { wants: 0 };
       }
 
       return { wants: state.wants - 1 };

@@ -17,6 +17,7 @@ function LoaderReducer(state = INITIAL_STATE, action) {
 
       if (state.wants - 1 <= 0) {
         active = false;
+        return { active, wants: 0 }
       }
 
       return { active, wants: state.wants - 1 }
