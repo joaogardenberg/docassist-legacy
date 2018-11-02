@@ -247,4 +247,9 @@ function mapStateToProps({ users }) {
   return { users };
 }
 
-export default Connect(mapStateToProps, { fetchUsers })(UsersIndex);
+UsersIndex = Connect(
+   mapStateToProps,
+   { fetchUsers }
+)(UsersIndex);
+
+export default UsersIndex;

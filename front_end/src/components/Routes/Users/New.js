@@ -170,7 +170,18 @@ function validate(values) {
   return ret;
 }
 
-export default withRouter(reduxForm({
+UsersNew = reduxForm({
   validate,
+  initialValues: {
+    type: '1'
+  },
+  enableReinitialize: true,
   form: 'UsersNewForm'
-})(Connect(null, { createUser })(UsersNew)));
+})(UsersNew);
+
+UsersNew = Connect(
+  null,
+  { createUser }
+)(UsersNew);
+
+export default UsersNew;

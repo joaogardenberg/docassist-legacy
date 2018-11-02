@@ -55,4 +55,11 @@ function mapStateToProps({ users }) {
   return { users };
 }
 
-export default withRouter(Connect(mapStateToProps, { destroyUser })(UsersDestroy));
+UsersDestroy = Connect(
+  mapStateToProps,
+  { destroyUser }
+)(UsersDestroy);
+
+UsersDestroy = withRouter(UsersDestroy);
+
+export default UsersDestroy;
