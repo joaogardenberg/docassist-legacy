@@ -2,11 +2,11 @@ export function fetchPatients() {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       const objects = [];
-      const random = 5;
+      const random = 50;
 
       for (let i = 1; i <= random; i++) {
         objects.push({
-          id: `${new Date().getTime()}${Math.floor(Math.random() * 10001)}`,
+          id: `id_paciente_${i}`,
           name: `Paciente ${i}`
         });
       }

@@ -2,13 +2,13 @@ export function fetchUsers() {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       const objects = [];
-      const random = 5;
-      const ids = [];
+      const random = 50;
+      let ids = [];
 
       for (let i = 1; i <= random; i++) {
-        const id = `${new Date().getTime()}${Math.floor(Math.random() * 10001)}`;
+        const id = `id_usuario_${i}`;
 
-        if (i < random) {
+        if (i % 5 !== 0) {
           ids.push(id);
 
           objects.push({
@@ -23,13 +23,15 @@ export function fetchUsers() {
         } else {
           objects.push({
             id,
-            name: `Secretário 1`,
-            username: `secretario1`,
-            email: `secretario1@docassist.com.br`,
+            name: `Secretário ${i}`,
+            username: `secretario${i}`,
+            email: `secretario${i}@docassist.com.br`,
             type: '2',
             typeName: 'Secretário(a)',
             typeOf: ids
           });
+
+          ids = [];
         }
       }
 
