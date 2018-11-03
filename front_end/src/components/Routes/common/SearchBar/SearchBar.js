@@ -89,12 +89,12 @@ class SearchBar extends Component {
       }
     }
 
-    if (prevState.value !== value) {
+    if (prevState.value !== value && (path === '/usuarios' || path === '/pacientes')) {
       if (shouldUpdate) {
         params.q = value;
 
         let paramsArray = _.map(params, (val, key) => {
-          if (val && (searchChanged ? key !== 'p' : true)) {
+          if (val && (key === 'p' || key === 'q') && (searchChanged ? key !== 'p' : true)) {
             return `${key}=${encodeURI(val).replace(/%20/g, '+')}`;
           } else {
             return null;
@@ -150,14 +150,19 @@ class SearchBar extends Component {
   mapSearchToParams() {
     const { location: { search }, match: { params } } = this.props;
 
-    search
-      .substr(1, search.length - 1)
-      .split('&')
-      .filter(param => param.length > 0)
-      .forEach(param => {
-        const [ key, value ] = param.split('=');
-        params[key] = value;
-      });
+    if (search) {
+      search
+        .substr(1, search.length - 1)
+        .split('&')
+        .filter(param => param.length > 0)
+        .forEach(param => {
+          const [ key, value ] = param.split('=');
+
+          if (key === 'q' || key === 'p') {
+            params[key] = value;
+          }
+        });
+    }
   }
 }
 

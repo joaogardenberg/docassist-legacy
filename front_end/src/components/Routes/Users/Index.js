@@ -125,10 +125,10 @@ class UsersIndex extends Component {
   constructor(props) {
     super(props);
 
-    this.fabRefs = [];
+    this.fabRefs     = [];
     this.tooltipRefs = [];
-    this.tableRef = React.createRef();
-    this.lastPage = 0;
+    this.tableRef    = React.createRef();
+    this.lastPage    = 0;
   }
 
   componentDidMount() {
@@ -144,7 +144,7 @@ class UsersIndex extends Component {
     this.mapSearchToParams();
 
     if (params.p && this.table) {
-      this.table.page(params.p);
+      this.table.page(params.p).draw('page');
     }
   }
 
@@ -165,12 +165,8 @@ class UsersIndex extends Component {
     this.initFabs();
     this.mapSearchToParams();
 
-    if (this.table) {
-      if (params.p && this.table.page() !== parseInt(params.p)) {
-        this.table.page(parseInt(params.p) - 1).draw('page');
-      } else {
-        this.table.page('first').draw('page');
-      }
+    if (this.table && params.p && parseInt(this.table.page()) !== parseInt(params.p)) {
+      this.table.page(parseInt(params.p) - 1).draw('page');
     }
   }
 
@@ -241,7 +237,7 @@ class UsersIndex extends Component {
         zeroRecords: 'Não foi encontrado nenhum usuário para esta pesquisa.',
       },
       order: [[0, 'asc']],
-      pageLength: 1,
+      pageLength: 10,
       pagingType: 'simple_numbers',
       drawCallback: this.onTableDraw.bind(this)
     });
@@ -257,12 +253,12 @@ class UsersIndex extends Component {
   onTableDraw() {
     const { params, path } = this.props.match;
 
-    if (this.table) {
+    if (this.table && this.table.page() !== (parseInt(params.p) - 1)) {
       params.p = this.table.page() + 1;
 
       if (params.p !== this.lastPage) {
         let paramsArray = _.map(params, (val, key) => {
-          if (val && (key === 'p' ? val > 1 : true)) {
+          if (val && (key === 'p' || key === 'q') && (key === 'p' ? val > 1 : true)) {
             return `${key}=${encodeURI(val).replace(/%20/g, '+')}`;
           } else {
             return null;
@@ -288,14 +284,19 @@ class UsersIndex extends Component {
   mapSearchToParams() {
     const { location: { search }, match: { params } } = this.props;
 
-    search
-      .substr(1, search.length - 1)
-      .split('&')
-      .filter(param => param.length > 0)
-      .forEach(param => {
-        const [ key, value ] = param.split('=');
-        params[key] = value;
-      });
+    if (search) {
+      search
+        .substr(1, search.length - 1)
+        .split('&')
+        .filter(param => param.length > 0)
+        .forEach(param => {
+          const [ key, value ] = param.split('=');
+
+          if (key === 'q' || key === 'p') {
+            params[key] = value;
+          }
+        });
+    }
   }
 }
 
