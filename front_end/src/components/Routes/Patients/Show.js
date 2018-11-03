@@ -40,6 +40,13 @@ class PatientsShow extends Component {
     return (
       <div>
         <button
+          className="btn waves-effect waves-light bg-warning"
+          onClick={ this.onEditButtonClick.bind(this) }
+        >
+          <i className="fas fa-pencil-alt left" />
+          Editar
+        </button>
+        <button
           className="btn-flat waves-effect"
           onClick={ this.onBackButtonClick.bind(this) }
         >
@@ -56,6 +63,7 @@ class PatientsShow extends Component {
     this.state = INITIAL_STATE;
     this.patientLoaded = false;
     this.lastId = props.match.params.id;
+    this.editTimeout = null;
   }
 
   componentDidMount() {
@@ -74,6 +82,20 @@ class PatientsShow extends Component {
     }
 
     this.loadPatient();
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.editTimeout);
+  }
+
+  onEditButtonClick() {
+    const { history } = this.props;
+    const { patient } = this.state;
+
+    if (Object.keys(patient).length > 0) {
+      this.setState({ shouldGoBack: true });
+      this.editTimeout = setTimeout(() => history.push(`/pacientes/${patient.id}/editar`), 200);
+    }
   }
 
   onBackButtonClick() {

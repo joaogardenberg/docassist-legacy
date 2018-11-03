@@ -55,6 +55,13 @@ class UsersShow extends Component {
     return (
       <div>
         <button
+          className="btn waves-effect waves-light bg-warning"
+          onClick={ this.onEditButtonClick.bind(this) }
+        >
+          <i className="fas fa-pencil-alt left" />
+          Editar
+        </button>
+        <button
           className="btn-flat waves-effect"
           onClick={ this.onBackButtonClick.bind(this) }
         >
@@ -71,6 +78,7 @@ class UsersShow extends Component {
     this.state = INITIAL_STATE;
     this.userLoaded = false;
     this.lastId = props.match.params.id;
+    this.editTimeout = null;
   }
 
   componentDidMount() {
@@ -89,6 +97,20 @@ class UsersShow extends Component {
     }
 
     this.loadUser();
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.editTimeout);
+  }
+
+  onEditButtonClick() {
+    const { history } = this.props;
+    const { user } = this.state;
+
+    if (Object.keys(user).length > 0) {
+      this.setState({ shouldGoBack: true });
+      this.editTimeout = setTimeout(() => history.push(`/usuarios/${user.id}/editar`), 200);
+    }
   }
 
   onBackButtonClick() {
