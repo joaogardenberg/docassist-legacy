@@ -37,7 +37,8 @@ const INITIAL_STATE = {
 
 class PageModal extends Component {
   render() {
-    const { active, title, children, footer, iconClass, reload } = this.props;
+    const { active, title, children, footer, iconClass } = this.props;
+    const { reload }                                     = this.state;
     let icon;
 
     if (iconClass) {
