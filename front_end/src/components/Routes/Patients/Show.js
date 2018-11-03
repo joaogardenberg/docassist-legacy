@@ -21,7 +21,6 @@ class PatientsShow extends Component {
         title="Paciente"
         iconClass="fas fa-address-card"
         footer={ this.modalFooter() }
-        backTo="/pacientes"
         shouldGoBack={ shouldGoBack }
         shouldReload={ shouldReload }
       >

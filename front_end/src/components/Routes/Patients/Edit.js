@@ -19,7 +19,6 @@ class PatientsEdit extends Component {
         title="Editar paciente"
         iconClass="fas fa-pencil-alt"
         footer={ this.modalFooter() }
-        backTo="/pacientes"
         shouldGoBack={ shouldGoBack }
       >
         <Form />

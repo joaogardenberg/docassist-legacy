@@ -37,21 +37,12 @@ const INITIAL_STATE = {
 
 class PageModal extends Component {
   render() {
-    const { active, title, children, footer, iconClass, backTo } = this.props;
-    const { reload }                                             = this.state;
+    const { active, title, children, footer, iconClass, reload } = this.props;
     let icon;
-    let closeButton;
 
     if (iconClass) {
       icon = <i
         className={ iconClass }
-      />;
-    }
-
-    if (backTo) {
-      closeButton = <i
-        className="fas fa-times"
-        onClick={ this.onCloseButtonClick.bind(this) }
       />;
     }
 
@@ -73,7 +64,10 @@ class PageModal extends Component {
               </h4>
             </div>
             <div className="close-button">
-              { closeButton }
+              <i
+                className="fas fa-times"
+                onClick={ this.onCloseButtonClick.bind(this) }
+              />
             </div>
           </header>
           <section>
@@ -100,12 +94,10 @@ class PageModal extends Component {
   }
 
   componentDidUpdate() {
-    const { shouldGoBack, shouldReload, history } = this.props;
+    const { shouldGoBack, shouldReload } = this.props;
 
     if (shouldGoBack) {
-      this.props.pageModalClosed();
-      clearTimeout(this.backTimeout);
-      this.backTimeout = setTimeout(() => history.goBack(), DURATION);
+      this.onCloseButtonClick();
     }
 
     if (shouldReload) {
@@ -125,12 +117,11 @@ class PageModal extends Component {
   }
 
   onCloseButtonClick() {
-    const { backTo } = this.props;
     const { history } = this.props;
 
     this.props.pageModalClosed();
-    clearTimeout(this.closeTimeout);
-    this.closeTimeout = setTimeout(() => history.push(backTo), DURATION);
+    clearTimeout(this.backTimeout);
+    this.backTimeout = setTimeout(() => history.goBack(), DURATION);
   }
 
   reload() {

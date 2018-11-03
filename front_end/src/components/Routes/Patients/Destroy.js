@@ -22,7 +22,6 @@ class PatientsDestroy extends Component {
         title="Remover paciente"
         iconClass="fas fa-trash-alt"
         footer={ this.modalFooter() }
-        backTo="/pacientes"
         shouldGoBack={ shouldGoBack }
       >
         <p>

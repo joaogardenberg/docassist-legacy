@@ -19,7 +19,6 @@ class UsersNew extends Component {
         title="Novo usuário"
         iconClass="fas fa-clipboard"
         footer={ this.modalFooter() }
-        backTo="/usuarios"
         shouldGoBack={ shouldGoBack }
       >
         <Form />

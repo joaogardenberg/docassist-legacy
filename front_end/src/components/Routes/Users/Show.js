@@ -22,7 +22,6 @@ class UsersShow extends Component {
         title="Usuário"
         iconClass="fas fa-user"
         footer={ this.modalFooter() }
-        backTo="/usuarios"
         shouldGoBack={ shouldGoBack }
         shouldReload={ shouldReload }
       >

@@ -19,7 +19,6 @@ class UsersEdit extends Component {
         title="Editar usuário"
         iconClass="fas fa-pencil-alt"
         footer={ this.modalFooter() }
-        backTo="/usuarios"
         shouldGoBack={ shouldGoBack }
       >
         <Form />

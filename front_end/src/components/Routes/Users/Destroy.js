@@ -22,7 +22,6 @@ class UsersDestroy extends Component {
         title="Remover usuário"
         iconClass="fas fa-trash-alt"
         footer={ this.modalFooter() }
-        backTo="/usuarios"
         shouldGoBack={ shouldGoBack }
       >
         <p>

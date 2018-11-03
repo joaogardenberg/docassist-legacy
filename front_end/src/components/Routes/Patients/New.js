@@ -19,7 +19,6 @@ class PatientsNew extends Component {
         title="Novo paciente"
         iconClass="fas fa-clipboard"
         footer={ this.modalFooter() }
-        backTo="/pacientes"
         shouldGoBack={ shouldGoBack }
       >
         <Form />
