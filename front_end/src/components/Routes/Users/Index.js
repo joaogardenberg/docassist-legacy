@@ -41,60 +41,50 @@ class UsersIndex extends Component {
   tableJSXWith(users) {
     const rows = _.map(users, user => {
       const { id, name, username, typeName } = user;
-      const refFab = React.createRef();
-      const refShow = React.createRef();
       const refEdit = React.createRef();
+      const refShow = React.createRef();
       const refDestroy = React.createRef();
 
-      this.fabRefs.push(refFab);
-      this.tooltipRefs.push(...[refShow, refEdit, refDestroy]);
+      // this.tooltipRefs.push(...[refShow, refEdit, refDestroy]);
 
       return (
-        <tr key={ `user-${id}` }>
+        <tr
+          key={ `user-${id}` }
+          data-position="top"
+          data-tooltip={ `Ver ${name}` }
+          ref={ refShow }
+          onClick={ event => this.onUserClick(event, id) }
+        >
           <td>{ name }</td>
           <td>{ username }</td>
           <td>{ typeName }</td>
           <td className="actions">
-            <div className="fixed-action-btn" ref={ refFab }>
-              <button className="btn-floating btn-small bg-success waves-effect waves-light">
-                <i className="fas fa-ellipsis-h" />
-              </button>
-              <ul>
-                <li>
-                  <Link
-                    to={ `/usuarios/${id}/remover` }
-                    className="btn-floating btn-small bg-error waves-effect waves-light"
-                    data-position="top"
-                    data-tooltip="Remover"
-                    ref={ refDestroy }
-                  >
-                    <i className="fas fa-trash-alt" />
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to={ `/usuarios/${id}/editar` }
-                    className="btn-floating btn-small bg-warning waves-effect waves-light"
-                    data-position="top"
-                    data-tooltip="Editar"
-                    ref={ refEdit }
-                  >
-                    <i className="fas fa-pencil-alt" />
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to={ `/usuarios/${id}` }
-                    className="btn-floating btn-small bg-info waves-effect waves-light"
-                    data-position="top"
-                    data-tooltip="Ver"
-                    ref={ refShow }
-                  >
-                    <i className="fas fa-info"/>
-                  </Link>
-                </li>
-              </ul>
-            </div>
+            <ul>
+              <li>
+                <Link
+                  to={ `/usuarios/${id}/editar` }
+                  className="btn-floating btn-small bg-warning waves-effect waves-light"
+                  data-position="left"
+                  data-tooltip="Editar"
+                  ref={ refEdit }
+                  onClick={ event => event.stopPropagation() }
+                >
+                  <i className="fas fa-pencil-alt" />
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to={ `/usuarios/${id}/remover` }
+                  className="btn-floating btn-small bg-error waves-effect waves-light"
+                  data-position="left"
+                  data-tooltip="Remover"
+                  ref={ refDestroy }
+                  onClick={ event => event.stopPropagation() }
+                >
+                  <i className="fas fa-trash-alt" />
+                </Link>
+              </li>
+            </ul>
           </td>
         </tr>
       );
@@ -125,7 +115,6 @@ class UsersIndex extends Component {
   constructor(props) {
     super(props);
 
-    this.fabRefs     = [];
     this.tooltipRefs = [];
     this.tableRef    = React.createRef();
     this.lastPage    = 0;
@@ -136,7 +125,7 @@ class UsersIndex extends Component {
 
     if (Object.keys(this.props.users).length > 0) {
       this.addDataTable();
-      this.initFabs();
+      // this.initTooltips();
     } else {
       this.props.fetchUsers();
     }
@@ -151,7 +140,7 @@ class UsersIndex extends Component {
   componentWillUpdate(nextProps) {
     if (!_.isEqual(this.props.users, nextProps.users)) {
       this.removeDataTable();
-      this.removeFabs();
+      // this.removeTooltips();
     }
   }
 
@@ -162,7 +151,7 @@ class UsersIndex extends Component {
       this.addDataTable();
     }
 
-    this.initFabs();
+    // this.initTooltips();
     this.mapSearchToParams();
 
     if (this.table && params.p && parseInt(this.table.page()) !== parseInt(params.p)) {
@@ -171,18 +160,15 @@ class UsersIndex extends Component {
   }
 
   componentWillUnmount() {
-    this.removeFabs();
+    // this.removeTooltips();
     this.removeDataTable();
   }
 
-  initFabs() {
-    this.fabRefs.filter(({ current }) => !!current).forEach(({ current }) => {
-      window.M.FloatingActionButton.init(current, {
-        direction: 'left',
-        hoverEnabled: false
-      });
-    });
+  onUserClick(event, id) {
+    this.props.history.push(`/usuarios/${id}`);
+  }
 
+  initTooltips() {
     if (!BrowserChecks.hasTouch()) {
       this.tooltipRefs.filter(({ current }) => !!current).forEach(({ current }) => {
         const button = ReactDOM.findDOMNode(current);
@@ -191,15 +177,7 @@ class UsersIndex extends Component {
     }
   }
 
-  removeFabs() {
-    this.fabRefs.filter(({ current }) => !!current).forEach(({ current }) => {
-      const instance = window.M.FloatingActionButton.getInstance(current);
-
-      if (instance) {
-        instance.destroy();
-      }
-    });
-
+  removeTooltips() {
     if (!BrowserChecks.hasTouch()) {
       this.tooltipRefs.filter(({ current }) => !!current).forEach(({ current }) => {
         const button = ReactDOM.findDOMNode(current);
@@ -211,7 +189,6 @@ class UsersIndex extends Component {
       });
     }
 
-    this.fabRefs = [];
     this.tooltipRefs = [];
   }
 

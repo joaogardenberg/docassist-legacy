@@ -41,58 +41,48 @@ class PatientsIndex extends Component {
   tableJSXWith(patients) {
     const rows = _.map(patients, patient => {
       const { id, name } = patient;
-      const refFab = React.createRef();
-      const refShow = React.createRef();
       const refEdit = React.createRef();
+      const refShow = React.createRef();
       const refDestroy = React.createRef();
 
-      this.fabRefs.push(refFab);
-      this.tooltipRefs.push(...[refShow, refEdit, refDestroy]);
+      // this.tooltipRefs.push(...[refShow, refEdit, refDestroy]);
 
       return (
-        <tr key={ `patients-${id}` }>
+        <tr
+          key={ `patient-${id}` }
+          data-position="top"
+          data-tooltip={ `Ver ${name}` }
+          ref={ refShow }
+          onClick={ event => this.onPatientClick(event, id) }
+        >
           <td>{ name }</td>
           <td className="actions">
-            <div className="fixed-action-btn" ref={ refFab }>
-              <button className="btn-floating btn-small bg-success waves-effect waves-light">
-                <i className="fas fa-ellipsis-h" />
-              </button>
-              <ul>
-                <li>
-                  <Link
-                    to={ `/pacientes/${id}/remover` }
-                    className="btn-floating btn-small bg-error waves-effect waves-light"
-                    data-position="top"
-                    data-tooltip="Remover"
-                    ref={ refDestroy }
-                  >
-                    <i className="fas fa-trash-alt" />
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to={ `/pacientes/${id}/editar` }
-                    className="btn-floating btn-small bg-warning waves-effect waves-light"
-                    data-position="top"
-                    data-tooltip="Editar"
-                    ref={ refEdit }
-                  >
-                    <i className="fas fa-pencil-alt" />
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to={ `/pacientes/${id}` }
-                    className="btn-floating btn-small bg-info waves-effect waves-light"
-                    data-position="top"
-                    data-tooltip="Ver"
-                    ref={ refShow }
-                  >
-                    <i className="fas fa-info"/>
-                  </Link>
-                </li>
-              </ul>
-            </div>
+            <ul>
+              <li>
+                <Link
+                  to={ `/pacientes/${id}/editar` }
+                  className="btn-floating btn-small bg-warning waves-effect waves-light"
+                  data-position="top"
+                  data-tooltip="Editar"
+                  ref={ refEdit }
+                  onClick={ event => event.stopPropagation() }
+                >
+                  <i className="fas fa-pencil-alt" />
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to={ `/pacientes/${id}/remover` }
+                  className="btn-floating btn-small bg-error waves-effect waves-light"
+                  data-position="top"
+                  data-tooltip="Remover"
+                  ref={ refDestroy }
+                  onClick={ event => event.stopPropagation() }
+                >
+                  <i className="fas fa-trash-alt" />
+                </Link>
+              </li>
+            </ul>
           </td>
         </tr>
       );
@@ -121,7 +111,6 @@ class PatientsIndex extends Component {
   constructor(props) {
     super(props);
 
-    this.fabRefs     = [];
     this.tooltipRefs = [];
     this.tableRef    = React.createRef();
     this.lastPage    = 0;
@@ -132,7 +121,7 @@ class PatientsIndex extends Component {
 
     if (Object.keys(this.props.patients).length > 0) {
       this.addDataTable();
-      this.initFabs();
+      // this.initTooltips();
     } else {
       this.props.fetchPatients();
     }
@@ -147,7 +136,7 @@ class PatientsIndex extends Component {
   componentWillUpdate(nextProps) {
     if (!_.isEqual(this.props.patients, nextProps.patients)) {
       this.removeDataTable();
-      this.removeFabs();
+      // this.removeTooltips();
     }
   }
 
@@ -158,7 +147,7 @@ class PatientsIndex extends Component {
       this.addDataTable();
     }
 
-    this.initFabs();
+    // this.initTooltips();
     this.mapSearchToParams();
 
     if (this.table && params.p && parseInt(this.table.page()) !== parseInt(params.p)) {
@@ -167,18 +156,15 @@ class PatientsIndex extends Component {
   }
 
   componentWillUnmount() {
-    this.removeFabs();
+    // this.removeTooltips();
     this.removeDataTable();
   }
 
-  initFabs() {
-    this.fabRefs.filter(({ current }) => !!current).forEach(({ current }) => {
-      window.M.FloatingActionButton.init(current, {
-        direction: 'left',
-        hoverEnabled: false
-      });
-    });
+  onPatientClick(event, id) {
+    this.props.history.push(`/pacientes/${id}`);
+  }
 
+  initTooltips() {
     if (!BrowserChecks.hasTouch()) {
       this.tooltipRefs.filter(({ current }) => !!current).forEach(({ current }) => {
         const button = ReactDOM.findDOMNode(current);
@@ -187,15 +173,7 @@ class PatientsIndex extends Component {
     }
   }
 
-  removeFabs() {
-    this.fabRefs.filter(({ current }) => !!current).forEach(({ current }) => {
-      const instance = window.M.FloatingActionButton.getInstance(current);
-
-      if (instance) {
-        instance.destroy();
-      }
-    });
-
+  removeTooltips() {
     if (!BrowserChecks.hasTouch()) {
       this.tooltipRefs.filter(({ current }) => !!current).forEach(({ current }) => {
         const button = ReactDOM.findDOMNode(current);
@@ -207,7 +185,6 @@ class PatientsIndex extends Component {
       });
     }
 
-    this.fabRefs = [];
     this.tooltipRefs = [];
   }
 
