@@ -1,18 +1,16 @@
-import React      from 'react';
-import * as Toast from '../../../../common/Toast';
+import React from 'react';
 
 const HeaderNavItem = props => {
-  const { iconClass, link, name } = props;
-  const onLogoutClick = () => Toast.info('Fazer action creator para realizar o logout.');
+  const { className, iconClass, link, callback } = props;
+  const onLogoutClick                            = callback;
 
   return (
-    <li className="nav-item">
+    <li className={ `nav-item${className ? ` ${className}` : ''}` }>
       <a
         className="nav-link waves-effect waves-light"
         href={ link }
         onClick={ onLogoutClick }
       >
-        <span className="name">{ name }</span>
         <i className={ iconClass } />
       </a>
     </li>
