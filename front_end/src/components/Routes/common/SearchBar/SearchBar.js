@@ -71,7 +71,8 @@ class SearchBar extends Component {
     this.mapSearchToParams();
 
     if (params.q) {
-      this.setState({ value: this.treatString(decodeURI(params.q.replace(/\+/g, '%20'))) });
+      const value = this.treatString(decodeURI(params.q.replace(/\+/g, '%20')));
+      this.setState({ value, active: true });
     }
   }
 
@@ -122,7 +123,7 @@ class SearchBar extends Component {
   }
 
   onSearchBarBlur() {
-    if (this.state.value === '') {
+    if (this.state.value === '' && this.state.active) {
       this.setState({ active: false });
     }
   }
