@@ -203,7 +203,7 @@ class UsersIndex extends Component {
         orderable: false
       }],
       destroy: true,
-      dom: 't<"row"<"col s12 m12 l4 xl3"i><"col s12 m12 l8 xl9"p>>',
+      dom: 't<"row"<"col s12 m12 l6"i><"col s12 m12 l6"p>>',
       language: {
         ...DataTable.language(),
         emptyTable: 'Não há nenhum usuário',
@@ -230,7 +230,7 @@ class UsersIndex extends Component {
   onTableDraw() {
     const { params, path } = this.props.match;
 
-    if (this.table && this.table.page() !== (parseInt(params.p) - 1)) {
+    if (this.table) {
       params.p = this.table.page() + 1;
 
       if (params.p !== this.lastPage) {

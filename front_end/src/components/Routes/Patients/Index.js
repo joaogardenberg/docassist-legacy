@@ -199,7 +199,7 @@ class PatientsIndex extends Component {
         orderable: false
       }],
       destroy: true,
-      dom: 't<"row"<"col s12 m12 l4 xl3"i><"col s12 m12 l8 xl9"p>>',
+      dom: 't<"row"<"col s12 m12 l6"i><"col s12 m12 l6"p>>',
       language: {
         ...DataTable.language(),
         emptyTable: 'Não há nenhum paciente',
