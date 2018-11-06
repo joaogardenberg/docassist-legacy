@@ -3,7 +3,7 @@ import { connect as Connect } from 'react-redux';
 import { closeSidebar }       from '../../../actions';
 
 const CurrentUserInfo = props => {
-  const { imageUrl, closeSidebar, sidebar } = props;
+  const { imageUrl, backgroundImageUrl, closeSidebar, sidebar } = props;
   const onUserClick = () => closeSidebar(sidebar.open);
   const onImageError = ({ target }) => target.src = 'https://pixelmator-pro.s3.amazonaws.com/community/avatar_empty@2x.png';
 
@@ -11,7 +11,7 @@ const CurrentUserInfo = props => {
     <a
       className="current-user-info waves-effect waves-light"
       href="/usuario"
-      style={{ backgroundImage: 'url(http://informationcommunicationtechnology.com/wp-content/uploads/2018/06/Blue-Sky-Background.jpg)' }}
+      style={{ backgroundImage: backgroundImageUrl ? `url(${backgroundImageUrl})` : 'url(https://placeimg.com/536/129/any)' }}
       onClick={ onUserClick }
     >
       <img
