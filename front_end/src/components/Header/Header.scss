@@ -57,12 +57,13 @@
     align-items: center;
     display: flex;
     font-weight: bold;
+    padding: 0 20px;
 
     i {
+      box-sizing: border-box;
       font-size: 1.15rem;
-      height: 1.15rem;
-      line-height: 1.15rem;
-      margin-left: 5px;
+      height: 100%;
+      line-height: inherit;
     }
   }
 }
