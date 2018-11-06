@@ -194,17 +194,17 @@ class Form extends Component {
   }
 
   initFormSelects() {
-    let { typeSelectRef, typeOfSelectRef, typeSelectLoaded }  = this;
-    let { typeOfSelectLoaded, props: { users } }              = this;
+    const { typeSelectLoaded, typeOfSelectLoaded, typeSelectRef } = this;
+    const { typeOfSelectRef, props: { users, shouldReset } }      = this;
 
-    if (!typeSelectLoaded && typeSelectRef.current) {
+    if (shouldReset || (!typeSelectLoaded && typeSelectRef.current)) {
       window.M.FormSelect.init(typeSelectRef.current);
-      typeSelectLoaded = true;
+      this.typeSelectLoaded = true;
     }
 
-    if (!typeOfSelectLoaded && typeOfSelectRef.current && Object.keys(users).length > 0) {
+    if (shouldReset || (!typeOfSelectLoaded && typeOfSelectRef.current && Object.keys(users).length > 0)) {
       window.M.FormSelect.init(typeOfSelectRef.current);
-      typeOfSelectLoaded = true;
+      this.typeOfSelectLoaded = true;
     }
 
     this.updateSelects();
