@@ -194,26 +194,32 @@ class Form extends Component {
   }
 
   initFormSelects() {
-    const { typeSelectRef, typeOfSelectRef, typeSelectLoaded } = this;
-    const { typeOfSelectLoaded, props: { users } }             = this;
+    let { typeSelectRef, typeOfSelectRef, typeSelectLoaded }  = this;
+    let { typeOfSelectLoaded, props: { users } }              = this;
 
     if (!typeSelectLoaded && typeSelectRef.current) {
       window.M.FormSelect.init(typeSelectRef.current);
-      this.typeSelectLoaded = true;
+      typeSelectLoaded = true;
     }
 
     if (!typeOfSelectLoaded && typeOfSelectRef.current && Object.keys(users).length > 0) {
       window.M.FormSelect.init(typeOfSelectRef.current);
-      this.typeOfSelectLoaded = true;
+      typeOfSelectLoaded = true;
     }
+
+    this.updateSelects();
   }
 
   onTypeChange({ target: { options } }) {
-    if (options[options.selectedIndex].value === '2') {
+    if (options[options.selectedIndex].value === '2' && this.state.showTypeOf === false) {
       this.setState({ showTypeOf: true });
-    } else {
+    } else if (options[options.selectedIndex].value !== '2' && this.state.showTypeOf === true) {
       this.setState({ showTypeOf: false });
     }
+  }
+
+  updateSelects() {
+    this.onTypeChange({ target: { options: this.typeSelectRef.current.options } });
   }
 }
 

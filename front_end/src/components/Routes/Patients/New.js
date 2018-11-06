@@ -7,12 +7,13 @@ import { createPatient }         from '../../../actions';
 import * as Regex             from '../../../checks/Regex';
 
 const INITIAL_STATE = {
-  shouldGoBack: false
+  shouldGoBack: false,
+  shouldReset: false
 }
 
 class PatientsNew extends Component {
   render() {
-    const { shouldGoBack } = this.state;
+    const { shouldGoBack, shouldReset } = this.state;
 
     return (
       <PageModal
@@ -21,7 +22,9 @@ class PatientsNew extends Component {
         footer={ this.modalFooter() }
         shouldGoBack={ shouldGoBack }
       >
-        <Form />
+        <Form
+          shouldReset={ shouldReset }
+        />
       </PageModal>
     );
   }
@@ -35,6 +38,10 @@ class PatientsNew extends Component {
   componentDidUpdate() {
     if (this.state.shouldGoBack) {
       this.setState({ shouldGoBack: false });
+    }
+
+    if (this.state.shouldReset) {
+      this.setState({ shouldReset: false });
     }
   }
 
@@ -76,6 +83,7 @@ class PatientsNew extends Component {
 
   clearForm() {
     this.props.reset();
+    this.setState({ shouldReset: true });
   }
 
   onSubmit(values) {

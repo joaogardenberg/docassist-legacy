@@ -7,12 +7,13 @@ import { loadUser, updateUser } from '../../../actions';
 import * as Regex               from '../../../checks/Regex';
 
 const INITIAL_STATE = {
-  shouldGoBack: false
+  shouldGoBack: false,
+  shouldReset: true
 }
 
 class UsersEdit extends Component {
   render() {
-    const { shouldGoBack } = this.state;
+    const { shouldGoBack, shouldReset } = this.state;
 
     return (
       <PageModal
@@ -21,7 +22,9 @@ class UsersEdit extends Component {
         footer={ this.modalFooter() }
         shouldGoBack={ shouldGoBack }
       >
-        <Form />
+        <Form
+          shouldReset={ shouldReset }
+        />
       </PageModal>
     );
   }
@@ -47,6 +50,10 @@ class UsersEdit extends Component {
 
     if (this.state.shouldGoBack) {
       this.setState({ shouldGoBack: false });
+    }
+
+    if (this.state.shouldReset) {
+      this.setState({ shouldReset: false });
     }
   }
 
@@ -88,6 +95,7 @@ class UsersEdit extends Component {
 
   clearForm() {
     this.props.reset();
+    this.setState({ shouldReset: true });
   }
 
   onSubmit(values) {
