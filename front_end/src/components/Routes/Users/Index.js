@@ -40,33 +40,40 @@ class UsersIndex extends Component {
 
   tableJSXWith(users) {
     const rows = _.map(users, user => {
-      const { id, name, username, typeName } = user;
-      const refEdit = React.createRef();
-      const refShow = React.createRef();
-      const refDestroy = React.createRef();
+      const { id, name, username, typeName, imageUrl } = user;
+      // const refEdit = React.createRef();
+      // const refShow = React.createRef();
+      // const refDestroy = React.createRef();
 
       // this.tooltipRefs.push(...[refShow, refEdit, refDestroy]);
 
       return (
         <tr
           key={ `user-${id}` }
-          data-position="top"
-          data-tooltip={ `Ver ${name}` }
-          ref={ refShow }
+          // data-position="top"
+          // data-tooltip={ `Ver ${name}` }
+          // ref={ refShow }
           onClick={ event => this.onUserClick(event, id) }
         >
+          <td className="photo">
+            <img
+              src={ imageUrl ? imageUrl : '' }
+              alt={ `Foto de ${name}` }
+              onError={ this.onImageError }
+            />
+          </td>
           <td>{ name }</td>
-          <td>{ username }</td>
-          <td>{ typeName }</td>
+          <td className="hide-on-med-and-down">{ username }</td>
+          <td className="hide-on-small-only">{ typeName }</td>
           <td className="actions">
             <ul>
               <li>
                 <Link
                   to={ `/usuarios/${id}/editar` }
                   className="btn-floating btn-small bg-warning waves-effect waves-light"
-                  data-position="left"
-                  data-tooltip="Editar"
-                  ref={ refEdit }
+                  // data-position="left"
+                  // data-tooltip="Editar"
+                  // ref={ refEdit }
                   onClick={ event => event.stopPropagation() }
                 >
                   <i className="fas fa-pencil-alt" />
@@ -76,9 +83,9 @@ class UsersIndex extends Component {
                 <Link
                   to={ `/usuarios/${id}/remover` }
                   className="btn-floating btn-small bg-error waves-effect waves-light"
-                  data-position="left"
-                  data-tooltip="Remover"
-                  ref={ refDestroy }
+                  // data-position="left"
+                  // data-tooltip="Remover"
+                  // ref={ refDestroy }
                   onClick={ event => event.stopPropagation() }
                 >
                   <i className="fas fa-trash-alt" />
@@ -98,9 +105,10 @@ class UsersIndex extends Component {
         <table ref={ this.tableRef }>
           <thead>
             <tr>
+              <th className="photo"></th>
               <th>Nome</th>
-              <th>Usuário</th>
-              <th>Tipo</th>
+              <th className="hide-on-med-and-down">Usuário</th>
+              <th className="hide-on-small-only">Tipo</th>
               <th className="actions"></th>
             </tr>
           </thead>
@@ -168,6 +176,10 @@ class UsersIndex extends Component {
     this.props.history.push(`/usuarios/${id}`);
   }
 
+  onImageError({ target }) {
+    target.src = 'https://pixelmator-pro.s3.amazonaws.com/community/avatar_empty@2x.png';
+  }
+
   initTooltips() {
     if (!BrowserChecks.hasTouch()) {
       this.tooltipRefs.filter(({ current }) => !!current).forEach(({ current }) => {
@@ -198,7 +210,7 @@ class UsersIndex extends Component {
     this.table = window.$(current).DataTable({
       autoWidth: false,
       columnDefs: [{
-        targets: 3,
+        targets: [0, 4],
         searchable: false,
         orderable: false
       }],
@@ -213,7 +225,7 @@ class UsersIndex extends Component {
         lengthMenu: '_MENU_ usuários por página',
         zeroRecords: 'Não foi encontrado nenhum usuário para esta pesquisa.',
       },
-      order: [[0, 'asc']],
+      order: [[1, 'asc']],
       pageLength: 10,
       pagingType: 'simple_numbers',
       drawCallback: this.onTableDraw.bind(this)

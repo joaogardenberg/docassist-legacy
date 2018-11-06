@@ -40,21 +40,28 @@ class PatientsIndex extends Component {
 
   tableJSXWith(patients) {
     const rows = _.map(patients, patient => {
-      const { id, name } = patient;
-      const refEdit = React.createRef();
-      const refShow = React.createRef();
-      const refDestroy = React.createRef();
+      const { id, name, imageUrl } = patient;
+      // const refEdit = React.createRef();
+      // const refShow = React.createRef();
+      // const refDestroy = React.createRef();
 
       // this.tooltipRefs.push(...[refShow, refEdit, refDestroy]);
 
       return (
         <tr
           key={ `patient-${id}` }
-          data-position="top"
-          data-tooltip={ `Ver ${name}` }
-          ref={ refShow }
+          // data-position="top"
+          // data-tooltip={ `Ver ${name}` }
+          // ref={ refShow }
           onClick={ event => this.onPatientClick(event, id) }
         >
+          <td className="photo">
+            <img
+              src={ imageUrl ? imageUrl : '' }
+              alt={ `Foto de ${name}` }
+              onError={ this.onImageError }
+            />
+          </td>
           <td>{ name }</td>
           <td className="actions">
             <ul>
@@ -62,9 +69,9 @@ class PatientsIndex extends Component {
                 <Link
                   to={ `/pacientes/${id}/editar` }
                   className="btn-floating btn-small bg-warning waves-effect waves-light"
-                  data-position="top"
-                  data-tooltip="Editar"
-                  ref={ refEdit }
+                  // data-position="top"
+                  // data-tooltip="Editar"
+                  // ref={ refEdit }
                   onClick={ event => event.stopPropagation() }
                 >
                   <i className="fas fa-pencil-alt" />
@@ -74,9 +81,9 @@ class PatientsIndex extends Component {
                 <Link
                   to={ `/pacientes/${id}/remover` }
                   className="btn-floating btn-small bg-error waves-effect waves-light"
-                  data-position="top"
-                  data-tooltip="Remover"
-                  ref={ refDestroy }
+                  // data-position="top"
+                  // data-tooltip="Remover"
+                  // ref={ refDestroy }
                   onClick={ event => event.stopPropagation() }
                 >
                   <i className="fas fa-trash-alt" />
@@ -96,6 +103,7 @@ class PatientsIndex extends Component {
         <table ref={ this.tableRef }>
           <thead>
             <tr>
+              <th className="photo"></th>
               <th>Nome</th>
               <th className="actions"></th>
             </tr>
@@ -164,6 +172,10 @@ class PatientsIndex extends Component {
     this.props.history.push(`/pacientes/${id}`);
   }
 
+  onImageError({ target }) {
+    target.src = 'https://pixelmator-pro.s3.amazonaws.com/community/avatar_empty@2x.png';
+  }
+
   initTooltips() {
     if (!BrowserChecks.hasTouch()) {
       this.tooltipRefs.filter(({ current }) => !!current).forEach(({ current }) => {
@@ -194,7 +206,7 @@ class PatientsIndex extends Component {
     this.table = window.$(current).DataTable({
       autoWidth: false,
       columnDefs: [{
-        targets: 1,
+        targets: [0, 2],
         searchable: false,
         orderable: false
       }],
@@ -209,7 +221,7 @@ class PatientsIndex extends Component {
         lengthMenu: '_MENU_ pacientes por página',
         zeroRecords: 'Não foi encontrado nenhum paciente para esta pesquisa.',
       },
-      order: [[0, 'asc']],
+      order: [[1, 'asc']],
       pageLength: 10,
       pagingType: 'simple_numbers',
       drawCallback: this.onTableDraw.bind(this)
