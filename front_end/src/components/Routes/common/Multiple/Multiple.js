@@ -10,7 +10,6 @@ const Multiple = props => {
 
   temp.push(
     <div key="temp">
-      
     </div>
   );
 
