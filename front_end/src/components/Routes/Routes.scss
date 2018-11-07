@@ -224,6 +224,66 @@
   }
 }
 
+ul[id^="select-options"] {
+  max-height: 300px;
+  
+  li span {
+    color: $gradient-initial-color;
+  }
+}
+
+.datepicker-modal {
+  top: 104px !important;
+  left: calc(120px + 50%);
+  right: initial;
+  transform: scaleX(1) scaleY(1) translateX(-50%) !important;
+  width: 625px;
+
+  .datepicker-date-display {
+    background-color: $gradient-initial-color;
+  }
+
+  .datepicker-controls {
+    .month-prev:focus, .month-next:focus {
+      background-color: transparent;
+    }
+
+    .selects-container {
+      .select-wrapper {
+        &:not(.select-month) input {
+          max-width: 50px;
+        }
+
+        input {
+          width: 90px;
+        }
+      }
+    }
+  }
+
+  .datepicker-table-wrapper {
+    button:focus {
+      background-color: $gradient-initial-transp-color;
+    }
+
+    .is-selected button {
+      background-color: $gradient-initial-color;
+    }
+  }
+
+  .confirmation-btns {
+    button {
+      color: $gradient-initial-color;
+    }
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .datepicker-modal {
+    left: calc(29px + 50%);
+  }
+}
+
 @media only screen and (max-width: 992px) {
   .page table + .row {
     .dataTables_info {
@@ -234,6 +294,12 @@
     .dataTables_paginate {
       text-align: center;
     }
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .datepicker-modal {
+    left: 50%;
   }
 }
 
@@ -251,5 +317,9 @@
         left: 10px;
       }
     }
+  }
+
+  .datepicker-modal {
+    top: 76px !important;
   }
 }
