@@ -18,29 +18,10 @@ class Form extends Component {
             component={ this.renderField }
           />
           <Field
-            id="occupation"
-            name="occupation"
-            type="text"
-            label="Profissão"
-            className="col l6 s12"
-            autoComplete="off"
-            component={ this.renderField }
-          />
-          <Field
-            id="date_of_birth"
-            name="date_of_birth"
-            type="text"
-            label="Data de nascimento"
-            className="col l6 s12"
-            autoComplete="off"
-            reference={ this.dateOfBirthInputRef }
-            component={ this.renderField }
-          />
-          <Field
             id="gender"
             name="gender"
             label="Gênero"
-            className="col l6 s12"
+            className="col xl3 l4 m6 s12"
             reference={ this.genderSelectRef }
             component={ this.renderSelect }
           >
@@ -51,7 +32,7 @@ class Form extends Component {
             id="marital_status"
             name="marital_status"
             label="Estado civil"
-            className="col l6 s12"
+            className="col xl3 l4 m6 s12"
             reference={ this.maritalStatusSelectRef }
             component={ this.renderSelect }
           >
@@ -61,11 +42,30 @@ class Form extends Component {
             <option key="4" value="4">Viúvo(a)</option>
           </Field>
           <Field
+            id="date_of_birth"
+            name="date_of_birth"
+            type="text"
+            label="Data de nascimento"
+            className="col xl3 l4 m6 s12"
+            autoComplete="off"
+            reference={ this.dateOfBirthInputRef }
+            component={ this.renderField }
+          />
+          <Field
+            id="occupation"
+            name="occupation"
+            type="text"
+            label="Profissão"
+            className="col xl3 l4 m6 s12"
+            autoComplete="off"
+            component={ this.renderField }
+          />
+          <Field
             id="cpf"
             name="cpf"
             type="text"
             label="CPF"
-            className="col l6 s12"
+            className="col xl3 l4 m6 s12"
             autoComplete="off"
             component={ this.renderField }
           />
@@ -74,7 +74,7 @@ class Form extends Component {
             name="rg"
             type="text"
             label="RG"
-            className="col l6 s12"
+            className="col xl3 l4 m6 s12"
             autoComplete="off"
             component={ this.renderField }
           />
@@ -82,8 +82,8 @@ class Form extends Component {
             id="rg_issuing_agency"
             name="rg_issuing_agency"
             type="text"
-            label="Órgão expedidor"
-            className="col l6 s12"
+            label="Órgão emissor"
+            className="col xl6 l4 s12"
             autoComplete="off"
             component={ this.renderField }
           />
@@ -92,7 +92,7 @@ class Form extends Component {
             name="nationality"
             type="text"
             label="Nacionalidade"
-            className="col l6 s12"
+            className="col xl3 l4 m6 s12"
             autoComplete="off"
             component={ this.renderField }
           />
@@ -101,7 +101,7 @@ class Form extends Component {
             name="place_of_birth"
             type="text"
             label="Naturalidade"
-            className="col l6 s12"
+            className="col xl3 l4 m6 s12"
             autoComplete="off"
             component={ this.renderField }
           />

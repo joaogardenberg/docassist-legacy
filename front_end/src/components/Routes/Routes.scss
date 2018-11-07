@@ -226,7 +226,7 @@
 
 ul[id^="select-options"] {
   max-height: 300px;
-  
+
   li span {
     color: $gradient-initial-color;
   }
@@ -236,7 +236,7 @@ ul[id^="select-options"] {
   top: 104px !important;
   left: calc(120px + 50%);
   right: initial;
-  transform: scaleX(1) scaleY(1) translateX(-50%) !important;
+  transform: translateX(-50%) !important;
   width: 625px;
 
   .datepicker-date-display {
@@ -268,6 +268,10 @@ ul[id^="select-options"] {
 
     .is-selected button {
       background-color: $gradient-initial-color;
+    }
+
+    .is-today:not(.is-selected) button {
+      color: $gradient-initial-color;
     }
   }
 
