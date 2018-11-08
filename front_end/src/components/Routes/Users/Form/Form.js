@@ -173,6 +173,7 @@ class Form extends Component {
   componentDidUpdate() {
     this.initFormSelects();
     window.M.updateTextFields();
+    this.updateFields();
   }
 
   initFormSelects() {
@@ -188,8 +189,6 @@ class Form extends Component {
       window.M.FormSelect.init(typeOfSelectRef.current);
       this.typeOfSelectLoaded = true;
     }
-
-    this.updateSelects();
   }
 
   onTypeChange({ target: { options } }) {
@@ -200,7 +199,7 @@ class Form extends Component {
     }
   }
 
-  updateSelects() {
+  updateFields() {
     this.onTypeChange({ target: { options: this.typeSelectRef.current.options } });
   }
 }
