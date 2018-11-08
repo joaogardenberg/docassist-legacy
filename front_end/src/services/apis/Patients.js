@@ -5,9 +5,38 @@ export function fetchPatients() {
       const random = 50;
 
       for (let i = 1; i <= random; i++) {
+        let random = Math.floor(Math.random() * 101) + 1;
+        const gender = random > 50 ? '1' : '2';
+        random = Math.floor(Math.random() * 101) + 1;
+        const maritalStatus = random > 25 ? random > 50 ? random > 75 ? '4' : '3' : '2' : '1';
+        random = Math.floor(Math.random() * 101) + 1;
+        const dateOfBirth = `01/01/${new Date().getFullYear() - random}`;
+        const occupation = 'Paciente';
+        const cpf = '111.111.111-11';
+        random = Math.floor(Math.random() * 101) + 1;
+        const rg = random > 50 ? '12345678' : '';
+        const rgIssuingAgency = random > 50 ? 'DETRAN' : '';
+        random = Math.floor(Math.random() * 101) + 1;
+        const nationality = random > 50 ? '1' : 'other';
+        const nationalityOther = random > 50 ? '' : 'Holanda';
+        random = Math.floor(Math.random() * 101) + 1;
+        const placeOfBirth = random > 50 ? 'rio_de_janeiro' : 'other';
+        const placeOfBirthOther = random > 50 ? '' : 'Amsterdam';
+
         objects.push({
+          gender,
+          maritalStatus,
+          dateOfBirth,
+          occupation,
+          cpf,
+          rg,
+          rgIssuingAgency,
+          nationality,
+          nationalityOther,
+          placeOfBirth,
+          placeOfBirthOther,
           id: `id_paciente_${i}`,
-          name: `Paciente ${i}`
+          name: `Paciente ${i}`,
         });
       }
 
