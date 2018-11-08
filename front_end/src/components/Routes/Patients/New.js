@@ -133,7 +133,10 @@ function validate(values) {
 PatientsNew = reduxForm({
   validate,
   initialValues: {
-    type: '1'
+    gender: '1',
+    maritalStatus: '1',
+    nationality: '1',
+    placeOfBirth: 'rio_de_janeiro'
   },
   enableReinitialize: true,
   form: 'PatientsNewForm'

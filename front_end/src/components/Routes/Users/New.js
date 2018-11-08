@@ -238,8 +238,7 @@ function validate(values) {
 UsersNew = reduxForm({
   validate,
   initialValues: {
-    type: '1',
-    typeOf: []
+    type: '1'
   },
   enableReinitialize: true,
   form: 'UsersNewForm'
