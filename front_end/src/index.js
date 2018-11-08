@@ -22,7 +22,7 @@ window.M = require('materialize-css');
 // Add jQuery to the variables window.jquery, window.jQuery and window.$
 window.jquery = window.jQuery = window.$ = require('jquery');
 
-// Add DataTables to the variable window.$.DataTable
+// Add DataTables to the variables window.jquery.DataTable, window.jQuery.DataTable and window.$.DataTable
 window.$.DataTable = require('datatables');
 
 // DataTables changes
@@ -31,6 +31,9 @@ window.$.fn.DataTable.ext.classes = {
   ...window.$.fn.DataTable.ext.classes,
   sPageButton: 'btn-flat waves-effect'
 }
+
+// Add Inputmask to the variables window.jquery.inputmask, window.jQuery.inputmask and window.$.inputmask
+window.Inputmask = require('inputmask');
 
 // Add Open Sans font
 Fonts.add({
