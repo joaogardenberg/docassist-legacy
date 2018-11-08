@@ -29,7 +29,7 @@ const Routes = () => {
       {/* Patients Destroy */}
       <Route path="/pacientes/:id/remover" render={ props => <Multiple components={ [PatientsIndex, PatientsDestroy] } { ...props } /> } />
       {/* Patients Show */}
-      <Route path="/pacientes/:id" render={ props => <Multiple components={ [PatientsIndex, PatientsShow] } { ...props } /> } />
+      <Route path="/pacientes/:id" render={ props => <Multiple components={ [PatientsShow] } { ...props } /> } />
       {/* Patients Index */}
       <Route path="/pacientes" render={ props => <Multiple components={ [PatientsIndex] } { ...props } /> } />
       {/* Users New */}
