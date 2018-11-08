@@ -3,8 +3,47 @@ import { Field }              from 'redux-form';
 import { connect as Connect } from 'react-redux';
 import * as Datepicker        from '../../../../common/Datepicker';
 
+const STATES = [
+  'Acre',
+  'Alagoas',
+  'Amapá',
+  'Amazonas',
+  'Bahia',
+  'Ceará',
+  'Distrito Federal',
+  'Espírito Santo',
+  'Goiás',
+  'Maranhão',
+  'Mato Grosso',
+  'Mato Grosso do Sul',
+  'Minas Gerais',
+  'Pará',
+  'Paraíba',
+  'Paraná',
+  'Pernambuco',
+  'Piauí',
+  'Rio de Janeiro',
+  'Rio Grande do Norte',
+  'Rio Grande do Sul',
+  'Rondônia',
+  'Roraima',
+  'Santa Catarina',
+  'São Paulo',
+  'Sergipe',
+  'Tocantins'
+];
+
+const INITIAL_STATE = {
+  showRgIssuingAgency: false,
+  showNationalityOther: false,
+  showPlaceOfBirthOther: false
+}
+
 class Form extends Component {
   render() {
+    const { showNationalityOther, showPlaceOfBirthOther } = this.state;
+    const { showRgIssuingAgency }                         = this.state;
+
     return (
       <form>
         <div className="row">
@@ -29,8 +68,8 @@ class Form extends Component {
             <option key="2" value="2">Feminino</option>
           </Field>
           <Field
-            id="marital_status"
-            name="marital_status"
+            id="maritalStatus"
+            name="maritalStatus"
             label="Estado civil"
             className="col xl3 l4 m6 s12"
             reference={ this.maritalStatusSelectRef }
@@ -42,8 +81,8 @@ class Form extends Component {
             <option key="4" value="4">Viúvo(a)</option>
           </Field>
           <Field
-            id="date_of_birth"
-            name="date_of_birth"
+            id="dateOfBirth"
+            name="dateOfBirth"
             type="text"
             label="Data de nascimento"
             className="col xl3 l4 m6 s12"
@@ -56,7 +95,7 @@ class Form extends Component {
             name="occupation"
             type="text"
             label="Profissão"
-            className="col xl3 l4 m6 s12"
+            className="col xl3 l8 m6 s12"
             autoComplete="off"
             component={ this.renderField }
           />
@@ -65,8 +104,9 @@ class Form extends Component {
             name="cpf"
             type="text"
             label="CPF"
-            className="col xl3 l4 m6 s12"
+            className="col xl4 l4 m6 s12"
             autoComplete="off"
+            reference={ this.cpfInputRef }
             component={ this.renderField }
           />
           <Field
@@ -74,36 +114,64 @@ class Form extends Component {
             name="rg"
             type="text"
             label="RG"
-            className="col xl3 l4 m6 s12"
+            className={ showRgIssuingAgency ? 'col xl4 l3 m6 s12' : 'col xl8 l6 m6 s12' }
             autoComplete="off"
+            reference={ this.rgInputRef }
             component={ this.renderField }
+            onChange={ event => this.onRgChange(event) }
           />
           <Field
-            id="rg_issuing_agency"
-            name="rg_issuing_agency"
+            id="rgIssuingAgency"
+            name="rgIssuingAgency"
             type="text"
             label="Órgão emissor"
-            className="col xl6 l4 s12"
+            className="col xl4 l3 s12"
             autoComplete="off"
             component={ this.renderField }
+            style={{ display: showRgIssuingAgency ? 'block' : 'none' }}
           />
           <Field
             id="nationality"
             name="nationality"
-            type="text"
             label="Nacionalidade"
-            className="col xl3 l4 m6 s12"
+            className={ showNationalityOther ? 'col l3 m6 s12' : 'col l6 s12' }
+            reference={ this.nationalitySelectRef }
+            component={ this.renderSelect }
+            onChange={ event => this.onNationalityChange(event) }
+          >
+            <option key="1" value="1">Brasileira</option>
+            <option key="other" value="other">Outra</option>
+          </Field>
+          <Field
+            id="nationalityOther"
+            name="nationalityOther"
+            type="text"
+            label="Qual nacionalidade?"
+            className="col l3 m6 s12"
             autoComplete="off"
             component={ this.renderField }
+            style={{ display: showNationalityOther ? 'block' : 'none' }}
           />
           <Field
-            id="place_of_birth"
-            name="place_of_birth"
-            type="text"
+            id="placeOfBirth"
+            name="placeOfBirth"
             label="Naturalidade"
-            className="col xl3 l4 m6 s12"
+            className={ showPlaceOfBirthOther ? 'col l3 m6 s12' : 'col l6 s12' }
+            reference={ this.placeOfBirthSelectRef }
+            component={ this.renderSelect }
+            onChange={ event => this.onPlaceOfBirthChange(event) }
+          >
+            { this.renderPlaceOfBirthOptions() }
+          </Field>
+          <Field
+            id="placeOfBirthOther"
+            name="placeOfBirthOther"
+            type="text"
+            label="Qual naturalidade?"
+            className="col l3 m6 s12"
             autoComplete="off"
             component={ this.renderField }
+            style={{ display: showPlaceOfBirthOther ? 'block' : 'none' }}
           />
         </div>
       </form>
@@ -111,13 +179,18 @@ class Form extends Component {
   }
 
   renderField(field) {
-    const { input, id, type, label, className, disabled, reference } = field;
-    const { meta: { touched, active, error } }            = field;
+    const { input, id, type, label, className, disabled } = field;
+    const { reference, style }                            = field;
+    const { touched, active, error }                      = field.meta;
+
     const errorMessage = touched && !active ? error : '';
-    const valid = touched && !active && !errorMessage;
+    const valid        = touched && !active && !errorMessage;
 
     return (
-      <div className={ `input-field${className ? ` ${className}` : ''}${errorMessage ? ' invalid' : ''}${valid ? ' valid' : ''}` }>
+      <div
+        className={ `input-field${className ? ` ${className}` : ''}${errorMessage ? ' invalid' : ''}${valid ? ' valid' : ''}` }
+        style={ style }
+      >
         <input
           { ...input }
           id={ id }
@@ -132,13 +205,18 @@ class Form extends Component {
   }
 
   renderSelect(field) {
-    const { input, id, label, className, children, reference }     = field;
-    const { disabled, multiple, meta: { touched, active, error } } = field;
+    const { input, id, label, className, children, reference } = field;
+    const { disabled, multiple, style }                        = field;
+    const { touched, active, error }                           = field.meta;
+
     const errorMessage = touched && !active ? error : '';
-    const valid = touched && !active && !errorMessage;
+    const valid        = touched && !active && !errorMessage;
 
     return (
-      <div className={ `input-field${className ? ` ${className}` : ''}${errorMessage ? ' invalid' : ''}${valid ? ' valid' : ''}` }>
+      <div
+        className={ `input-field${className ? ` ${className}` : ''}${errorMessage ? ' invalid' : ''}${valid ? ' valid' : ''}` }
+        style={ style }
+      >
         <select
           { ...input }
           id={ id }
@@ -155,25 +233,48 @@ class Form extends Component {
     );
   }
 
+  renderPlaceOfBirthOptions() {
+    const options = STATES.map((state, index) => {
+      const value = this.tokenize(state);
+      return <option key={ value } value={ value } >{ state }</option>;
+    });
+
+    options.push(<option key="other" value="other">Outra</option>);
+
+    return options;
+  }
+
   constructor(props) {
     super(props);
 
+    this.state = INITIAL_STATE;
     this.dateOfBirthInputRef = React.createRef();
+    this.cpfInputRef = React.createRef();
+    this.rgInputRef = React.createRef();
     this.genderSelectRef = React.createRef();
     this.maritalStatusSelectRef = React.createRef();
+    this.nationalitySelectRef = React.createRef();
+    this.placeOfBirthSelectRef = React.createRef();
+    this.dateOfBirthMaskLoaded = false;
     this.dateOfBirthPickerLoaded = false;
+    this.cpfMaskLoaded = false;
     this.genderSelectLoaded = false;
     this.maritalStatusSelectLoaded = false;
+    this.nationalitySelectLoaded = false;
+    this.placeOfBirthSelectLoaded = false;
   }
 
   componentDidMount() {
+    this.initFormMasks();
     this.initFormPickers();
     this.initFormSelects();
+
   }
 
   componentDidUpdate() {
     this.initFormSelects();
     window.M.updateTextFields();
+    this.updateFields();
   }
 
   onDatepickerOpen() {
@@ -189,6 +290,54 @@ class Form extends Component {
   onDatepickerDraw() {
     this.fixDateDisplay();
     this.fixYearsSelect();
+  }
+
+  onNationalityChange({ target: { options } }) {
+    if (options[options.selectedIndex].value === 'other' && this.state.showNationalityOther === false) {
+      this.setState({ showNationalityOther: true });
+    } else if (options[options.selectedIndex].value !== 'other' && this.state.showNationalityOther === true) {
+      this.setState({ showNationalityOther: false });
+    }
+  }
+
+  onPlaceOfBirthChange({ target: { options } }) {
+    if (options[options.selectedIndex].value === 'other' && this.state.showPlaceOfBirthOther === false) {
+      this.setState({ showPlaceOfBirthOther: true });
+    } else if (options[options.selectedIndex].value !== 'other' && this.state.showPlaceOfBirthOther === true) {
+      this.setState({ showPlaceOfBirthOther: false });
+    }
+  }
+
+  onRgChange({ target: { value } }) {
+    if (value && this.state.showRgIssuingAgency === false) {
+      this.setState({ showRgIssuingAgency: true });
+    } else if (!value && this.state.showRgIssuingAgency === true) {
+      this.setState({ showRgIssuingAgency: false });
+    }
+  }
+
+  initFormMasks() {
+    const { dateOfBirthMaskLoaded, cpfMaskLoaded } = this;
+    const { dateOfBirthInputRef, cpfInputRef }     = this;
+    const { shouldReset }                          = this.props;
+
+    if (shouldReset || (!dateOfBirthMaskLoaded && dateOfBirthInputRef.current)) {
+      window.Inputmask({
+        mask: '99/99/9999',
+        showMaskOnHover: false
+      }).mask(dateOfBirthInputRef.current);
+
+      this.dateOfBirthMaskLoaded = true;
+    }
+
+    if (shouldReset || (!cpfMaskLoaded && cpfInputRef.current)) {
+      window.Inputmask({
+        mask: '999.999.999-99',
+        showMaskOnHover: false
+      }).mask(cpfInputRef.current);
+
+      this.cpfMaskLoaded = true;
+    }
   }
 
   initFormPickers() {
@@ -215,9 +364,11 @@ class Form extends Component {
   }
 
   initFormSelects() {
-    const { genderSelectLoaded, maritalStatusSelectLoaded } = this;
-    const { genderSelectRef, maritalStatusSelectRef }       = this;
-    const { shouldReset }                                   = this.props;
+    const { genderSelectLoaded, maritalStatusSelectLoaded }     = this;
+    const { nationalitySelectLoaded, placeOfBirthSelectLoaded } = this;
+    const { genderSelectRef, maritalStatusSelectRef }           = this;
+    const { nationalitySelectRef, placeOfBirthSelectRef }       = this;
+    const { shouldReset }                                       = this.props;
 
     if (shouldReset || (!genderSelectLoaded && genderSelectRef.current)) {
       window.M.FormSelect.init(genderSelectRef.current);
@@ -228,6 +379,22 @@ class Form extends Component {
       window.M.FormSelect.init(maritalStatusSelectRef.current);
       this.maritalStatusSelectLoaded = true;
     }
+
+    if (shouldReset || (!nationalitySelectLoaded && nationalitySelectRef.current)) {
+      window.M.FormSelect.init(nationalitySelectRef.current);
+      this.nationalitySelectLoaded = true;
+    }
+
+    if (shouldReset || (!placeOfBirthSelectLoaded && placeOfBirthSelectRef.current)) {
+      window.M.FormSelect.init(placeOfBirthSelectRef.current);
+      this.placeOfBirthSelectLoaded = true;
+    }
+  }
+
+  updateFields() {
+    this.onRgChange({ target: { value: this.rgInputRef.current.value } });
+    this.onNationalityChange({ target: { options: this.nationalitySelectRef.current.options } });
+    this.onPlaceOfBirthChange({ target: { options: this.placeOfBirthSelectRef.current.options } });
   }
 
   fixDateDisplay() {
@@ -261,6 +428,20 @@ class Form extends Component {
 
       window.M.FormSelect.init(select);
     }
+  }
+
+  tokenize(string) {
+    return string
+             .toLowerCase()
+             .replace(/[áàãâä]/g, 'a')
+             .replace(/[éèẽê]/g, 'e')
+             .replace(/[íìĩî]/g, 'i')
+             .replace(/[óòõôö]/g, 'o')
+             .replace(/[úùũûü]/g, 'u')
+             .replace(/[ç]/g, 'c')
+             .replace(/[ñ]/g, 'n')
+             .replace(/[^a-z0-9\s]/g, '')
+             .replace(/\s+/g, '_');
   }
 }
 
