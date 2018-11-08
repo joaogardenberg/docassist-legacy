@@ -2,30 +2,10 @@ import React, { Component }   from 'react';
 import { Field }              from 'redux-form';
 import { connect as Connect } from 'react-redux';
 import _                      from 'lodash';
-import posed                  from 'react-pose';
 
 const INITIAL_STATE = {
   showTypeOf: false
 }
-
-const Container = posed.div({
-  transition: { duration: 200 },
-  inactive: {
-    height: 0,
-    opacity: 0,
-    width: 0
-  },
-  active: {
-    applyAtStart: {
-      height: 0,
-      opacity: 0,
-      width: 0
-    },
-    height: 'auto',
-    opacity: 1,
-    width: '100%'
-  }
-});
 
 class Form extends Component {
   render() {
