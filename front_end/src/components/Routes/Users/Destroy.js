@@ -51,13 +51,13 @@ class UsersDestroy extends Component {
           <i className="fas fa-trash-alt left" />
           Remover
         </button>
-        <button
+        {/*<button
           className="btn-flat waves-effect"
           onClick={ this.onBackButtonClick.bind(this) }
         >
           <i className="fas fa-arrow-left left" />
           Voltar
-        </button>
+        </button>*/}
       </div>
     );
   }

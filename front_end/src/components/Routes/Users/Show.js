@@ -64,13 +64,13 @@ class UsersShow extends Component {
           <i className="fas fa-pencil-alt left" />
           Editar
         </button>
-        <button
+        {/*<button
           className="btn-flat waves-effect"
           onClick={ this.onBackButtonClick.bind(this) }
         >
           <i className="fas fa-arrow-left left" />
           Voltar
-        </button>
+        </button>*/}
       </div>
     );
   }
