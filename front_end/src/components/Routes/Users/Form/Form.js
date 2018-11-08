@@ -104,13 +104,17 @@ class Form extends Component {
   }
 
   renderField(field) {
-    const { input, id, type, label, className, disabled } = field;
-    const { meta: { touched, active, error } }            = field;
+    const { input, id, type, label, className, disabled, style } = field;
+    const { touched, active, error }                             = field.meta;
+
     const errorMessage = touched && !active ? error : '';
-    const valid = touched && !active && !errorMessage;
+    const valid        = touched && !active && !errorMessage;
 
     return (
-      <div className={ `input-field${className ? ` ${className}` : ''}${errorMessage ? ' invalid' : ''}${valid ? ' valid' : ''}` }>
+      <div
+        className={ `input-field${className ? ` ${className}` : ''}${errorMessage ? ' invalid' : ''}${valid ? ' valid' : ''}` }
+        style={ style }
+      >
         <input
           { ...input }
           id={ id }
@@ -125,12 +129,17 @@ class Form extends Component {
 
   renderSelect(field) {
     const { input, id, label, className, children, reference }     = field;
-    const { disabled, multiple, meta: { touched, active, error } } = field;
+    const { disabled, multiple, style }                            = field;
+    const { touched, active, error }                               = field.meta;
+
     const errorMessage = touched && !active ? error : '';
-    const valid = touched && !active && !errorMessage;
+    const valid        = touched && !active && !errorMessage;
 
     return (
-      <div className={ `input-field${className ? ` ${className}` : ''}${errorMessage ? ' invalid' : ''}${valid ? ' valid' : ''}` }>
+      <div
+        className={ `input-field${className ? ` ${className}` : ''}${errorMessage ? ' invalid' : ''}${valid ? ' valid' : ''}` }
+        style={ style }
+      >
         <select
           { ...input }
           id={ id }
