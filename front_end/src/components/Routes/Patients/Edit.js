@@ -127,9 +127,177 @@ function validateName(name) {
   return null;
 }
 
+function validateGender(gender) {
+  if (!['1', '2'].includes(gender)) {
+    return 'Opção inválida. Favor recarregar a página';
+  }
+
+  return null;
+}
+
+function validateMaritalStatus(maritalStatus) {
+  if (!['1', '2', '3', '4'].includes(maritalStatus)) {
+    return 'Opção inválida. Favor recarregar a página';
+  }
+
+  return null;
+}
+
+function validateDateOfBirth(dateOfBirth) {
+  if (!dateOfBirth) {
+    return 'Campo obrigatório';
+  }
+
+  if (!dateOfBirth.match(Regex.DateOfBirth)) {
+    return 'Data de nascimento inválida';
+  }
+
+  const date = Date.parse(dateOfBirth);
+
+  if (!date || date > new Date().getTime()) {
+    return 'Data de nascimento inválida';
+  }
+
+  return null;
+}
+
+function validateOccupation(occupation) {
+  return null;
+}
+
+function validateCpf(cpf) {
+  if (cpf) {
+    if (!cpf.match(Regex.CPF)) {
+      return 'CPF inválido';
+    }
+
+    cpf = cpf.replace(/\./g, '').replace(/-/g, '');
+
+    let error = false;
+
+    let firstDigit = cpf.substr(0, cpf.length - 2).split('').reduce((acc, curr, i) => {
+      acc += parseInt(curr) * (10 - i);
+      return acc;
+    }, 0) * 10 % 11;
+
+    if (firstDigit === 10) {
+      firstDigit = 0;
+    }
+
+    if (firstDigit !== parseInt(cpf[9])) {
+      error = true;
+    }
+
+    if (!error) {
+      let secondDigit = cpf.substr(0, cpf.length - 1).split('').reduce((acc, curr, i) => {
+        acc += parseInt(curr) * (11 - i)
+        return acc;
+      }, 0) * 10 % 11;
+
+      if (secondDigit === 10) {
+        secondDigit = 0;
+      }
+
+      if (secondDigit !== parseInt(cpf[10])) {
+        error = true;
+      }
+    }
+
+    if (error) {
+      return 'CPF inválido';
+    }
+  }
+
+  return null;
+}
+
+function validateRg(rg) {
+  return null;
+}
+
+function validateRgIssuingAgency(rg, rgIssuingAgency) {
+  if (rg && !rgIssuingAgency) {
+    return 'Campo obrigatório';
+  }
+
+  return null;
+}
+
+function validateNationality(nationality) {
+  if (!['1', 'other'].includes(nationality)) {
+    return 'Opção inválida. Favor recarregar a página';
+  }
+
+  return null;
+}
+
+function validateNationalityOther(nationality, nationalityOther) {
+  if (nationality === 'other' && !nationalityOther) {
+    return 'Campo obrigatório';
+  }
+
+  return null;
+}
+
+function validatePlaceOfBirth(placeOfBirth) {
+  if (![
+    'acre',
+    'alagoas',
+    'amapa',
+    'amazonas',
+    'bahia',
+    'ceara',
+    'distrito_federal',
+    'espirito_santo',
+    'goias',
+    'maranhao',
+    'mato_grosso',
+    'mato_grosso_do_sul',
+    'minas_gerais',
+    'para',
+    'paraiba',
+    'parana',
+    'pernambuco',
+    'piaui',
+    'rio_de_janeiro',
+    'rio_grande_do_norte',
+    'rio_grande_do_sul',
+    'rondonia',
+    'roraima',
+    'santa_catarina',
+    'sao_paulo',
+    'sergipe',
+    'tocantins',
+    'other'
+  ].includes(placeOfBirth)) {
+    return 'Opção inválida. Favor recarregar a página';
+  }
+
+  return null;
+}
+
+function validatePlaceOfBirthOther(placeOfBirth, placeOfBirthOther) {
+  if (placeOfBirth === 'other' && !placeOfBirthOther) {
+    return 'Campo obrigatório';
+  }
+
+  return null;
+}
+
 function validate(values) {
   const errors = {
     name: validateName(values['name']),
+    gender: validateGender(values['gender']),
+    maritalStatus: validateMaritalStatus(values['maritalStatus']),
+    dateOfBirth: validateDateOfBirth(values['dateOfBirth']),
+    occupation: validateOccupation(values['occupation']),
+    cpf: validateCpf(values['cpf']),
+    rg: validateRg(values['rg']),
+    rgIssuingAgency: validateRgIssuingAgency(values['rg'], values['rgIssuingAgency']),
+    nationality: validateNationality(values['nationality']),
+    nationalityOther: validateNationalityOther(values['nationality'], values['nationalityOther']),
+    placeOfBirth: validatePlaceOfBirth(values['placeOfBirth']),
+    placeOfBirthOther: validatePlaceOfBirthOther(values['placeOfBirth'], values['placeOfBirthOther'])
   };
 
   const ret = Object.keys(errors).reduce((final, key) => {
