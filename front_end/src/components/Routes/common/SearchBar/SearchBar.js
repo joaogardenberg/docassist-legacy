@@ -104,7 +104,7 @@ class SearchBar extends Component {
 
         paramsArray = paramsArray.filter(i => !!i);
 
-        this.props.history.push(`${path}?${paramsArray.join('&')}`);
+        this.props.history.replace(`${path}?${paramsArray.join('&')}`);
       }
 
       this.props.callback(value);

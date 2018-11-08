@@ -257,7 +257,7 @@ class UsersIndex extends Component {
         paramsArray = paramsArray.filter(i => !!i);
 
         this.lastPage = params.p;
-        this.props.history.push(`${path}?${paramsArray.join('&')}`);
+        this.props.history.replace(`${path}?${paramsArray.join('&')}`);
       }
     }
   }
