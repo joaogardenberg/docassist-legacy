@@ -10,6 +10,7 @@ const Multiple = props => {
 
   temp.push(
     <div key="temp">
+      <p>- Ajeitar modal no celular</p>
     </div>
   );
 
