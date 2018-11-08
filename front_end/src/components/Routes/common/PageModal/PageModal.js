@@ -87,6 +87,7 @@ class PageModal extends Component {
 
     this.state = INITIAL_STATE;
     this.reloadTimeout = null;
+    this.closeTimeout = null;
     this.backTimeout = null;
   }
 
@@ -98,7 +99,7 @@ class PageModal extends Component {
     const { shouldGoBack, shouldReload } = this.props;
 
     if (shouldGoBack) {
-      this.onCloseButtonClick();
+      this.onBackButtonClick();
     }
 
     if (shouldReload) {
@@ -118,11 +119,25 @@ class PageModal extends Component {
   }
 
   onCloseButtonClick() {
-    const { history } = this.props;
+    const { history, closeTo } = this.props;
+
+    this.props.pageModalClosed();
+
+    if (closeTo) {
+      clearTimeout(this.closeTimeout);
+      this.closeTimeout = setTimeout(() => history.push(closeTo), DURATION);
+    } else {
+      history.push('/dashboard');
+    }
+  }
+
+  onBackButtonClick() {
+    const { history, indexParams } = this.props;
+    console.log('Modal Back:', indexParams);
 
     this.props.pageModalClosed();
     clearTimeout(this.backTimeout);
-    this.backTimeout = setTimeout(() => history.goBack(), DURATION);
+    this.backTimeout = setTimeout(() => history.goBack({ indexParams: indexParams || '' }), DURATION);
   }
 
   reload() {

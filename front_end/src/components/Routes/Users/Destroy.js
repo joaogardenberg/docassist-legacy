@@ -11,6 +11,7 @@ const INITIAL_STATE = {
 
 class UsersDestroy extends Component {
   render() {
+    const { indexParams }        = this.props.location;
     const { shouldGoBack, user } = this.state;
 
     if (Object.keys(user).length < 1) {
@@ -23,11 +24,13 @@ class UsersDestroy extends Component {
         iconClass="fas fa-trash-alt"
         footer={ this.modalFooter() }
         shouldGoBack={ shouldGoBack }
+        closeTo={ `/usuarios${indexParams || ''}` }
+        indexParams={ indexParams }
       >
         <p>
           Você tem certeza de que deseja remover o usuário&nbsp;
           <Link
-            to={ `/usuarios/${user.id}` }
+            to={{ indexParams: indexParams || '', pathname: `/usuarios/${user.id}` }}
             className="link waves-effect waves-light"
           >
             { user.name }
@@ -80,8 +83,10 @@ class UsersDestroy extends Component {
 
   onDestroyButtonClick() {
     const { destroyUser, history, match: { params: { id } } } = this.props;
+    const { location: { indexParams } }                       = this.props;
+
     destroyUser(id);
-    history.push('/usuarios');
+    history.push(`/usuarios${indexParams || ''}`);
   }
 
   onBackButtonClick() {
@@ -90,6 +95,7 @@ class UsersDestroy extends Component {
 
   loadUser() {
     const { users, match: { params: { id } }, history } = this.props;
+    const { location: { indexParams } }                 = this.props;
 
     if (id !== this.lastId) {
       this.userLoaded = false;
@@ -100,7 +106,7 @@ class UsersDestroy extends Component {
       if (users[id]) {
         this.setState({ user: users[id] });
       } else {
-        history.push('/usuarios');
+        history.push(`/usuarios${indexParams || ''}`);
       }
 
       this.userLoaded = true;

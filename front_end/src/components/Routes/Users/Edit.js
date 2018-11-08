@@ -13,6 +13,7 @@ const INITIAL_STATE = {
 
 class UsersEdit extends Component {
   render() {
+    const { indexParams }               = this.props.location;
     const { shouldGoBack, shouldReset } = this.state;
 
     return (
@@ -21,6 +22,8 @@ class UsersEdit extends Component {
         iconClass="fas fa-pencil-alt"
         footer={ this.modalFooter() }
         shouldGoBack={ shouldGoBack }
+        closeTo={ `/usuarios${indexParams || ''}` }
+        indexParams={ indexParams }
       >
         <Form
           shouldReset={ shouldReset }
@@ -38,13 +41,14 @@ class UsersEdit extends Component {
 
   componentDidUpdate() {
     const { users, loadUser, match: { params: { id } }, history } = this.props;
+    const { location: { indexParams } }                           = this.props;
 
     if (Object.keys(users).length > 0 && !this.userLoaded) {
       if (users[id]) {
         loadUser(users[id]);
         this.userLoaded = true;
       } else {
-        history.push('/usuarios');
+        history.push(`/usuarios${indexParams || ''}`);
       }
     }
 
@@ -99,7 +103,7 @@ class UsersEdit extends Component {
   }
 
   onSubmit(values) {
-    const { updateUser, history } = this.props;
+    const { updateUser, history, location: { indexParams } } = this.props;
     let typeName;
 
     switch(values.type) {
@@ -112,7 +116,7 @@ class UsersEdit extends Component {
 
     values.typeName = typeName;
     updateUser(values);
-    history.push('/usuarios');
+    history.push(`/usuarios${indexParams || ''}`);
   }
 }
 

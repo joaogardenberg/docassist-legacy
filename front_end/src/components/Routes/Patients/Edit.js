@@ -13,6 +13,7 @@ const INITIAL_STATE = {
 
 class PatientsEdit extends Component {
   render() {
+    const { indexParams }               = this.props.location;
     const { shouldGoBack, shouldReset } = this.state;
 
     return (
@@ -21,6 +22,8 @@ class PatientsEdit extends Component {
         iconClass="fas fa-pencil-alt"
         footer={ this.modalFooter() }
         shouldGoBack={ shouldGoBack }
+        closeTo={ `/pacientes${indexParams || ''}` }
+        indexParams={ indexParams }
       >
         <Form
           shouldReset={ shouldReset }
@@ -37,14 +40,16 @@ class PatientsEdit extends Component {
   }
 
   componentDidUpdate() {
-    const { patients, loadPatient, match: { params: { id } }, history } = this.props;
+    const { patients, loadPatient, match: { params: { id } }  } = this.props;
+    const { history, location: { indexParams } }                = this.props;
 
     if (Object.keys(patients).length > 0 && !this.patientLoaded) {
       if (patients[id]) {
         loadPatient(patients[id]);
         this.patientLoaded = true;
+        this.setState({ shouldReset: true });
       } else {
-        history.push('/pacientes');
+        history.push(`/pacientes${indexParams || ''}`);
       }
     }
 
@@ -99,9 +104,10 @@ class PatientsEdit extends Component {
   }
 
   onSubmit(values) {
-    const { updatePatient, history } = this.props;
+    const { updatePatient, history, location: { indexParams } } = this.props;
+
     updatePatient(values);
-    history.push('/pacientes');
+    history.push(`/pacientes${indexParams || ''}`);
   }
 }
 

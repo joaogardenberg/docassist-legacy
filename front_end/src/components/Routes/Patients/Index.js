@@ -11,7 +11,7 @@ import * as DataTable         from '../../../common/DataTable';
 
 class PatientsIndex extends Component {
   render() {
-    const { patients } = this.props;
+    const { patients, location: { search } } = this.props;
     let content;
 
     if (!patients || Object.keys(patients).length < 1) {
@@ -24,7 +24,7 @@ class PatientsIndex extends Component {
       <Article
         uniqueClass="patients-index"
         header="Pacientes"
-        newButtonPath="/pacientes/novo"
+        newButtonPath={{ pathname: '/pacientes/novo', indexParams: search || '' }}
         newButtonTooltip="paciente"
       >
         { content }
@@ -39,6 +39,8 @@ class PatientsIndex extends Component {
   }
 
   tableJSXWith(patients) {
+    const { search } = this.props.location;
+
     const rows = _.map(patients, patient => {
       const { id, name, imageUrl } = patient;
       // const refEdit = React.createRef();
@@ -67,7 +69,7 @@ class PatientsIndex extends Component {
             <ul>
               <li>
                 <Link
-                  to={ `/pacientes/${id}/editar` }
+                  to={{ pathname: `/pacientes/${id}/editar`, indexParams: search || '' }}
                   className="btn-floating btn-small bg-warning waves-effect waves-light"
                   // data-position="top"
                   // data-tooltip="Editar"
@@ -79,7 +81,7 @@ class PatientsIndex extends Component {
               </li>
               <li>
                 <Link
-                  to={ `/pacientes/${id}/remover` }
+                  to={{ pathname: `/pacientes/${id}/remover`, indexParams: search || '' }}
                   className="btn-floating btn-small bg-error waves-effect waves-light"
                   // data-position="top"
                   // data-tooltip="Remover"
@@ -169,7 +171,7 @@ class PatientsIndex extends Component {
   }
 
   onPatientClick(event, id) {
-    this.props.history.push(`/pacientes/${id}`);
+    this.props.history.push({ pathname: `/pacientes/${id}`, indexParams: this.props.location.search || '' });
   }
 
   onImageError({ target }) {

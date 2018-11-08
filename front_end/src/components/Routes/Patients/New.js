@@ -13,6 +13,7 @@ const INITIAL_STATE = {
 
 class PatientsNew extends Component {
   render() {
+    const { indexParams }               = this.props.location;
     const { shouldGoBack, shouldReset } = this.state;
 
     return (
@@ -21,6 +22,8 @@ class PatientsNew extends Component {
         iconClass="fas fa-clipboard"
         footer={ this.modalFooter() }
         shouldGoBack={ shouldGoBack }
+        closeTo={ `/pacientes${indexParams || ''}` }
+        indexParams={ indexParams }
       >
         <Form
           shouldReset={ shouldReset }
@@ -87,9 +90,10 @@ class PatientsNew extends Component {
   }
 
   onSubmit(values) {
-    const { createPatient, history } = this.props;
+    const { createPatient, history, location: { indexParams } } = this.props;
+
     createPatient(values);
-    history.push('/pacientes');
+    history.push(`/pacientes${indexParams || ''}`);
   }
 }
 

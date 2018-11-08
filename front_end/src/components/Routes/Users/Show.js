@@ -11,6 +11,7 @@ const INITIAL_STATE = {
 
 class UsersShow extends Component {
   render() {
+    const { indexParams }                      = this.props.location;
     const { shouldGoBack, shouldReload, user } = this.state;
 
     if (Object.keys(user).length < 1) {
@@ -24,6 +25,8 @@ class UsersShow extends Component {
         footer={ this.modalFooter() }
         shouldGoBack={ shouldGoBack }
         shouldReload={ shouldReload }
+        closeTo={ `/usuarios${indexParams || ''}` }
+        indexParams={ indexParams }
       >
         <div className="show">
           <div className="row">
@@ -83,6 +86,7 @@ class UsersShow extends Component {
 
   componentDidMount() {
     this.loadUser();
+    console.log('Mount:', this.props.location.indexParams);
   }
 
   componentDidUpdate() {
@@ -97,6 +101,7 @@ class UsersShow extends Component {
     }
 
     this.loadUser();
+    console.log('Update:', this.props.location.indexParams);
   }
 
   componentWillUnmount() {
@@ -104,12 +109,12 @@ class UsersShow extends Component {
   }
 
   onEditButtonClick() {
-    const { history } = this.props;
-    const { user } = this.state;
+    const { history, location: { indexParams } } = this.props;
+    const { user }                               = this.state;
 
     if (Object.keys(user).length > 0) {
       this.setState({ shouldGoBack: true });
-      this.editTimeout = setTimeout(() => history.push(`/usuarios/${user.id}/editar`), 200);
+      this.editTimeout = setTimeout(() => history.push({ indexParams: indexParams || '', pathname: `/usuarios/${user.id}/editar` }), 200);
     }
   }
 
@@ -119,6 +124,7 @@ class UsersShow extends Component {
 
   loadUser() {
     const { users, match: { params: { id } }, history } = this.props;
+    const { location: { indexParams } }                 = this.props;
 
     if (id !== this.lastId) {
       this.userLoaded = false;
@@ -130,7 +136,7 @@ class UsersShow extends Component {
       if (users[id]) {
         this.setState({ user: users[id] });
       } else {
-        history.push('/usuarios');
+        history.push(`/usuarios${indexParams || ''}`);
       }
 
       this.userLoaded = true;
@@ -138,7 +144,7 @@ class UsersShow extends Component {
   }
 
   renderType() {
-    const { users } = this.props;
+    const { users, location: { indexParams } } = this.props;
     const { user } = this.state;
     let userNames;
 
@@ -156,7 +162,7 @@ class UsersShow extends Component {
           <span key={ id } className="user-container">
             <Link
               className="link waves-effect waves-light"
-              to={ `/usuarios/${id}` }
+              to={{ indexParams: indexParams || '', pathname: `/usuarios/${id}` }}
             >
               { users[id].name }
             </Link>
