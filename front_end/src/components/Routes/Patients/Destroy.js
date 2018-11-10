@@ -11,7 +11,6 @@ const INITIAL_STATE = {
 
 class PatientsDestroy extends Component {
   render() {
-    const { indexParams }           = this.props.location;
     const { shouldGoBack, patient } = this.state;
 
     if (Object.keys(patient).length < 1) {
@@ -24,13 +23,12 @@ class PatientsDestroy extends Component {
         iconClass="fas fa-trash-alt"
         footer={ this.modalFooter() }
         shouldGoBack={ shouldGoBack }
-        closeTo={ `/pacientes${indexParams || ''}` }
-        indexParams={ indexParams }
+        closeTo="/pacientes"
       >
         <p>
           Você tem certeza de que deseja remover o paciente&nbsp;
           <Link
-            to={{ indexParams: indexParams || '', pathname: `/pacientes/${patient.id}` }}
+            to={ `/pacientes/${patient.id}` }
             className="link waves-effect waves-light"
           >
             { patient.name }
@@ -51,13 +49,13 @@ class PatientsDestroy extends Component {
           <i className="fas fa-trash-alt left" />
           Remover
         </button>
-        {/*<button
+        <button
           className="btn-flat waves-effect"
           onClick={ this.onBackButtonClick.bind(this) }
         >
           <i className="fas fa-arrow-left left" />
           Voltar
-        </button>*/}
+        </button>
       </div>
     );
   }
@@ -83,10 +81,9 @@ class PatientsDestroy extends Component {
 
   onDestroyButtonClick() {
     const { destroyPatient, history, match: { params: { id } } } = this.props;
-    const { location: { indexParams } }                          = this.props;
 
     destroyPatient(id);
-    history.push(`/pacientes${indexParams || ''}`);
+    history.push('/pacientes');
   }
 
   onBackButtonClick() {
@@ -95,7 +92,6 @@ class PatientsDestroy extends Component {
 
   loadPatient() {
     const { patients, match: { params: { id } }, history } = this.props;
-    const { location: { indexParams } }                    = this.props;
 
     if (id !== this.lastId) {
       this.patientLoaded = false;
@@ -106,7 +102,7 @@ class PatientsDestroy extends Component {
       if (patients[id]) {
         this.setState({ patient: patients[id] });
       } else {
-        history.push(`/pacientes${indexParams || ''}`);
+        history.push('/pacientes');
       }
 
       this.patientLoaded = true;

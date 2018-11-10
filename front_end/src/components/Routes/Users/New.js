@@ -13,7 +13,6 @@ const INITIAL_STATE = {
 
 class UsersNew extends Component {
   render() {
-    const { indexParams }               = this.props.location;
     const { shouldGoBack, shouldReset } = this.state;
 
     return (
@@ -22,8 +21,7 @@ class UsersNew extends Component {
         iconClass="fas fa-clipboard"
         footer={ this.modalFooter() }
         shouldGoBack={ shouldGoBack }
-        closeTo={ `/usuarios${indexParams || ''}` }
-        indexParams={ indexParams }
+        closeTo="/usuarios"
       >
         <Form
           shouldReset={ shouldReset }
@@ -65,13 +63,13 @@ class UsersNew extends Component {
           <i className="fas fa-eraser left" />
           Limpar
         </button>
-        {/*<button
+        <button
           className="btn-flat waves-effect"
           onClick={ this.onBackButtonClick.bind(this) }
         >
           <i className="fas fa-arrow-left left" />
           Voltar
-        </button>*/}
+        </button>
       </div>
     );
   }
@@ -90,7 +88,7 @@ class UsersNew extends Component {
   }
 
   onSubmit(values) {
-    const { createUser, history, location: { indexParams } } = this.props;
+    const { createUser, history } = this.props;
     let typeName;
 
     switch(values.type) {
@@ -103,7 +101,7 @@ class UsersNew extends Component {
 
     values.typeName = typeName;
     createUser(values);
-    history.push(`/usuarios${indexParams || ''}`);
+    history.push('/usuarios');
   }
 }
 

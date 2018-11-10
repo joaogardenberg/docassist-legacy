@@ -13,7 +13,6 @@ const INITIAL_STATE = {
 
 class UsersEdit extends Component {
   render() {
-    const { indexParams }               = this.props.location;
     const { shouldGoBack, shouldReset } = this.state;
 
     return (
@@ -22,8 +21,7 @@ class UsersEdit extends Component {
         iconClass="fas fa-pencil-alt"
         footer={ this.modalFooter() }
         shouldGoBack={ shouldGoBack }
-        closeTo={ `/usuarios${indexParams || ''}` }
-        indexParams={ indexParams }
+        closeTo="/usuarios"
       >
         <Form
           shouldReset={ shouldReset }
@@ -40,17 +38,7 @@ class UsersEdit extends Component {
   }
 
   componentDidUpdate() {
-    const { users, loadUser, match: { params: { id } }, history } = this.props;
-    const { location: { indexParams } }                           = this.props;
-
-    if (Object.keys(users).length > 0 && !this.userLoaded) {
-      if (users[id]) {
-        loadUser(users[id]);
-        this.userLoaded = true;
-      } else {
-        history.push(`/usuarios${indexParams || ''}`);
-      }
-    }
+    const { users, loadUser, history, match: { params: { id } } } = this.props;
 
     if (this.state.shouldGoBack) {
       this.setState({ shouldGoBack: false });
@@ -58,6 +46,16 @@ class UsersEdit extends Component {
 
     if (this.state.shouldReset) {
       this.setState({ shouldReset: false });
+    }
+
+    if (Object.keys(users).length > 0 && !this.userLoaded) {
+      if (users[id]) {
+        loadUser(users[id]);
+        this.userLoaded = true;
+        this.setState({ shouldReset: true });
+      } else {
+        history.push('/usuarios');
+      }
     }
   }
 
@@ -78,13 +76,13 @@ class UsersEdit extends Component {
           <i className="fas fa-sync-alt left" />
           Restaurar
         </button>
-        {/*<button
+        <button
           className="btn-flat waves-effect"
           onClick={ this.onBackButtonClick.bind(this) }
         >
           <i className="fas fa-arrow-left left" />
           Voltar
-        </button>*/}
+        </button>
       </div>
     );
   }
@@ -103,7 +101,7 @@ class UsersEdit extends Component {
   }
 
   onSubmit(values) {
-    const { updateUser, history, location: { indexParams } } = this.props;
+    const { updateUser, history } = this.props;
     let typeName;
 
     switch(values.type) {
@@ -116,7 +114,7 @@ class UsersEdit extends Component {
 
     values.typeName = typeName;
     updateUser(values);
-    history.push(`/usuarios${indexParams || ''}`);
+    history.push('/usuarios');
   }
 }
 

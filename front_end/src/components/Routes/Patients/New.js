@@ -14,7 +14,6 @@ const INITIAL_STATE = {
 
 class PatientsNew extends Component {
   render() {
-    const { indexParams }               = this.props.location;
     const { shouldGoBack, shouldReset } = this.state;
 
     return (
@@ -23,8 +22,7 @@ class PatientsNew extends Component {
         iconClass="fas fa-clipboard"
         footer={ this.modalFooter() }
         shouldGoBack={ shouldGoBack }
-        closeTo={ `/pacientes${indexParams || ''}` }
-        indexParams={ indexParams }
+        closeTo="/pacientes"
       >
         <Form
           shouldReset={ shouldReset }
@@ -66,13 +64,13 @@ class PatientsNew extends Component {
           <i className="fas fa-eraser left" />
           Limpar
         </button>
-        {/*<button
+        <button
           className="btn-flat waves-effect"
           onClick={ this.onBackButtonClick.bind(this) }
         >
           <i className="fas fa-arrow-left left" />
           Voltar
-        </button>*/}
+        </button>
       </div>
     );
   }
@@ -91,10 +89,10 @@ class PatientsNew extends Component {
   }
 
   onSubmit(values) {
-    const { createPatient, history, location: { indexParams } } = this.props;
+    const { createPatient, history } = this.props;
 
     createPatient(values);
-    history.push(`/pacientes${indexParams || ''}`);
+    history.push('/pacientes');
   }
 }
 

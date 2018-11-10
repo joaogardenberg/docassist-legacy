@@ -12,12 +12,13 @@ const INITIAL_STATE = {
 
 class UsersShow extends Component {
   render() {
-    const { indexParams }                      = this.props.location;
     const { shouldGoBack, shouldReload, user } = this.state;
 
     if (Object.keys(user).length < 1) {
       return null;
     }
+
+    const { name, username, email, imageUrl } = user;
 
     return (
       <PageModal
@@ -65,13 +66,13 @@ class UsersShow extends Component {
           <i className="fas fa-pencil-alt left" />
           Editar
         </button>
-        {/*<button
+        <button
           className="btn-flat waves-effect"
           onClick={ this.onBackButtonClick.bind(this) }
         >
           <i className="fas fa-arrow-left left" />
           Voltar
-        </button>*/}
+        </button>
       </div>
     );
   }
@@ -110,12 +111,12 @@ class UsersShow extends Component {
   }
 
   onEditButtonClick() {
-    const { history, location: { indexParams } } = this.props;
-    const { user }                               = this.state;
+    const { history } = this.props;
+    const { user }    = this.state;
 
     if (Object.keys(user).length > 0) {
       this.setState({ shouldGoBack: true });
-      this.editTimeout = setTimeout(() => history.push({ indexParams: indexParams || '', pathname: `/usuarios/${user.id}/editar` }), 200);
+      this.editTimeout = setTimeout(() => history.push(`/usuarios/${user.id}/editar`), 200);
     }
   }
 
@@ -137,55 +138,11 @@ class UsersShow extends Component {
       if (users[id]) {
         this.setState({ user: users[id] });
       } else {
-        history.push(`/usuarios${indexParams || ''}`);
+        history.push('/usuarios');
       }
 
       this.userLoaded = true;
     }
-  }
-
-  renderType() {
-    const { users, location: { indexParams } } = this.props;
-    const { user } = this.state;
-    let userNames;
-
-    if (user.type !== '1') {
-      userNames = user.typeOf.map((id, index) => {
-        let suffix = '';
-
-        if (index < user.typeOf.length - 2) {
-          suffix = ', ';
-        } else if (index < user.typeOf.length - 1) {
-          suffix = ' e ';
-        }
-
-        return (
-          <span key={ id } className="user-container">
-            <Link
-              className="link waves-effect waves-light"
-              to={{ indexParams: indexParams || '', pathname: `/usuarios/${id}` }}
-            >
-              { users[id].name }
-            </Link>
-            { suffix }
-          </span>
-        );
-      });
-    }
-
-    const typeOf = (
-      <span className="users">
-        { ' de ' }
-        { userNames }
-      </span>
-    );
-
-    return (
-      <p className="type">
-        <span className="typeName">{ user.typeName }</span>
-        <span className="typeOf">{ userNames ? typeOf : '' }</span>
-      </p>
-    );
   }
 }
 

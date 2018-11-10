@@ -8,10 +8,11 @@ import Article                from '../common/Article/Article';
 import SearchBar              from '../common/SearchBar/SearchBar';
 import * as BrowserChecks     from '../../../checks/Browser.js';
 import * as DataTable         from '../../../common/DataTable';
+import * as User              from '../../../constants/User';
 
 class UsersIndex extends Component {
   render() {
-    const { users, location: { search } } = this.props;
+    const { users } = this.props;
     let content;
 
     if (!users || Object.keys(users).length < 1) {
@@ -24,8 +25,8 @@ class UsersIndex extends Component {
       <Article
         uniqueClass="users-index"
         header="Usuários"
-        newButtonPath={{ pathname: '/usuarios/novo', indexParams: search || '' }}
-        newButtonTooltip="usuário"
+        newButtonPath="/usuarios/novo"
+        newButtonTooltip="Novo usuário"
       >
         { content }
       </Article>
@@ -39,10 +40,8 @@ class UsersIndex extends Component {
   }
 
   tableJSXWith(users) {
-    const { search } = this.props.location;
-
     const rows = _.map(users, user => {
-      const { id, name, username, typeName, imageUrl } = user;
+      const { id, name, username, type, imageUrl } = user;
       // const refEdit = React.createRef();
       // const refShow = React.createRef();
       // const refDestroy = React.createRef();
@@ -66,12 +65,12 @@ class UsersIndex extends Component {
           </td>
           <td>{ name }</td>
           <td className="hide-on-med-and-down">{ username }</td>
-          <td className="hide-on-small-only">{ typeName }</td>
+          <td className="hide-on-small-only">{ User.getTypeName(type) }</td>
           <td className="actions">
             <ul>
               <li>
                 <Link
-                  to={{ pathname: `/usuarios/${id}/editar`, indexParams: search || '' }}
+                  to={ `/usuarios/${id}/editar` }
                   className="btn-floating btn-small bg-warning waves-effect waves-light"
                   // data-position="left"
                   // data-tooltip="Editar"
@@ -83,7 +82,7 @@ class UsersIndex extends Component {
               </li>
               <li>
                 <Link
-                  to={{ pathname: `/usuarios/${id}/remover`, indexParams: search || '' }}
+                  to={ `/usuarios/${id}/remover` }
                   className="btn-floating btn-small bg-error waves-effect waves-light"
                   // data-position="left"
                   // data-tooltip="Remover"
@@ -127,23 +126,14 @@ class UsersIndex extends Component {
 
     this.tooltipRefs = [];
     this.tableRef    = React.createRef();
-    this.lastPage    = 0;
   }
 
   componentDidMount() {
-    const { params } = this.props.match;
-
     if (Object.keys(this.props.users).length > 0) {
       this.addDataTable();
       // this.initTooltips();
     } else {
       this.props.fetchUsers();
-    }
-
-    this.mapSearchToParams();
-
-    if (params.p && this.table) {
-      this.table.page(params.p).draw('page');
     }
   }
 
@@ -155,18 +145,11 @@ class UsersIndex extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { params } = this.props.match;
-
     if (!_.isEqual(prevProps.users, this.props.users)) {
       this.addDataTable();
     }
 
     // this.initTooltips();
-    this.mapSearchToParams();
-
-    if (this.table && params.p && parseInt(this.table.page()) !== parseInt(params.p)) {
-      this.table.page(parseInt(params.p) - 1).draw('page');
-    }
   }
 
   componentWillUnmount() {
@@ -175,7 +158,7 @@ class UsersIndex extends Component {
   }
 
   onUserClick(event, id) {
-    this.props.history.push({ pathname: `/usuarios/${id}`, indexParams: this.props.location.search || '' });
+    this.props.history.push(`/usuarios/${id}`);
   }
 
   onImageError({ target }) {
@@ -241,52 +224,13 @@ class UsersIndex extends Component {
     }
   }
 
-  onTableDraw() {
-    const { params, path } = this.props.match;
-
-    if (this.table) {
-      params.p = this.table.page() + 1;
-
-      if (params.p !== this.lastPage) {
-        let paramsArray = _.map(params, (val, key) => {
-          if (val && (key === 'p' || key === 'q') && (key === 'p' ? val > 1 : true)) {
-            return `${key}=${encodeURI(val).replace(/%20/g, '+')}`;
-          } else {
-            return null;
-          }
-        });
-
-        paramsArray = paramsArray.filter(i => !!i);
-
-        this.lastPage = params.p;
-        this.props.history.replace(`${path}?${paramsArray.join('&')}`);
-      }
-    }
-  }
+  onTableDraw() {}
 
   onSearchBarChange(string) {
     const { users } = this.props;
 
     if (users && Object.keys(users).length > 0) {
       window.$(this.tableRef.current).DataTable().search(string).draw();
-    }
-  }
-
-  mapSearchToParams() {
-    const { location: { search }, match: { params } } = this.props;
-
-    if (search) {
-      search
-        .substr(1, search.length - 1)
-        .split('&')
-        .filter(param => param.length > 0)
-        .forEach(param => {
-          const [ key, value ] = param.split('=');
-
-          if (key === 'q' || key === 'p') {
-            params[key] = value;
-          }
-        });
     }
   }
 }

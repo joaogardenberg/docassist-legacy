@@ -132,12 +132,11 @@ class PageModal extends Component {
   }
 
   onBackButtonClick() {
-    const { history, indexParams } = this.props;
-    console.log('Modal Back:', indexParams);
+    const { history } = this.props;
 
     this.props.pageModalClosed();
     clearTimeout(this.backTimeout);
-    this.backTimeout = setTimeout(() => history.goBack({ indexParams: indexParams || '' }), DURATION);
+    this.backTimeout = setTimeout(() => history.goBack(), DURATION);
   }
 
   reload() {

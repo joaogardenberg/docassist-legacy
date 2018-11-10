@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 import posed                from 'react-pose';
-import { withRouter }       from 'react-router-dom';
-import _                    from 'lodash';
 import                           './SearchBar.scss';
 
 const INITIAL_STATE = {
   active: false,
-  shouldUpdate: true,
-  searchChanged: false,
   value: ''
 };
 
@@ -65,55 +61,16 @@ class SearchBar extends Component {
     );
   }
 
-  componentDidMount() {
-    const { params } = this.props.match;
-
-    this.mapSearchToParams();
-
-    if (params.q) {
-      const value = this.treatString(decodeURI(params.q.replace(/\+/g, '%20')));
-      this.setState({ value, active: true });
-    }
-  }
-
   componentDidUpdate(prevProps, prevState) {
-    const { params, path }                       = this.props.match;
-    const { value, shouldUpdate, searchChanged } = this.state;
+    const { value } = this.state;
 
-    this.mapSearchToParams();
-
-    if (prevProps.match.params.q && prevProps.match.params.q.replace(/\s/g, '+') !== params.q) {
-      if (params.q) {
-        this.setState({ value: decodeURI(params.q.replace(/\+/g, '%20')), shouldUpdate: false });
-      } else {
-        this.setState({ value: '' });
-      }
-    }
-
-    if (prevState.value !== value && (path === '/usuarios' || path === '/pacientes')) {
-      if (shouldUpdate) {
-        params.q = value;
-
-        let paramsArray = _.map(params, (val, key) => {
-          if (val && (key === 'p' || key === 'q') && (searchChanged ? key !== 'p' : true)) {
-            return `${key}=${encodeURI(val).replace(/%20/g, '+')}`;
-          } else {
-            return null;
-          }
-        });
-
-        paramsArray = paramsArray.filter(i => !!i);
-
-        this.props.history.replace(`${path}?${paramsArray.join('&')}`);
-      }
-
+    if (prevState.value !== value) {
       this.props.callback(value);
-      this.setState({ shouldUpdate: true, searchChanged: false });
     }
   }
 
   onSearchBarChange({ target: { value } }) {
-    this.setState({ value: this.treatString(value), searchChanged: true });
+    this.setState({ value: this.treatString(value) });
   }
 
   onSearchBarFocus() {
@@ -129,10 +86,7 @@ class SearchBar extends Component {
   }
 
   onCloseButtonClick() {
-    this.setState({
-      ...INITIAL_STATE,
-      searchChanged: true
-    });
+    this.setState(INITIAL_STATE);
   }
 
   treatString(string) {
@@ -147,26 +101,6 @@ class SearchBar extends Component {
              .replace(/[ñ]/g, 'n')
              .replace(/[^a-z0-9\s]/g, '');
   }
-
-  mapSearchToParams() {
-    const { location: { search }, match: { params } } = this.props;
-
-    if (search) {
-      search
-        .substr(1, search.length - 1)
-        .split('&')
-        .filter(param => param.length > 0)
-        .forEach(param => {
-          const [ key, value ] = param.split('=');
-
-          if (key === 'q' || key === 'p') {
-            params[key] = value;
-          }
-        });
-    }
-  }
 }
-
-SearchBar = withRouter(SearchBar);
 
 export default SearchBar;

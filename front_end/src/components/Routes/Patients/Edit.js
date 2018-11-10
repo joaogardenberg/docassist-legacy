@@ -14,7 +14,6 @@ const INITIAL_STATE = {
 
 class PatientsEdit extends Component {
   render() {
-    const { indexParams }               = this.props.location;
     const { shouldGoBack, shouldReset } = this.state;
 
     return (
@@ -23,8 +22,7 @@ class PatientsEdit extends Component {
         iconClass="fas fa-pencil-alt"
         footer={ this.modalFooter() }
         shouldGoBack={ shouldGoBack }
-        closeTo={ `/pacientes${indexParams || ''}` }
-        indexParams={ indexParams }
+        closeTo="/pacientes"
       >
         <Form
           shouldReset={ shouldReset }
@@ -41,18 +39,8 @@ class PatientsEdit extends Component {
   }
 
   componentDidUpdate() {
-    const { patients, loadPatient, match: { params: { id } }  } = this.props;
-    const { history, location: { indexParams } }                = this.props;
-
-    if (Object.keys(patients).length > 0 && !this.patientLoaded) {
-      if (patients[id]) {
-        loadPatient(patients[id]);
-        this.patientLoaded = true;
-        this.setState({ shouldReset: true });
-      } else {
-        history.push(`/pacientes${indexParams || ''}`);
-      }
-    }
+    const { patients, loadPatient, history } = this.props;
+    const { id }                             = this.props.match.params;
 
     if (this.state.shouldGoBack) {
       this.setState({ shouldGoBack: false });
@@ -60,6 +48,16 @@ class PatientsEdit extends Component {
 
     if (this.state.shouldReset) {
       this.setState({ shouldReset: false });
+    }
+
+    if (Object.keys(patients).length > 0 && !this.patientLoaded) {
+      if (patients[id]) {
+        loadPatient(patients[id]);
+        this.patientLoaded = true;
+        this.setState({ shouldReset: true });
+      } else {
+        history.push("/pacientes");
+      }
     }
   }
 
@@ -80,13 +78,13 @@ class PatientsEdit extends Component {
           <i className="fas fa-sync-alt left" />
           Restaurar
         </button>
-        {/*<button
+        <button
           className="btn-flat waves-effect"
           onClick={ this.onBackButtonClick.bind(this) }
         >
           <i className="fas fa-arrow-left left" />
           Voltar
-        </button>*/}
+        </button>
       </div>
     );
   }
@@ -105,10 +103,10 @@ class PatientsEdit extends Component {
   }
 
   onSubmit(values) {
-    const { updatePatient, history, location: { indexParams } } = this.props;
+    const { updatePatient, history } = this.props;
 
     updatePatient(values);
-    history.push(`/pacientes${indexParams || ''}`);
+    history.push('/pacientes');
   }
 }
 
