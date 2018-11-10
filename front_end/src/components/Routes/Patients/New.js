@@ -260,20 +260,100 @@ function validatePlaceOfBirthOther(placeOfBirth, placeOfBirthOther) {
   return null;
 }
 
+function validatePhone(phone) {
+  if (phone && !phone.match(Regex.Phone)) {
+    return 'Número inválido'
+  }
+
+  return null;
+}
+
+function validateEmail(email) {
+  if (email) {
+    if (email.length > 50) {
+      return 'Máximo 50 caracteres';
+    }
+
+    if (!email.toLowerCase().match(Regex.Email)) {
+      return 'E-mail inválido';
+    }
+  }
+
+  return null;
+}
+
+function validateCep(cep) {
+  if (cep && !cep.match(Regex.CEP)) {
+    return 'CEP inválido';
+  }
+
+  return null;
+}
+
+function validateState(state) {
+  if (!Patient.STATE_VALUES.includes(state)) {
+    return 'Opção inválida. Favor recarregar a página';
+  }
+
+  return null;
+}
+
+function validateCity(city) {
+  if (city && city.length > 50) {
+    return 'Máximo 50 caracteres';
+  }
+
+  return null;
+}
+
+function validateNeighborhood(neighborhood) {
+  if (neighborhood && neighborhood.length > 50) {
+    return 'Máximo 50 caracteres';
+  }
+
+  return null;
+}
+
+function validateAddress(address) {
+  if (address && address.length > 100) {
+    return 'Máximo 100 caracteres';
+  }
+
+  return null;
+}
+
+function validateComplement(complement) {
+  if (complement && complement.length > 50) {
+    return 'Máximo 50 caracteres';
+  }
+
+  return null;
+}
+
 function validate(values) {
   const errors = {
-    name: validateName(values['name']),
-    gender: validateGender(values['gender']),
-    maritalStatus: validateMaritalStatus(values['maritalStatus']),
-    dateOfBirth: validateDateOfBirth(values['dateOfBirth']),
-    occupation: validateOccupation(values['occupation']),
-    cpf: validateCpf(values['cpf']),
-    rg: validateRg(values['rg']),
-    rgIssuingAgency: validateRgIssuingAgency(values['rg'], values['rgIssuingAgency']),
-    nationality: validateNationality(values['nationality']),
-    nationalityOther: validateNationalityOther(values['nationality'], values['nationalityOther']),
-    placeOfBirth: validatePlaceOfBirth(values['placeOfBirth']),
-    placeOfBirthOther: validatePlaceOfBirthOther(values['placeOfBirth'], values['placeOfBirthOther'])
+    name:              validateName(values['name']),
+    gender:            validateGender(values['gender']),
+    maritalStatus:     validateMaritalStatus(values['maritalStatus']),
+    dateOfBirth:       validateDateOfBirth(values['dateOfBirth']),
+    occupation:        validateOccupation(values['occupation']),
+    cpf:               validateCpf(values['cpf']),
+    rg:                validateRg(values['rg']),
+    rgIssuingAgency:   validateRgIssuingAgency(values['rg'], values['rgIssuingAgency']),
+    nationality:       validateNationality(values['nationality']),
+    nationalityOther:  validateNationalityOther(values['nationality'], values['nationalityOther']),
+    placeOfBirth:      validatePlaceOfBirth(values['placeOfBirth']),
+    placeOfBirthOther: validatePlaceOfBirthOther(values['placeOfBirth'], values['placeOfBirthOther']),
+    landline:          validatePhone(values['landline']),
+    cellPhone:         validatePhone(values['cellPhone']),
+    workPhone:         validatePhone(values['workPhone']),
+    email:             validateEmail(values['email']),
+    cep:               validateCep(values['cep']),
+    state:             validateState(values['state']),
+    city:              validateCity(values['city']),
+    neighborhood:      validateNeighborhood(values['neighborhood']),
+    address:           validateAddress(values['address']),
+    complement:        validateComplement(values['complement'])
   };
 
   const ret = Object.keys(errors).reduce((final, key) => {
@@ -294,7 +374,8 @@ PatientsNew = reduxForm({
     gender: '1',
     maritalStatus: '1',
     nationality: '1',
-    placeOfBirth: 'rio_de_janeiro'
+    placeOfBirth: 'rio_de_janeiro',
+    state: 'rio_de_janeiro'
   },
   enableReinitialize: true,
   form: 'PatientsNewForm'

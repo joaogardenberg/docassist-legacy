@@ -17,6 +17,7 @@ class Form extends Component {
 
     return (
       <form>
+        <h5>Informações pessoais</h5>
         <div className="row">
           <Field
             id="name"
@@ -26,6 +27,7 @@ class Form extends Component {
             className="col s12"
             autoComplete="off"
             maxLength="100"
+            reference={ this.nameInputRef }
             component={ this.renderField }
           />
           <Field
@@ -66,6 +68,7 @@ class Form extends Component {
             className="col xl3 l8 m6 s12"
             autoComplete="off"
             maxLength="50"
+            reference={ this.occupationInputRef }
             component={ this.renderField }
           />
           <Field
@@ -98,6 +101,7 @@ class Form extends Component {
             className="col xl4 l3 s12"
             autoComplete="off"
             maxLength="50"
+            reference={ this.rgIssuingAgencyInputRef }
             component={ this.renderField }
             style={{ display: showRgIssuingAgency ? 'block' : 'none' }}
           />
@@ -120,6 +124,7 @@ class Form extends Component {
             className="col l3 m6 s12"
             autoComplete="off"
             maxLength="50"
+            reference={ this.nationalityOtherInputRef }
             component={ this.renderField }
             style={{ display: showNationalityOther ? 'block' : 'none' }}
           />
@@ -142,9 +147,130 @@ class Form extends Component {
             className="col l3 m6 s12"
             autoComplete="off"
             maxLength="50"
+            reference={ this.placeOfBirthOtherInputRef }
             component={ this.renderField }
             style={{ display: showPlaceOfBirthOther ? 'block' : 'none' }}
           />
+        </div>
+        <h5>Contato</h5>
+        <div className="row">
+          <Field
+            id="landline"
+            name="landline"
+            type="text"
+            label="Telefone"
+            className="col m6 s12"
+            autoComplete="off"
+            reference={ this.landlineInputRef }
+            component={ this.renderField }
+          />
+          <Field
+            id="cellPhone"
+            name="cellPhone"
+            type="text"
+            label="Celular"
+            className="col m6 s12"
+            autoComplete="off"
+            reference={ this.cellPhoneInputRef }
+            component={ this.renderField }
+          />
+          <Field
+            id="workPhone"
+            name="workPhone"
+            type="text"
+            label="Trabalho"
+            className="col m6 s12"
+            autoComplete="off"
+            reference={ this.workPhoneInputRef }
+            component={ this.renderField }
+          />
+          <Field
+            id="email"
+            name="email"
+            type="email"
+            label="E-mail"
+            className="col m6 s12"
+            autoComplete="off"
+            maxLength="50"
+            reference={ this.emailInputRef }
+            component={ this.renderField }
+          />
+        </div>
+        <h5>Endereço</h5>
+        <div className="row">
+          <Field
+            id="cep"
+            name="cep"
+            type="text"
+            label="CEP"
+            className="col l4 m6 s12"
+            autoComplete="off"
+            reference={ this.cepInputRef }
+            component={ this.renderField }
+          />
+          <Field
+            id="state"
+            name="state"
+            label="Estado"
+            className="col l4 m6 s12"
+            reference={ this.stateSelectRef }
+            component={ this.renderSelect }
+          >
+            { this.renderStateOptions() }
+          </Field>
+          <Field
+            id="city"
+            name="city"
+            type="text"
+            label="Cidade"
+            className="col l4 m6 s12"
+            autoComplete="off"
+            maxLength="50"
+            reference={ this.cityInputRef }
+            component={ this.renderField }
+          />
+          <Field
+            id="neighborhood"
+            name="neighborhood"
+            type="text"
+            label="Bairro"
+            className="col l4 m6 s12"
+            autoComplete="off"
+            maxLength="50"
+            reference={ this.neighborhoodInputRef }
+            component={ this.renderField }
+          />
+          <Field
+            id="address"
+            name="address"
+            type="text"
+            label="Endereço"
+            className="col l4 m6 s12"
+            autoComplete="off"
+            maxLength="100"
+            reference={ this.addressInputRef }
+            component={ this.renderField }
+          />
+          <Field
+            id="complement"
+            name="complement"
+            type="text"
+            label="Complemento"
+            className="col l4 m6 s12"
+            autoComplete="off"
+            maxLength="50"
+            reference={ this.complementInputRef }
+            component={ this.renderField }
+          />
+        </div>
+        <h5>Histórico pessoal</h5>
+        <div className="row">
+        </div>
+        <h5>Hábitos</h5>
+        <div className="row">
+        </div>
+        <h5>Histórico familiar</h5>
+        <div className="row">
         </div>
       </form>
     );
@@ -169,6 +295,7 @@ class Form extends Component {
           type={ type }
           ref={ reference }
           maxLength={ maxLength }
+          data-length={ maxLength }
           disabled={ disabled }
         />
         <label htmlFor={ id }>{ label }</label>
@@ -209,28 +336,35 @@ class Form extends Component {
   renderGenderOptions() {
     return Patient.GENDERS.map((gender, index) => {
       const value = Patient.GENDER_VALUES[index];
-      return <option key={ value } value={ value } >{ gender }</option>;
+      return <option key={ value } value={ value }>{ gender }</option>;
     });
   }
 
   renderMaritalStatusOptions() {
     return Patient.MARITAL_STATUSES.map((maritalStatus, index) => {
       const value = Patient.MARITAL_STATUS_VALUES[index];
-      return <option key={ value } value={ value } >{ maritalStatus }</option>;
+      return <option key={ value } value={ value }>{ maritalStatus }</option>;
     });
   }
 
   renderNationalityOptions() {
     return Patient.NATIONALITIES.map((nationality, index) => {
       const value = Patient.NATIONALITY_VALUES[index];
-      return <option key={ value } value={ value } >{ nationality }</option>;
+      return <option key={ value } value={ value }>{ nationality }</option>;
     });
   }
 
   renderPlaceOfBirthOptions() {
     return Patient.STATES.map((state, index) => {
       const value = Patient.STATE_VALUES[index];
-      return <option key={ value } value={ value } >{ state }</option>;
+      return <option key={ value } value={ value }>{ state }</option>;
+    });
+  }
+
+  renderStateOptions() {
+    return Patient.STATES.map((state, index) => {
+      const value = Patient.STATE_VALUES[index];
+      return <option key={ value } value={ value }>{ state }</option>;
     });
   }
 
@@ -238,27 +372,43 @@ class Form extends Component {
     super(props);
 
     this.state = INITIAL_STATE;
-    this.dateOfBirthInputRef = React.createRef();
-    this.cpfInputRef = React.createRef();
-    this.rgInputRef = React.createRef();
-    this.genderSelectRef = React.createRef();
-    this.maritalStatusSelectRef = React.createRef();
-    this.nationalitySelectRef = React.createRef();
-    this.placeOfBirthSelectRef = React.createRef();
-    this.dateOfBirthMaskLoaded = false;
-    this.dateOfBirthPickerLoaded = false;
-    this.cpfMaskLoaded = false;
-    this.genderSelectLoaded = false;
+
+    this.nameInputRef              = React.createRef();
+    this.genderSelectRef           = React.createRef();
+    this.maritalStatusSelectRef    = React.createRef();
+    this.dateOfBirthInputRef       = React.createRef();
+    this.occupationInputRef        = React.createRef();
+    this.cpfInputRef               = React.createRef();
+    this.rgInputRef                = React.createRef();
+    this.rgIssuingAgencyInputRef   = React.createRef();
+    this.nationalitySelectRef      = React.createRef();
+    this.nationalityOtherInputRef  = React.createRef();
+    this.placeOfBirthSelectRef     = React.createRef();
+    this.placeOfBirthOtherInputRef = React.createRef();
+    this.genderSelectLoaded        = false;
     this.maritalStatusSelectLoaded = false;
-    this.nationalitySelectLoaded = false;
-    this.placeOfBirthSelectLoaded = false;
+    this.nationalitySelectLoaded   = false;
+    this.placeOfBirthSelectLoaded  = false;
+
+    this.landlineInputRef          = React.createRef();
+    this.cellPhoneInputRef         = React.createRef();
+    this.workPhoneInputRef         = React.createRef();
+    this.emailInputRef             = React.createRef();
+
+    this.cepInputRef               = React.createRef();
+    this.stateSelectRef            = React.createRef();
+    this.cityInputRef              = React.createRef();
+    this.neighborhoodInputRef      = React.createRef();
+    this.addressInputRef           = React.createRef();
+    this.complementInputRef        = React.createRef();
+    this.stateSelectLoaded         = false;
   }
 
   componentDidMount() {
+    this.initFormCounters();
     this.initFormMasks();
     this.initFormPickers();
     this.initFormSelects();
-
   }
 
   componentDidUpdate() {
@@ -306,35 +456,108 @@ class Form extends Component {
     }
   }
 
-  initFormMasks() {
-    const { dateOfBirthMaskLoaded, cpfMaskLoaded } = this;
-    const { dateOfBirthInputRef, cpfInputRef }     = this;
-    const { shouldReset }                          = this.props;
+  initFormCounters() {
+    const { nameInputRef, occupationInputRef, rgInputRef }              = this;
+    const { rgIssuingAgencyInputRef, nationalityOtherInputRef }         = this;
+    const { placeOfBirthOtherInputRef, emailInputRef, cityInputRef }    = this;
+    const { neighborhoodInputRef, addressInputRef, complementInputRef } = this;
 
-    if (shouldReset || (!dateOfBirthMaskLoaded && dateOfBirthInputRef.current)) {
+    if (nameInputRef.current) {
+      window.M.CharacterCounter.init(nameInputRef.current);
+    }
+
+    if (occupationInputRef.current) {
+      window.M.CharacterCounter.init(occupationInputRef.current);
+    }
+
+    if (rgInputRef.current) {
+      window.M.CharacterCounter.init(rgInputRef.current);
+    }
+
+    if (rgIssuingAgencyInputRef.current) {
+      window.M.CharacterCounter.init(rgIssuingAgencyInputRef.current);
+    }
+
+    if (nationalityOtherInputRef.current) {
+      window.M.CharacterCounter.init(nationalityOtherInputRef.current);
+    }
+
+    if (placeOfBirthOtherInputRef.current) {
+      window.M.CharacterCounter.init(placeOfBirthOtherInputRef.current);
+    }
+
+    if (emailInputRef.current) {
+      window.M.CharacterCounter.init(emailInputRef.current);
+    }
+
+    if (cityInputRef.current) {
+      window.M.CharacterCounter.init(cityInputRef.current);
+    }
+
+    if (neighborhoodInputRef.current) {
+      window.M.CharacterCounter.init(neighborhoodInputRef.current);
+    }
+
+    if (addressInputRef.current) {
+      window.M.CharacterCounter.init(addressInputRef.current);
+    }
+
+    if (complementInputRef.current) {
+      window.M.CharacterCounter.init(complementInputRef.current);
+    }
+  }
+
+  initFormMasks() {
+    const { dateOfBirthInputRef, cpfInputRef, landlineInputRef } = this;
+    const { cellPhoneInputRef, workPhoneInputRef, cepInputRef }  = this;
+
+    if (dateOfBirthInputRef.current) {
       window.Inputmask({
         mask: '99/99/9999',
         showMaskOnHover: false
       }).mask(dateOfBirthInputRef.current);
-
-      this.dateOfBirthMaskLoaded = true;
     }
 
-    if (shouldReset || (!cpfMaskLoaded && cpfInputRef.current)) {
+    if (cpfInputRef.current) {
       window.Inputmask({
         mask: '999.999.999-99',
         showMaskOnHover: false
       }).mask(cpfInputRef.current);
+    }
 
-      this.cpfMaskLoaded = true;
+    if (landlineInputRef.current) {
+      window.Inputmask({
+        mask: ['(99) 9999-9999', '(99) 99999-9999'],
+        showMaskOnHover: false
+      }).mask(landlineInputRef.current);
+    }
+
+    if (cellPhoneInputRef.current) {
+      window.Inputmask({
+        mask: ['(99) 9999-9999', '(99) 99999-9999'],
+        showMaskOnHover: false
+      }).mask(cellPhoneInputRef.current);
+    }
+
+    if (workPhoneInputRef.current) {
+      window.Inputmask({
+        mask: ['(99) 9999-9999', '(99) 99999-9999'],
+        showMaskOnHover: false
+      }).mask(workPhoneInputRef.current);
+    }
+
+    if (cepInputRef.current) {
+      window.Inputmask({
+        mask: '99999-999',
+        showMaskOnHover: false
+      }).mask(cepInputRef.current);
     }
   }
 
   initFormPickers() {
-    const { dateOfBirthPickerLoaded, dateOfBirthInputRef } = this;
-    const { shouldReset }                                  = this.props;
+    const { dateOfBirthInputRef } = this;
 
-    if (shouldReset || (!dateOfBirthPickerLoaded && dateOfBirthInputRef.current)) {
+    if (dateOfBirthInputRef.current) {
       window.M.Datepicker.init(dateOfBirthInputRef.current, {
         autoClose: true,
         format: 'dd/mm/yyyy',
@@ -348,16 +571,16 @@ class Form extends Component {
         onSelect: this.onDatepickerSelect.bind(this),
         onDraw: this.onDatepickerDraw.bind(this)
       });
-
-      this.dateOfBirthPickerLoaded = true;
     }
   }
 
   initFormSelects() {
     const { genderSelectLoaded, maritalStatusSelectLoaded }     = this;
     const { nationalitySelectLoaded, placeOfBirthSelectLoaded } = this;
+    const { stateSelectLoaded }                                 = this;
     const { genderSelectRef, maritalStatusSelectRef }           = this;
     const { nationalitySelectRef, placeOfBirthSelectRef }       = this;
+    const { stateSelectRef }                                    = this;
     const { shouldReset }                                       = this.props;
 
     if (shouldReset || (!genderSelectLoaded && genderSelectRef.current)) {
@@ -378,6 +601,11 @@ class Form extends Component {
     if (shouldReset || (!placeOfBirthSelectLoaded && placeOfBirthSelectRef.current)) {
       window.M.FormSelect.init(placeOfBirthSelectRef.current);
       this.placeOfBirthSelectLoaded = true;
+    }
+
+    if (shouldReset || (!stateSelectLoaded && stateSelectRef.current)) {
+      window.M.FormSelect.init(stateSelectRef.current);
+      this.stateSelectLoaded = true;
     }
   }
 

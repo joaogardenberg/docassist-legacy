@@ -11,7 +11,6 @@ export function fetchPatients() {
         const maritalStatus = random > 25 ? random > 50 ? random > 75 ? '4' : '3' : '2' : '1';
         random = Math.floor(Math.random() * 101) + 1;
         const dateOfBirth = `01/01/${new Date().getFullYear() - random}`;
-        const cpf = '111.111.111-11';
         random = Math.floor(Math.random() * 101) + 1;
         const rg = random > 50 ? '12345678' : '';
         const rgIssuingAgency = random > 50 ? 'DETRAN' : '';
@@ -25,7 +24,6 @@ export function fetchPatients() {
           gender,
           maritalStatus,
           dateOfBirth,
-          cpf,
           rg,
           rgIssuingAgency,
           nationality,
@@ -34,7 +32,18 @@ export function fetchPatients() {
           placeOfBirthOther,
           id: `id_paciente_${i}`,
           name: `Paciente ${i}`,
-          occupation: 'Paciente ¯\\_(ツ)_/¯'
+          occupation: 'Paciente ¯\\_(ツ)_/¯',
+          cpf: '111.111.111-11',
+          landline: '(21) 2222-2222',
+          cellPhone: '(21) 99999-9999',
+          workPhone: '(21) 3333-3333',
+          email: `paciente${i}@docassist.com.br`,
+          cep: '22222-222',
+          state: 'rio_de_janeiro',
+          city: 'Rio de Janeiro',
+          neighborhood: 'Laranjeiras',
+          address: 'Rua das Laranjeiras, 0',
+          complement: 'Apt 0'
         });
       }
 
@@ -52,7 +61,6 @@ export function fetchPatient(id) {
       const maritalStatus = random > 25 ? random > 50 ? random > 75 ? '4' : '3' : '2' : '1';
       random = Math.floor(Math.random() * 101) + 1;
       const dateOfBirth = `01/01/${new Date().getFullYear() - random}`;
-      const cpf = '111.111.111-11';
       random = Math.floor(Math.random() * 101) + 1;
       const rg = random > 50 ? '12345678' : '';
       const rgIssuingAgency = random > 50 ? 'DETRAN' : '';
@@ -66,7 +74,6 @@ export function fetchPatient(id) {
         gender,
         maritalStatus,
         dateOfBirth,
-        cpf,
         rg,
         rgIssuingAgency,
         nationality,
@@ -75,7 +82,18 @@ export function fetchPatient(id) {
         placeOfBirthOther,
         id,
         name: 'Paciente',
-        occupation: 'Paciente ¯\\_(ツ)_/¯'
+        occupation: 'Paciente ¯\\_(ツ)_/¯',
+        cpf: '111.111.111-11',
+        landline: '(21) 2222-2222',
+        cellPhone: '(21) 99999-9999',
+        workPhone: '(21) 3333-3333',
+        email: `paciente@docassist.com.br`,
+        cep: '22222-222',
+        state: 'rio_de_janeiro',
+        city: 'Rio de Janeiro',
+        neighborhood: 'Laranjeiras',
+        address: 'Rua das Laranjeiras, 0',
+        complement: 'Apt 0'
       });
     }, 100 + Math.floor(Math.random() * 2001));
   });
