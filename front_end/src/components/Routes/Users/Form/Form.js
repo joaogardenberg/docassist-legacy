@@ -47,6 +47,7 @@ class Form extends Component {
             className="col l6 s12"
             autoComplete="off"
             maxLength="100"
+            reference={ this.nameInputRef }
             component={ this.renderField }
           />
           <Field
@@ -57,6 +58,7 @@ class Form extends Component {
             className="col l6 s12"
             autoComplete="off"
             maxLength="50"
+            reference={ this.usernameInputRef }
             component={ this.renderField }
           />
           <Field
@@ -67,6 +69,7 @@ class Form extends Component {
             className="col xl3 l6 s12"
             autoComplete="off"
             maxLength="50"
+            reference={ this.emailInputRef }
             component={ this.renderField }
           />
           <Field
@@ -77,6 +80,7 @@ class Form extends Component {
             className="col xl3 l6 s12"
             autoComplete="off"
             maxLength="50"
+            reference={ this.emailConfirmationInputRef }
             component={ this.renderField }
           />
           <Field
@@ -87,6 +91,7 @@ class Form extends Component {
             className="col xl3 l6 s12"
             autoComplete="off"
             maxLength="50"
+            reference={ this.passwordInputRef }
             component={ this.renderField }
           />
           <Field
@@ -97,6 +102,7 @@ class Form extends Component {
             className="col xl3 l6 s12"
             autoComplete="off"
             maxLength="50"
+            reference={ this.passwordConfirmationInputRef }
             component={ this.renderField }
           />
         </div>
@@ -117,8 +123,8 @@ class Form extends Component {
   }
 
   renderField(field) {
-    const { input, id, type, label, className, disabled, style } = field;
-    const { maxLength, meta: { touched, active, error } }        = field;
+    const { input, id, type, label, className, disabled, style }     = field;
+    const { reference, maxLength, meta: { touched, active, error } } = field;
 
     const errorMessage = touched && !active ? error : '';
     const valid        = touched && !active && !errorMessage;
@@ -132,7 +138,9 @@ class Form extends Component {
           { ...input }
           id={ id }
           type={ type }
+          ref={ reference }
           maxLength={ maxLength }
+          data-length={ maxLength }
           disabled={ disabled }
         />
         <label htmlFor={ id }>{ label }</label>
@@ -173,14 +181,22 @@ class Form extends Component {
   constructor(props) {
     super(props);
 
-    this.state = INITIAL_STATE;
-    this.typeSelectRef = React.createRef();
-    this.typeSelectLoaded = false;
-    this.typeOfSelectRef = React.createRef();
-    this.typeOfSelectLoaded = false;
+    this.state                        = INITIAL_STATE;
+
+    this.typeSelectRef                = React.createRef();
+    this.typeOfSelectRef              = React.createRef();
+    this.nameInputRef                 = React.createRef();
+    this.usernameInputRef             = React.createRef();
+    this.emailInputRef                = React.createRef();
+    this.emailConfirmationInputRef    = React.createRef();
+    this.passwordInputRef             = React.createRef();
+    this.passwordConfirmationInputRef = React.createRef();
+    this.typeSelectLoaded             = false;
+    this.typeOfSelectLoaded           = false;
   }
 
   componentDidMount() {
+    this.initFormCounters();
     this.initFormSelects();
   }
 
@@ -195,6 +211,38 @@ class Form extends Component {
       this.setState({ showTypeOf: true });
     } else if (options[options.selectedIndex].value !== '2' && this.state.showTypeOf === true) {
       this.setState({ showTypeOf: false });
+    }
+  }
+
+  initFormCounters() {
+    const { nameInputRef, usernameInputRef, emailInputRef } = this;
+    const { emailConfirmationInputRef, passwordInputRef }   = this;
+    const { passwordConfirmationInputRef }                  = this;
+
+    console.log(nameInputRef.current);
+
+    if (nameInputRef.current) {
+      window.M.CharacterCounter.init(nameInputRef.current);
+    }
+
+    if (usernameInputRef.current) {
+      window.M.CharacterCounter.init(usernameInputRef.current);
+    }
+
+    if (emailInputRef.current) {
+      window.M.CharacterCounter.init(emailInputRef.current);
+    }
+
+    if (emailConfirmationInputRef.current) {
+      window.M.CharacterCounter.init(emailConfirmationInputRef.current);
+    }
+
+    if (passwordInputRef.current) {
+      window.M.CharacterCounter.init(passwordInputRef.current);
+    }
+
+    if (passwordConfirmationInputRef.current) {
+      window.M.CharacterCounter.init(passwordConfirmationInputRef.current);
     }
   }
 
