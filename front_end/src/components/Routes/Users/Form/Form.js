@@ -46,6 +46,7 @@ class Form extends Component {
             label="Nome"
             className="col l6 s12"
             autoComplete="off"
+            maxLength="100"
             component={ this.renderField }
           />
           <Field
@@ -55,6 +56,7 @@ class Form extends Component {
             label="Usuário"
             className="col l6 s12"
             autoComplete="off"
+            maxLength="50"
             component={ this.renderField }
           />
           <Field
@@ -64,6 +66,7 @@ class Form extends Component {
             label="E-mail"
             className="col xl3 l6 s12"
             autoComplete="off"
+            maxLength="50"
             component={ this.renderField }
           />
           <Field
@@ -73,6 +76,7 @@ class Form extends Component {
             label="Confirmação de e-mail"
             className="col xl3 l6 s12"
             autoComplete="off"
+            maxLength="50"
             component={ this.renderField }
           />
           <Field
@@ -82,6 +86,7 @@ class Form extends Component {
             label="Senha"
             className="col xl3 l6 s12"
             autoComplete="off"
+            maxLength="50"
             component={ this.renderField }
           />
           <Field
@@ -91,6 +96,7 @@ class Form extends Component {
             label="Confirmação de senha"
             className="col xl3 l6 s12"
             autoComplete="off"
+            maxLength="50"
             component={ this.renderField }
           />
         </div>
@@ -112,7 +118,7 @@ class Form extends Component {
 
   renderField(field) {
     const { input, id, type, label, className, disabled, style } = field;
-    const { touched, active, error }                             = field.meta;
+    const { maxLength, meta: { touched, active, error } }        = field;
 
     const errorMessage = touched && !active ? error : '';
     const valid        = touched && !active && !errorMessage;
@@ -126,6 +132,7 @@ class Form extends Component {
           { ...input }
           id={ id }
           type={ type }
+          maxLength={ maxLength }
           disabled={ disabled }
         />
         <label htmlFor={ id }>{ label }</label>

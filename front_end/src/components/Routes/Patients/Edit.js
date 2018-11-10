@@ -161,6 +161,10 @@ function validateDateOfBirth(dateOfBirth) {
 }
 
 function validateOccupation(occupation) {
+  if (occupation && occupation.length > 50) {
+    return 'Máximo 50 caracteres';
+  }
+
   return null;
 }
 
@@ -211,12 +215,20 @@ function validateCpf(cpf) {
 }
 
 function validateRg(rg) {
+  if (rg && rg.length > 50) {
+    return 'Máximo 50 caracteres';
+  }
+
   return null;
 }
 
 function validateRgIssuingAgency(rg, rgIssuingAgency) {
   if (rg && !rgIssuingAgency) {
     return 'Campo obrigatório';
+  }
+
+  if (rg && rgIssuingAgency && rgIssuingAgency.length > 50) {
+    return 'Máximo 50 caracteres';
   }
 
   return null;
@@ -253,6 +265,10 @@ function validatePlaceOfBirth(placeOfBirth) {
 function validatePlaceOfBirthOther(placeOfBirth, placeOfBirthOther) {
   if (placeOfBirth === 'other' && !placeOfBirthOther) {
     return 'Campo obrigatório';
+  }
+
+  if (placeOfBirth === 'other' && placeOfBirthOther && placeOfBirthOther.length > 50) {
+    return 'Máximo 50 caracteres';
   }
 
   return null;

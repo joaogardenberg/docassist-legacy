@@ -25,6 +25,7 @@ class Form extends Component {
             label="Nome"
             className="col s12"
             autoComplete="off"
+            maxLength="100"
             component={ this.renderField }
           />
           <Field
@@ -64,6 +65,7 @@ class Form extends Component {
             label="Profissão"
             className="col xl3 l8 m6 s12"
             autoComplete="off"
+            maxLength="50"
             component={ this.renderField }
           />
           <Field
@@ -83,6 +85,7 @@ class Form extends Component {
             label="RG"
             className={ showRgIssuingAgency ? 'col xl4 l3 m6 s12' : 'col xl8 l6 m6 s12' }
             autoComplete="off"
+            maxLength="50"
             reference={ this.rgInputRef }
             component={ this.renderField }
             onChange={ event => this.onRgChange(event) }
@@ -94,6 +97,7 @@ class Form extends Component {
             label="Órgão emissor"
             className="col xl4 l3 s12"
             autoComplete="off"
+            maxLength="50"
             component={ this.renderField }
             style={{ display: showRgIssuingAgency ? 'block' : 'none' }}
           />
@@ -115,6 +119,7 @@ class Form extends Component {
             label="Qual nacionalidade?"
             className="col l3 m6 s12"
             autoComplete="off"
+            maxLength="50"
             component={ this.renderField }
             style={{ display: showNationalityOther ? 'block' : 'none' }}
           />
@@ -136,6 +141,7 @@ class Form extends Component {
             label="Qual naturalidade?"
             className="col l3 m6 s12"
             autoComplete="off"
+            maxLength="50"
             component={ this.renderField }
             style={{ display: showPlaceOfBirthOther ? 'block' : 'none' }}
           />
@@ -146,7 +152,7 @@ class Form extends Component {
 
   renderField(field) {
     const { input, id, type, label, className, disabled } = field;
-    const { reference, style }                            = field;
+    const { reference, style, maxLength }                 = field;
     const { touched, active, error }                      = field.meta;
 
     const errorMessage = touched && !active ? error : '';
@@ -162,6 +168,7 @@ class Form extends Component {
           id={ id }
           type={ type }
           ref={ reference }
+          maxLength={ maxLength }
           disabled={ disabled }
         />
         <label htmlFor={ id }>{ label }</label>
