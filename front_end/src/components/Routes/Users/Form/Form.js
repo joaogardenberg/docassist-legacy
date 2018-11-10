@@ -2,6 +2,7 @@ import React, { Component }   from 'react';
 import { Field }              from 'redux-form';
 import { connect as Connect } from 'react-redux';
 import _                      from 'lodash';
+import * as User              from '../../../../constants/User';
 
 const INITIAL_STATE = {
   showTypeOf: false
@@ -23,8 +24,7 @@ class Form extends Component {
             component={ this.renderSelect }
             onChange={ event => this.onTypeChange(event) }
           >
-            <option key="1" value="1">Médico(a)</option>
-            <option key="2" value="2">Secretário(a)</option>
+            { this.renderTypeOptions() }
           </Field>
           <div className="col xl9 l6 s12" style={{ display: showTypeOf ? 'block' : 'none' }}>
             <Field
@@ -96,6 +96,13 @@ class Form extends Component {
         </div>
       </form>
     );
+  }
+
+  renderTypeOptions() {
+    return User.TYPES.map((type, index) => {
+      const value = User.TYPE_VALUES[index];
+      return <option key={ value } value={ value } >{ type }</option>;
+    });
   }
 
   renderDoctorOptions() {
@@ -174,6 +181,14 @@ class Form extends Component {
     this.initFormSelects();
     window.M.updateTextFields();
     this.updateFields();
+  }
+
+  onTypeChange({ target: { options } }) {
+    if (options[options.selectedIndex].value === '2' && this.state.showTypeOf === false) {
+      this.setState({ showTypeOf: true });
+    } else if (options[options.selectedIndex].value !== '2' && this.state.showTypeOf === true) {
+      this.setState({ showTypeOf: false });
+    }
   }
 
   initFormSelects() {

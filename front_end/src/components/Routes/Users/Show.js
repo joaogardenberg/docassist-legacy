@@ -2,6 +2,7 @@ import React, { Component }   from 'react';
 import { connect as Connect } from 'react-redux';
 import { Link }               from 'react-router-dom';
 import PageModal              from '../common/PageModal/PageModal';
+import * as User              from '../../../constants/User';
 
 const INITIAL_STATE = {
   shouldGoBack: false,

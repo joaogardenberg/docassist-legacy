@@ -17,7 +17,6 @@ export function fetchUsers() {
             username: `medico${i}`,
             email: `medico${i}@docassist.com.br`,
             type: '1',
-            typeName: 'Médico(a)',
             typeOf: []
           });
         } else {
@@ -27,7 +26,6 @@ export function fetchUsers() {
             username: `secretario${i}`,
             email: `secretario${i}@docassist.com.br`,
             type: '2',
-            typeName: 'Secretário(a)',
             typeOf: ids
           });
 

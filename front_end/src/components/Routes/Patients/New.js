@@ -3,8 +3,9 @@ import { reduxForm }          from 'redux-form';
 import { connect as Connect } from 'react-redux';
 import PageModal              from '../common/PageModal/PageModal';
 import Form                   from './Form/Form';
-import { createPatient }         from '../../../actions';
-import * as Regex             from '../../../checks/Regex';
+import { createPatient }      from '../../../actions';
+import * as Regex             from '../../../constants/Regex';
+import * as Patient           from '../../../constants/Patient';
 
 const INITIAL_STATE = {
   shouldGoBack: false,
@@ -106,7 +107,7 @@ function validateName(name) {
     return 'Máximo 100 caracteres';
   }
 
-  if (!name.toLowerCase().match(Regex.Name)) {
+  if (!name.toLowerCase().match(Regex.LowercaseName)) {
     return 'Não pode conter caracteres especiais';
   }
 
@@ -222,40 +223,15 @@ function validateNationalityOther(nationality, nationalityOther) {
     return 'Campo obrigatório';
   }
 
+  if (nationality === 'other' && nationalityOther && nationalityOther.length > 50) {
+    return 'Máximo 50 caracteres';
+  }
+
   return null;
 }
 
 function validatePlaceOfBirth(placeOfBirth) {
-  if (![
-    'acre',
-    'alagoas',
-    'amapa',
-    'amazonas',
-    'bahia',
-    'ceara',
-    'distrito_federal',
-    'espirito_santo',
-    'goias',
-    'maranhao',
-    'mato_grosso',
-    'mato_grosso_do_sul',
-    'minas_gerais',
-    'para',
-    'paraiba',
-    'parana',
-    'pernambuco',
-    'piaui',
-    'rio_de_janeiro',
-    'rio_grande_do_norte',
-    'rio_grande_do_sul',
-    'rondonia',
-    'roraima',
-    'santa_catarina',
-    'sao_paulo',
-    'sergipe',
-    'tocantins',
-    'other'
-  ].includes(placeOfBirth)) {
+  if (!Patient.STATE_VALUES.includes(placeOfBirth)) {
     return 'Opção inválida. Favor recarregar a página';
   }
 

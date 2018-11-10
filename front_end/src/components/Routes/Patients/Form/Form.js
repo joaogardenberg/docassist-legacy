@@ -2,36 +2,7 @@ import React, { Component }   from 'react';
 import { Field }              from 'redux-form';
 import { connect as Connect } from 'react-redux';
 import * as Datepicker        from '../../../../common/Datepicker';
-
-const STATES = [
-  'Acre',
-  'Alagoas',
-  'Amapá',
-  'Amazonas',
-  'Bahia',
-  'Ceará',
-  'Distrito Federal',
-  'Espírito Santo',
-  'Goiás',
-  'Maranhão',
-  'Mato Grosso',
-  'Mato Grosso do Sul',
-  'Minas Gerais',
-  'Pará',
-  'Paraíba',
-  'Paraná',
-  'Pernambuco',
-  'Piauí',
-  'Rio de Janeiro',
-  'Rio Grande do Norte',
-  'Rio Grande do Sul',
-  'Rondônia',
-  'Roraima',
-  'Santa Catarina',
-  'São Paulo',
-  'Sergipe',
-  'Tocantins'
-];
+import * as Patient           from '../../../../constants/Patient';
 
 const INITIAL_STATE = {
   showRgIssuingAgency: false,
@@ -64,8 +35,7 @@ class Form extends Component {
             reference={ this.genderSelectRef }
             component={ this.renderSelect }
           >
-            <option key="1" value="1">Masculino</option>
-            <option key="2" value="2">Feminino</option>
+            { this.renderGenderOptions() }
           </Field>
           <Field
             id="maritalStatus"
@@ -75,10 +45,7 @@ class Form extends Component {
             reference={ this.maritalStatusSelectRef }
             component={ this.renderSelect }
           >
-            <option key="1" value="1">Solteiro(a)</option>
-            <option key="2" value="2">Casado(a)</option>
-            <option key="3" value="3">Divorciado(a)</option>
-            <option key="4" value="4">Viúvo(a)</option>
+            { this.renderMaritalStatusOptions() }
           </Field>
           <Field
             id="dateOfBirth"
@@ -139,8 +106,7 @@ class Form extends Component {
             component={ this.renderSelect }
             onChange={ event => this.onNationalityChange(event) }
           >
-            <option key="1" value="1">Brasileira</option>
-            <option key="other" value="other">Outra</option>
+            { this.renderNationalityOptions() }
           </Field>
           <Field
             id="nationalityOther"
@@ -233,15 +199,32 @@ class Form extends Component {
     );
   }
 
+  renderGenderOptions() {
+    return Patient.GENDERS.map((gender, index) => {
+      const value = Patient.GENDER_VALUES[index];
+      return <option key={ value } value={ value } >{ gender }</option>;
+    });
+  }
+
+  renderMaritalStatusOptions() {
+    return Patient.MARITAL_STATUSES.map((maritalStatus, index) => {
+      const value = Patient.MARITAL_STATUS_VALUES[index];
+      return <option key={ value } value={ value } >{ maritalStatus }</option>;
+    });
+  }
+
+  renderNationalityOptions() {
+    return Patient.NATIONALITIES.map((nationality, index) => {
+      const value = Patient.NATIONALITY_VALUES[index];
+      return <option key={ value } value={ value } >{ nationality }</option>;
+    });
+  }
+
   renderPlaceOfBirthOptions() {
-    const options = STATES.map((state, index) => {
-      const value = this.tokenize(state);
+    return Patient.STATES.map((state, index) => {
+      const value = Patient.STATE_VALUES[index];
       return <option key={ value } value={ value } >{ state }</option>;
     });
-
-    options.push(<option key="other" value="other">Outra</option>);
-
-    return options;
   }
 
   constructor(props) {

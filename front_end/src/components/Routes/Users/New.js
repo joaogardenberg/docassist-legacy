@@ -4,7 +4,7 @@ import { connect as Connect } from 'react-redux';
 import PageModal              from '../common/PageModal/PageModal';
 import Form                   from './Form/Form';
 import { createUser }         from '../../../actions';
-import * as Regex             from '../../../checks/Regex';
+import * as Regex             from '../../../constants/Regex';
 
 const INITIAL_STATE = {
   shouldGoBack: false,
@@ -132,7 +132,7 @@ function validateName(name) {
     return 'Máximo 100 caracteres';
   }
 
-  if (!name.toLowerCase().match(Regex.Name)) {
+  if (!name.toLowerCase().match(Regex.LowercaseName)) {
     return 'Não pode conter caracteres especiais';
   }
 
