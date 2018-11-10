@@ -213,14 +213,6 @@ class Form extends Component {
     }
   }
 
-  onTypeChange({ target: { options } }) {
-    if (options[options.selectedIndex].value === '2' && this.state.showTypeOf === false) {
-      this.setState({ showTypeOf: true });
-    } else if (options[options.selectedIndex].value !== '2' && this.state.showTypeOf === true) {
-      this.setState({ showTypeOf: false });
-    }
-  }
-
   updateFields() {
     this.onTypeChange({ target: { options: this.typeSelectRef.current.options } });
   }
