@@ -22,7 +22,7 @@ class Article extends Component {
             to={ newButtonPath }
             className={ `btn-floating btn-large waves-effect waves-light tooltiped${newButtonPulse ? ' pulse' : ''}` }
             data-position="left"
-            data-tooltip={ newButtonTooltip ? `Adicionar ${newButtonTooltip}` : null }
+            data-tooltip={ newButtonTooltip }
             ref={ this.newButton }
             onClick={ this.onNewButtonClick.bind(this) }
           >

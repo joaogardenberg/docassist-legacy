@@ -10,7 +10,7 @@ class Appointments extends Component {
         uniqueClass="appointments-index"
         header="Consultas"
         newButtonCallback={ this.onNewButtonClick }
-        newButtonTooltip="consulta"
+        newButtonTooltip="Nova consulta"
       />
     );
   }
