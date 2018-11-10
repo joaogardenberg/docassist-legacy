@@ -1,9 +1,11 @@
 import {
   FETCH_USERS,
+  FETCH_USER,
   CREATE_USER,
   UPDATE_USER,
   DESTROY_USER,
   UNABLE_TO_FETCH_USERS,
+  UNABLE_TO_FETCH_USER,
   UNABLE_TO_CREATE_USER,
   UNABLE_TO_UPDATE_USER,
   UNABLE_TO_DESTROY_USER
@@ -18,6 +20,7 @@ function UsersReducer(state = INITIAL_STATE, action) {
   switch(action.type) {
     case FETCH_USERS:
       return _.mapKeys(action.payload, 'id');
+    case FETCH_USER:
     case CREATE_USER:
     case UPDATE_USER:
       return { ...state, [action.payload.id]: action.payload };
@@ -25,6 +28,9 @@ function UsersReducer(state = INITIAL_STATE, action) {
       return _.omit(state, `${action.payload}`);
     case UNABLE_TO_FETCH_USERS:
       Toast.error('Ocorreu um erro ao carregar os usuários. Tente recarregar a página.', 0);
+      return { ...state };
+    case UNABLE_TO_FETCH_USER:
+      Toast.error('Ocorreu um erro ao carregar o usuário. Talvez você não tenha acesso a ele.', 0);
       return { ...state };
     case UNABLE_TO_CREATE_USER:
       Toast.error('Ocorreu um erro ao criar o usuário.', 0);

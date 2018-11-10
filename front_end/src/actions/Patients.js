@@ -1,10 +1,12 @@
 import {
   FETCH_PATIENTS,
+  FETCH_PATIENT,
   LOAD_PATIENT,
   CREATE_PATIENT,
   UPDATE_PATIENT,
   DESTROY_PATIENT,
   UNABLE_TO_FETCH_PATIENTS,
+  UNABLE_TO_FETCH_PATIENT,
   UNABLE_TO_CREATE_PATIENT,
   UNABLE_TO_UPDATE_PATIENT,
   UNABLE_TO_DESTROY_PATIENT
@@ -19,30 +21,47 @@ export function fetchPatients() {
     dispatch(openLoader());
 
     Api.fetchPatients()
-    .then(data => {
-      dispatch(closeLoader());
+       .then(data => {
+         dispatch(closeLoader());
 
-      return dispatch({
-        type: FETCH_PATIENTS,
-        payload: data
-      });
-    })
-    .catch(error => {
-      dispatch(closeLoader());
+         return dispatch({
+           type: FETCH_PATIENTS,
+           payload: data
+         });
+       })
+       .catch(error => {
+         dispatch(closeLoader());
 
-      return dispatch({
-        type: UNABLE_TO_FETCH_PATIENTS,
-        payload: error
-      });
-    });
+         return dispatch({
+           type: UNABLE_TO_FETCH_PATIENTS,
+           payload: error
+         });
+       });
   };
 }
 
-export function loadPatient(patient) {
-  return {
-    type: LOAD_PATIENT,
-    payload: patient
-  }
+export function fetchPatient(id) {
+  return dispatch => {
+    dispatch(openLoader());
+
+    Api.fetchPatient(id)
+       .then(data => {
+         dispatch(closeLoader());
+
+         return dispatch({
+           type: FETCH_PATIENT,
+           payload: data
+         });
+       })
+       .catch(error => {
+         dispatch(closeLoader());
+
+         return dispatch({
+           type: UNABLE_TO_FETCH_PATIENT,
+           payload: error
+         });
+       });
+  };
 }
 
 export function createPatient(attributes) {
@@ -114,5 +133,12 @@ export function destroyPatient(id) {
         payload: error
       });
     });
+  }
+}
+
+export function loadPatient(patient) {
+  return {
+    type: LOAD_PATIENT,
+    payload: patient
   }
 }

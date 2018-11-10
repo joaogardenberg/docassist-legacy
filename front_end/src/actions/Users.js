@@ -1,10 +1,12 @@
 import {
   FETCH_USERS,
+  FETCH_USER,
   LOAD_USER,
   CREATE_USER,
   UPDATE_USER,
   DESTROY_USER,
   UNABLE_TO_FETCH_USERS,
+  UNABLE_TO_FETCH_USER,
   UNABLE_TO_CREATE_USER,
   UNABLE_TO_UPDATE_USER,
   UNABLE_TO_DESTROY_USER
@@ -19,30 +21,47 @@ export function fetchUsers() {
     dispatch(openLoader());
 
     Api.fetchUsers()
-    .then(data => {
-      dispatch(closeLoader());
+       .then(data => {
+         dispatch(closeLoader());
 
-      return dispatch({
-        type: FETCH_USERS,
-        payload: data
-      });
-    })
-    .catch(error => {
-      dispatch(closeLoader());
+         return dispatch({
+           type: FETCH_USERS,
+           payload: data
+         });
+       })
+       .catch(error => {
+         dispatch(closeLoader());
 
-      return dispatch({
-        type: UNABLE_TO_FETCH_USERS,
-        payload: error
-      });
-    });
+         return dispatch({
+           type: UNABLE_TO_FETCH_USERS,
+           payload: error
+         });
+       });
   };
 }
 
-export function loadUser(user) {
-  return {
-    type: LOAD_USER,
-    payload: user
-  }
+export function fetchUser(id) {
+  return dispatch => {
+    dispatch(openLoader());
+
+    Api.fetchUser(id)
+       .then(data => {
+         dispatch(closeLoader());
+
+         return dispatch({
+           type: FETCH_USER,
+           payload: data
+         });
+       })
+       .catch(error => {
+         dispatch(closeLoader());
+
+         return dispatch({
+           type: UNABLE_TO_FETCH_USER,
+           payload: error
+         });
+       });
+  };
 }
 
 export function createUser(attributes) {
@@ -114,5 +133,12 @@ export function destroyUser(id) {
         payload: error
       });
     });
+  }
+}
+
+export function loadUser(user) {
+  return {
+    type: LOAD_USER,
+    payload: user
   }
 }

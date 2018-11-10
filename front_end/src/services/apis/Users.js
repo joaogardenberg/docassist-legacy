@@ -40,14 +40,29 @@ export function fetchUsers() {
   });
 }
 
+export function fetchUser(id) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve({
+        id: id,
+        name: 'Usuário',
+        username: 'usuario',
+        email: 'usuario@docassist.com.br',
+        type: '1',
+        typeOf: []
+      });
+    }, 100 + Math.floor(Math.random() * 2001));
+  });
+}
+
 export function createUser(attributes) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       const dup = Object.assign({}, attributes);
       dup.id = `${new Date().getTime()}${Math.floor(Math.random() * 10001)}`;
       resolve(dup);
-    });
-  }, 100 + Math.floor(Math.random() * 2001));
+    }, 100 + Math.floor(Math.random() * 2001));
+  });
 }
 
 export function updateUser(attributes) {
