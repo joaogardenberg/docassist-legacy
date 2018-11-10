@@ -27,32 +27,78 @@ class UsersShow extends Component {
         footer={ this.modalFooter() }
         shouldGoBack={ shouldGoBack }
         shouldReload={ shouldReload }
-        closeTo={ `/usuarios${indexParams || ''}` }
-        indexParams={ indexParams }
+        closeTo="/usuarios"
       >
         <div className="show">
-          <div className="row">
-            <div className="col l6 s12">
-              <h5>Nome</h5>
-              <p>{ user.name }</p>
-            </div>
-            <div className="col l6 s12">
-              <h5>Tipo</h5>
+          <div className="primary-info">
+            <img
+              src={ imageUrl ? imageUrl : '' }
+              alt={ `Foto de ${name}` }
+              onError={ this.onImageError }
+            />
+            <div className="info">
+              <p className="name">{ name }</p>
               { this.renderType() }
             </div>
           </div>
-          <div className="row">
-            <div className="col l6 s12">
-              <h5>Usuário</h5>
-              <p>{ user.username }</p>
-            </div>
-            <div className="col l6 s12">
-              <h5>E-mail</h5>
-              <p>{ user.email }</p>
+          <div className="secondary-info">
+            <div className="row">
+              <div className="username col s6">
+                <h5>Usuário</h5>
+                <p>{ username }</p>
+              </div>
+              <div className="email col s6">
+                <h5>E-mail</h5>
+                <p>{ email }</p>
+              </div>
             </div>
           </div>
         </div>
       </PageModal>
+    );
+  }
+
+  renderType() {
+    const { users } = this.props;
+    const { user }  = this.state;
+    let userNames;
+
+    if (user.type !== '1') {
+      userNames = user.typeOf.map((id, index) => {
+        let suffix = '';
+
+        if (index < user.typeOf.length - 2) {
+          suffix = ', ';
+        } else if (index < user.typeOf.length - 1) {
+          suffix = ' e ';
+        }
+
+        return (
+          <span key={ id } className="user-container">
+            <Link
+              className="link waves-effect waves-light"
+              to={ `/usuarios/${id}` }
+            >
+              { users[id].name }
+            </Link>
+            { suffix }
+          </span>
+        );
+      });
+    }
+
+    const typeOf = (
+      <span className="users">
+        { ' de ' }
+        { userNames }
+      </span>
+    );
+
+    return (
+      <p className="type">
+        <span className="typeName">{ User.getTypeName(user.type ) }</span>
+        <span className="typeOf">{ userNames ? typeOf : '' }</span>
+      </p>
     );
   }
 
@@ -88,7 +134,6 @@ class UsersShow extends Component {
 
   componentDidMount() {
     this.loadUser();
-    console.log('Mount:', this.props.location.indexParams);
   }
 
   componentDidUpdate() {
@@ -103,7 +148,6 @@ class UsersShow extends Component {
     }
 
     this.loadUser();
-    console.log('Update:', this.props.location.indexParams);
   }
 
   componentWillUnmount() {
@@ -124,9 +168,12 @@ class UsersShow extends Component {
     this.setState({ shouldGoBack: true });
   }
 
+  onImageError({ target }) {
+    target.src = 'https://pixelmator-pro.s3.amazonaws.com/community/avatar_empty@2x.png';
+  }
+
   loadUser() {
     const { users, match: { params: { id } }, history } = this.props;
-    const { location: { indexParams } }                 = this.props;
 
     if (id !== this.lastId) {
       this.userLoaded = false;
