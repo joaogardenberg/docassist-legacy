@@ -163,7 +163,7 @@ function validateEmail(email) {
   }
 
   if (!email.toLowerCase().match(Regex.Email)) {
-    return 'E-mail inválido.';
+    return 'E-mail inválido';
   }
 
   return null;
