@@ -17,7 +17,7 @@ class Form extends Component {
 
     return (
       <form>
-        <h5>Informações pessoais</h5>
+        <h5 className="session">Informações pessoais</h5>
         <div className="row">
           <Field
             id="name"
@@ -152,7 +152,7 @@ class Form extends Component {
             style={{ display: showPlaceOfBirthOther ? 'block' : 'none' }}
           />
         </div>
-        <h5>Contato</h5>
+        <h5 className="session">Contato</h5>
         <div className="row">
           <Field
             id="landline"
@@ -196,7 +196,7 @@ class Form extends Component {
             component={ this.renderField }
           />
         </div>
-        <h5>Endereço</h5>
+        <h5 className="session">Endereço</h5>
         <div className="row">
           <Field
             id="cep"
@@ -263,13 +263,13 @@ class Form extends Component {
             component={ this.renderField }
           />
         </div>
-        <h5>Histórico pessoal</h5>
+        <h5 className="session">Histórico pessoal</h5>
         <div className="row">
         </div>
-        <h5>Hábitos</h5>
+        <h5 className="session">Hábitos</h5>
         <div className="row">
         </div>
-        <h5>Histórico familiar</h5>
+        <h5 className="session">Histórico familiar</h5>
         <div className="row">
         </div>
       </form>
