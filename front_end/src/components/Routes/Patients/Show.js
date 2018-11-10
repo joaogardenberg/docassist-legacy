@@ -20,11 +20,11 @@ class PatientsShow extends Component {
     const { placeOfBirth, placeOfBirthOther, name, dateOfBirth }     = patient;
     const { occupation, cpf, rg, rgIssuingAgency, imageUrl }         = patient;
 
-    const genderName = Patient.getGenderName(gender);
-    const maritalStatusName = Patient.getMaritalStatusName(maritalStatus);
+    const genderName          = Patient.getGenderName(gender);
+    const maritalStatusName   = Patient.getMaritalStatusName(maritalStatus);
     const rgWithIssuingAgency = Patient.getRgWithIssuingAgency(rg, rgIssuingAgency);
-    const nationalityName = Patient.getNationalityName(nationality, nationalityOther);
-    const placeOfBirthName = Patient.getPlaceOfBirthName(placeOfBirth, placeOfBirthOther);
+    const nationalityName     = Patient.getNationalityName(nationality, nationalityOther);
+    const placeOfBirthName    = Patient.getPlaceOfBirthName(placeOfBirth, placeOfBirthOther);
 
     return (
       <Article
