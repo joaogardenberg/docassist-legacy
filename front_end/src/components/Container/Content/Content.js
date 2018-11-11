@@ -5,7 +5,7 @@ import PageLoader from './PageLoader/PageLoader';
 
 const Content = () => {
   return (
-    <main className="page-content">
+    <main className="page-content" style={{ overflow: 'hidden' }}>
       <Routes />
       <PageLoader />
     </main>
