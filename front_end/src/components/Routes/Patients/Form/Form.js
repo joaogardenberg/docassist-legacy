@@ -443,6 +443,7 @@ class Form extends Component {
     if (options[options.selectedIndex].value === 'other' && this.state.showNationalityOther === false) {
       this.setState({ showNationalityOther: true });
     } else if (options[options.selectedIndex].value !== 'other' && this.state.showNationalityOther === true) {
+      this.props.resetField('nationalityOther');
       this.setState({ showNationalityOther: false });
     }
   }
@@ -451,6 +452,7 @@ class Form extends Component {
     if (options[options.selectedIndex].value === 'other' && this.state.showPlaceOfBirthOther === false) {
       this.setState({ showPlaceOfBirthOther: true });
     } else if (options[options.selectedIndex].value !== 'other' && this.state.showPlaceOfBirthOther === true) {
+      this.props.resetField('placeOfBirthOther');
       this.setState({ showPlaceOfBirthOther: false });
     }
   }
@@ -459,7 +461,30 @@ class Form extends Component {
     if (value && this.state.showRgIssuingAgency === false) {
       this.setState({ showRgIssuingAgency: true });
     } else if (!value && this.state.showRgIssuingAgency === true) {
+      this.props.resetField('rgIssuingAgency');
       this.setState({ showRgIssuingAgency: false });
+    }
+  }
+
+  onCepChange({ target: { value } }) {
+    if (value.match(Regex.CEP)) {
+      console.log(this);
+      this.disableAddressFields();
+
+      cepSearch(value)
+        .then(({ data }) => {
+          const { bairro, localidade, logradouro, uf } = data;
+
+          this.props.changeFieldValue('state', uf);
+          this.props.changeFieldValue('city', localidade);
+          this.props.changeFieldValue('neighborhood', bairro);
+          this.props.changeFieldValue('address', logradouro);
+
+          this.enableAddressFields();
+        })
+        .catch(error => {
+          this.enableAddressFields();
+        });
     }
   }
 
