@@ -16,15 +16,18 @@ class PatientsShow extends Component {
       return null;
     }
 
-    const { gender, maritalStatus, nationality, nationalityOther }   = patient;
-    const { placeOfBirth, placeOfBirthOther, name, dateOfBirth }     = patient;
-    const { occupation, cpf, rg, rgIssuingAgency, imageUrl }         = patient;
+    const { gender, maritalStatus, nationality, nationalityOther }    = patient;
+    const { placeOfBirth, placeOfBirthOther, name, dateOfBirth }      = patient;
+    const { occupation, cpf, rg, rgIssuingAgency, imageUrl }          = patient;
+    const { landline, cellPhone, workPhone, email, cep, state, city } = patient;
+    const { neighborhood, address, complement }                       = patient;
 
     const genderName          = Patient.getGenderName(gender);
     const maritalStatusName   = Patient.getMaritalStatusName(maritalStatus);
     const rgWithIssuingAgency = Patient.getRgWithIssuingAgency(rg, rgIssuingAgency);
     const nationalityName     = Patient.getNationalityName(nationality, nationalityOther);
     const placeOfBirthName    = Patient.getPlaceOfBirthName(placeOfBirth, placeOfBirthOther);
+    const fullAddress         = Patient.getFullAddress(cep, state, city, neighborhood, address, complement);
 
     return (
       <Article
@@ -46,6 +49,11 @@ class PatientsShow extends Component {
           <p>RG: { rgWithIssuingAgency }</p>
           <p>Nacionalidade: { nationalityName }</p>
           <p>Naturalidade: { placeOfBirthName }</p>
+          <p>Telefone: { landline }</p>
+          <p>Celular: { cellPhone }</p>
+          <p>Trabalho: { workPhone }</p>
+          <p>E-mail: { email }</p>
+          <p>Endereço: { fullAddress }</p>
         </div>
       </Article>
     );
