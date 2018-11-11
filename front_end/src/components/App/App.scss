@@ -10,6 +10,40 @@ body {
   overflow: hidden;
 }
 
+.todo {
+  background-color: $footer-background-color;
+  border-radius: 10px;
+  bottom: 5px;
+  box-shadow: 0 0 2px 0 $sidebar-box-shadow-first-color,
+              0 0 1px -2px $sidebar-box-shadow-second-color,
+              0 0 5px 0 $sidebar-box-shadow-third-color;
+  cursor: pointer;
+  overflow: hidden;
+  padding: 10px;
+  position: fixed;
+  right: 5px;
+  z-index: 30000;
+
+  h5 {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0 0 10px;
+    text-align: center;
+  }
+
+  p {
+    background-color: $disabled-color-lighter;
+    border-radius: 10px;
+    font-size: 12px;
+    padding: 5px 10px;
+    text-align: center;
+
+    &:not(:last-child) {
+      margin-bottom: 5px;
+    }
+  }
+}
+
 *.test {
   &, * {
     background: rgba(255, 0, 0, 0.2) !important;
