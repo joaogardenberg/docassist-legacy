@@ -12,6 +12,7 @@ const Multiple = props => {
     <div key="temp" className="todo" onClick={ ({ target }) => target.closest('.todo').style = 'display: none' }>
       <h5>TODO</h5>
       <p>Ajeitar modal no celular</p>
+      <p>Terminar formulário do paciente</p>
       <p>Fazer página do paciente</p>
       <p>Fazer lógica da função de exibir o endereço</p>
     </div>
