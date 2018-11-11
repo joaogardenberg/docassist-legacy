@@ -43,11 +43,11 @@ class UsersShow extends Component {
           </div>
           <div className="secondary-info">
             <div className="row">
-              <div className="username col s6">
+              <div className="username col l6 s12">
                 <h5>Usuário</h5>
                 <p>{ username }</p>
               </div>
-              <div className="email col s6">
+              <div className="email col l6 s12">
                 <h5>E-mail</h5>
                 <p>{ email }</p>
               </div>
