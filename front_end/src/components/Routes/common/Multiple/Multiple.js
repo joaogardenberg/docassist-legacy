@@ -11,10 +11,11 @@ const Multiple = props => {
   temp.push(
     <div key="temp" className="todo" onClick={ ({ target }) => target.closest('.todo').style = 'display: none' }>
       <h5>TODO</h5>
-      <p>Ajeitar modal no celular</p>
+      <p>Ajeitar modal no celular (ajeitou sozinho?)</p>
       <p>Terminar formulário do paciente</p>
       <p>Fazer página do paciente</p>
-      <p>Fazer lógica da função de exibir o endereço</p>
+      <p>Abrir datepicker só com botão (pra ser opcional)</p>
+      <p>Ajeitar scroll do modal no mobile</p>
     </div>
   );
 
