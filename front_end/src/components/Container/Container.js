@@ -6,7 +6,7 @@ import Footer  from '../Footer/Footer';
 
 const Container = () => {
   return (
-    <div className="app-container" style={{ overflow: 'hidden' }}>
+    <div className="app-container">
       <Header />
       <Content />
       <Footer />
