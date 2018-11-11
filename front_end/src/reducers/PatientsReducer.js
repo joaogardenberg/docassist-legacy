@@ -19,6 +19,7 @@ const INITIAL_STATE = {};
 function PatientsReducer(state = INITIAL_STATE, action) {
   switch(action.type) {
     case FETCH_PATIENTS:
+      window.patientsFetched = true;
       return _.mapKeys(action.payload, 'id');
     case FETCH_PATIENT:
     case CREATE_PATIENT:

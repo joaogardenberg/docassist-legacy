@@ -124,7 +124,12 @@ class PatientsIndex extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchPatients();
+    if (window.patientsFetched) {
+      this.addDataTable();
+      // this.initTooltips();
+    } else {
+      this.props.fetchPatients();
+    }
   }
 
   componentWillUpdate(nextProps) {
