@@ -14,6 +14,7 @@ const INITIAL_STATE = {
 
 class PatientsEdit extends Component {
   render() {
+    const { change, reset }             = this.props;
     const { shouldGoBack, shouldReset } = this.state;
 
     return (
@@ -26,6 +27,8 @@ class PatientsEdit extends Component {
       >
         <Form
           shouldReset={ shouldReset }
+          changeFieldValue={ change }
+          resetField={ reset }
         />
       </PageModal>
     );

@@ -13,6 +13,7 @@ const INITIAL_STATE = {
 
 class UsersNew extends Component {
   render() {
+    const { change, reset }             = this.props;
     const { shouldGoBack, shouldReset } = this.state;
 
     return (
@@ -25,6 +26,8 @@ class UsersNew extends Component {
       >
         <Form
           shouldReset={ shouldReset }
+          changeFieldValue={ change }
+          resetField={ reset }
         />
       </PageModal>
     );
