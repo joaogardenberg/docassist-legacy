@@ -5,7 +5,8 @@ import _                      from 'lodash';
 import * as User              from '../../../../constants/User';
 
 const INITIAL_STATE = {
-  showTypeOf: false
+  showTypeOf: false,
+  shouldResetSelects: false
 }
 
 class Form extends Component {
@@ -204,13 +205,18 @@ class Form extends Component {
     this.initFormSelects();
     window.M.updateTextFields();
     this.updateFields();
+
+    if (this.state.shouldResetSelects) {
+      this.setState({ shouldResetSelects: false });
+    }
   }
 
   onTypeChange({ target: { options } }) {
     if (options[options.selectedIndex].value === '2' && this.state.showTypeOf === false) {
       this.setState({ showTypeOf: true });
     } else if (options[options.selectedIndex].value !== '2' && this.state.showTypeOf === true) {
-      this.setState({ showTypeOf: false });
+      this.props.resetField('typeOf');
+      this.setState({ showTypeOf: false, shouldResetSelects: true });
     }
   }
 
@@ -248,14 +254,16 @@ class Form extends Component {
 
   initFormSelects() {
     const { typeSelectLoaded, typeOfSelectLoaded, typeSelectRef } = this;
-    const { typeOfSelectRef, props: { users, shouldReset } }      = this;
+    const { typeOfSelectRef }                                     = this;
+    const { users, shouldReset }                                  = this.props;
+    const { shouldResetSelects }                                  = this.state;
 
-    if (shouldReset || (!typeSelectLoaded && typeSelectRef.current)) {
+    if (shouldReset || shouldResetSelects || (!typeSelectLoaded && typeSelectRef.current)) {
       window.M.FormSelect.init(typeSelectRef.current);
       this.typeSelectLoaded = true;
     }
 
-    if (shouldReset || (!typeOfSelectLoaded && typeOfSelectRef.current && Object.keys(users).length > 0)) {
+    if (shouldReset || shouldResetSelects  || (!typeOfSelectLoaded && typeOfSelectRef.current && Object.keys(users).length > 0)) {
       window.M.FormSelect.init(typeOfSelectRef.current);
       this.typeOfSelectLoaded = true;
     }

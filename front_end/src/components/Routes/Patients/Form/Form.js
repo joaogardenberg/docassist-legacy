@@ -3,11 +3,14 @@ import { Field }              from 'redux-form';
 import { connect as Connect } from 'react-redux';
 import * as Datepicker        from '../../../../common/Datepicker';
 import * as Patient           from '../../../../constants/Patient';
+import * as Regex             from '../../../../constants/Regex';
+import { cepSearch }          from '../../../../services/apis/Cep';
 
 const INITIAL_STATE = {
   showRgIssuingAgency: false,
   showNationalityOther: false,
-  showPlaceOfBirthOther: false
+  showPlaceOfBirthOther: false,
+  shouldResetSelects: false
 }
 
 class Form extends Component {
@@ -415,6 +418,10 @@ class Form extends Component {
     this.initFormSelects();
     window.M.updateTextFields();
     this.updateFields();
+
+    if (this.state.shouldResetSelects) {
+      this.setState({ shouldResetSelects: false });
+    }
   }
 
   onDatepickerOpen() {
@@ -582,28 +589,29 @@ class Form extends Component {
     const { nationalitySelectRef, placeOfBirthSelectRef }       = this;
     const { stateSelectRef }                                    = this;
     const { shouldReset }                                       = this.props;
+    const { shouldResetSelects }                                   = this.state;
 
-    if (shouldReset || (!genderSelectLoaded && genderSelectRef.current)) {
+    if (shouldReset || shouldResetSelects || (!genderSelectLoaded && genderSelectRef.current)) {
       window.M.FormSelect.init(genderSelectRef.current);
       this.genderSelectLoaded = true;
     }
 
-    if (shouldReset || (!maritalStatusSelectLoaded && maritalStatusSelectRef.current)) {
+    if (shouldReset || shouldResetSelects || (!maritalStatusSelectLoaded && maritalStatusSelectRef.current)) {
       window.M.FormSelect.init(maritalStatusSelectRef.current);
       this.maritalStatusSelectLoaded = true;
     }
 
-    if (shouldReset || (!nationalitySelectLoaded && nationalitySelectRef.current)) {
+    if (shouldReset || shouldResetSelects || (!nationalitySelectLoaded && nationalitySelectRef.current)) {
       window.M.FormSelect.init(nationalitySelectRef.current);
       this.nationalitySelectLoaded = true;
     }
 
-    if (shouldReset || (!placeOfBirthSelectLoaded && placeOfBirthSelectRef.current)) {
+    if (shouldReset || shouldResetSelects || (!placeOfBirthSelectLoaded && placeOfBirthSelectRef.current)) {
       window.M.FormSelect.init(placeOfBirthSelectRef.current);
       this.placeOfBirthSelectLoaded = true;
     }
 
-    if (shouldReset || (!stateSelectLoaded && stateSelectRef.current)) {
+    if (shouldReset || shouldResetSelects || (!stateSelectLoaded && stateSelectRef.current)) {
       window.M.FormSelect.init(stateSelectRef.current);
       this.stateSelectLoaded = true;
     }
