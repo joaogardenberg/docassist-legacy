@@ -377,8 +377,8 @@ PatientsNew = reduxForm({
     gender: '1',
     maritalStatus: '1',
     nationality: '1',
-    placeOfBirth: 'rio_de_janeiro',
-    state: 'rio_de_janeiro'
+    placeOfBirth: 'RJ',
+    state: 'RJ'
   },
   enableReinitialize: true,
   form: 'PatientsNewForm'

@@ -17,7 +17,7 @@ export function fetchPatients() {
         random = Math.floor(Math.random() * 101) + 1;
         const nationality = random > 50 ? '1' : 'other';
         const nationalityOther = random > 50 ? '' : 'Holandesa';
-        const placeOfBirth = random > 50 ? 'rio_de_janeiro' : 'other';
+        const placeOfBirth = random > 50 ? 'RJ' : 'other';
         const placeOfBirthOther = random > 50 ? '' : 'Amsterdam';
 
         objects.push({
@@ -39,7 +39,7 @@ export function fetchPatients() {
           workPhone: '(21) 3333-3333',
           email: `paciente${i}@docassist.com.br`,
           cep: '22222-222',
-          state: 'rio_de_janeiro',
+          state: 'RJ',
           city: 'Rio de Janeiro',
           neighborhood: 'Laranjeiras',
           address: 'Rua das Laranjeiras, 0',
@@ -67,7 +67,7 @@ export function fetchPatient(id) {
       random = Math.floor(Math.random() * 101) + 1;
       const nationality = random > 50 ? '1' : 'other';
       const nationalityOther = random > 50 ? '' : 'Holandesa';
-      const placeOfBirth = random > 50 ? 'rio_de_janeiro' : 'other';
+      const placeOfBirth = random > 50 ? 'RJ' : 'other';
       const placeOfBirthOther = random > 50 ? '' : 'Amsterdam';
 
       resolve({
@@ -89,7 +89,7 @@ export function fetchPatient(id) {
         workPhone: '(21) 3333-3333',
         email: `paciente@docassist.com.br`,
         cep: '22222-222',
-        state: 'rio_de_janeiro',
+        state: 'RJ',
         city: 'Rio de Janeiro',
         neighborhood: 'Laranjeiras',
         address: 'Rua das Laranjeiras, 0',
