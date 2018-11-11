@@ -149,3 +149,7 @@ export function getPlaceOfBirthName(placeOfBirth, placeOfBirthOther) {
     return null;
   }
 }
+
+export function getFullAddress(cep, state, city, neighborhood, address, complement) {
+  return 'Endereço bolado';
+}
