@@ -210,6 +210,7 @@ class Form extends Component {
             autoComplete="off"
             reference={ this.cepInputRef }
             component={ this.renderField }
+            onChange={ event => this.onCepChange(event) }
           />
           <Field
             id="state"
