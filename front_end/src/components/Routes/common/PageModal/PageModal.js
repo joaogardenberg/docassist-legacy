@@ -50,11 +50,13 @@ class PageModal extends Component {
     return (
       <Container
         className="page-modal-container open"
+        style={{ overflow: 'hidden' }}
         pose={ active ? 'active' : 'inactive' }
       >
         <div className="overlay" />
         <Modal
           className="page-modal"
+          style={{ overflow: 'hidden' }}
           pose={ active ? reload ? 'inactive' : 'active' : 'inactive' }
         >
           <header>

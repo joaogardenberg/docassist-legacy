@@ -8,7 +8,7 @@ import { ToastContainer, Flip } from 'react-toastify';
 const App = () => {
   return (
     <BrowserRouter>
-      <div className="app">
+      <div className="app" style={{ overflow: 'hidden' }}>
           <Sidebar />
           <Container />
           <ToastContainer transition={ Flip } className="toastify-container" />
