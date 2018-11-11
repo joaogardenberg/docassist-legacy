@@ -682,18 +682,28 @@ class Form extends Component {
     }
   }
 
-  tokenize(string) {
-    return string
-             .toLowerCase()
-             .replace(/[áàãâä]/g, 'a')
-             .replace(/[éèẽê]/g, 'e')
-             .replace(/[íìĩî]/g, 'i')
-             .replace(/[óòõôö]/g, 'o')
-             .replace(/[úùũûü]/g, 'u')
-             .replace(/[ç]/g, 'c')
-             .replace(/[ñ]/g, 'n')
-             .replace(/[^a-z0-9\s]/g, '')
-             .replace(/\s+/g, '_');
+  disableAddressFields() {
+    const { cepInputRef, stateSelectRef, cityInputRef } = this;
+    const { neighborhoodInputRef, addressInputRef }     = this;
+
+    cepInputRef.current.disabled          = true;
+    stateSelectRef.current.disabled       = true;
+    cityInputRef.current.disabled         = true;
+    neighborhoodInputRef.current.disabled = true;
+    addressInputRef.current.disabled      = true;
+    this.setState({ shouldResetSelects: true });
+  }
+
+  enableAddressFields() {
+    const { cepInputRef, stateSelectRef, cityInputRef } = this;
+    const { neighborhoodInputRef, addressInputRef }     = this;
+
+    cepInputRef.current.disabled          = false;
+    stateSelectRef.current.disabled       = false;
+    cityInputRef.current.disabled         = false;
+    neighborhoodInputRef.current.disabled = false;
+    addressInputRef.current.disabled      = false;
+    this.setState({ shouldResetSelects: true });
   }
 }
 
