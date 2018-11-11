@@ -151,5 +151,59 @@ export function getPlaceOfBirthName(placeOfBirth, placeOfBirthOther) {
 }
 
 export function getFullAddress(cep, state, city, neighborhood, address, complement) {
-  return 'Endereço bolado';
+  let fullAddress = '';
+
+  if (address) {
+    fullAddress += address;
+  }
+
+  if (complement && address) {
+    fullAddress += `, ${complement}`;
+  }
+
+  if (neighborhood) {
+    let prefix = '';
+
+    if (fullAddress) {
+      prefix = ' - ';
+    }
+
+    fullAddress += `${prefix}${neighborhood}`;
+  }
+
+  if (city) {
+    let prefix = '';
+
+    if (fullAddress) {
+      prefix = ' - ';
+    }
+
+    fullAddress += `${prefix}${city}`;
+  }
+
+  if (state) {
+    let prefix = '';
+
+    if (fullAddress) {
+      if (city) {
+        prefix = ' / ';
+      } else {
+        prefix = ' - ';
+      }
+    }
+
+    fullAddress += `${prefix}${state}`;
+  }
+
+  if (cep) {
+    let prefix = '';
+
+    if (fullAddress) {
+      prefix = ' - ';
+    }
+
+    fullAddress += `${prefix}CEP ${cep}`;
+  }
+
+  return fullAddress;
 }
