@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.4.0",
+    "axios": "^0.18.0",
     "cross-env": "^5.2.0",
     "datatables": "^1.10.18",
     "google-fonts": "^1.0.0",
