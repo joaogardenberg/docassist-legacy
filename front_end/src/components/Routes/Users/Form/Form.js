@@ -221,35 +221,20 @@ class Form extends Component {
   }
 
   initFormCounters() {
-    const { nameInputRef, usernameInputRef, emailInputRef } = this;
-    const { emailConfirmationInputRef, passwordInputRef }   = this;
-    const { passwordConfirmationInputRef }                  = this;
+    const elements = [
+      this.nameInputRef.current,
+      this.usernameInputRef.current,
+      this.emailInputRef.current,
+      this.emailConfirmationInputRef.current,
+      this.passwordInputRef.current,
+      this.passwordConfirmationInputRef.current
+    ];
 
-    console.log(nameInputRef.current);
-
-    if (nameInputRef.current) {
-      window.M.CharacterCounter.init(nameInputRef.current);
-    }
-
-    if (usernameInputRef.current) {
-      window.M.CharacterCounter.init(usernameInputRef.current);
-    }
-
-    if (emailInputRef.current) {
-      window.M.CharacterCounter.init(emailInputRef.current);
-    }
-
-    if (emailConfirmationInputRef.current) {
-      window.M.CharacterCounter.init(emailConfirmationInputRef.current);
-    }
-
-    if (passwordInputRef.current) {
-      window.M.CharacterCounter.init(passwordInputRef.current);
-    }
-
-    if (passwordConfirmationInputRef.current) {
-      window.M.CharacterCounter.init(passwordConfirmationInputRef.current);
-    }
+    elements.forEach(element => {
+      if (element) {
+        window.M.CharacterCounter.init(element);
+      }
+    });
   }
 
   initFormSelects() {

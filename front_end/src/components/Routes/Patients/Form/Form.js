@@ -469,122 +469,86 @@ class Form extends Component {
 
   onCepChange({ target: { value } }) {
     if (value.match(Regex.CEP)) {
-      console.log(this);
       this.disableAddressFields();
 
       cepSearch(value)
         .then(({ data }) => {
+          if (data.erro) {
+            throw(new Error('CEP not found'));
+          }
+
           const { bairro, localidade, logradouro, uf } = data;
 
           this.props.changeFieldValue('state', uf);
           this.props.changeFieldValue('city', localidade);
           this.props.changeFieldValue('neighborhood', bairro);
           this.props.changeFieldValue('address', logradouro);
-
-          this.enableAddressFields();
         })
         .catch(error => {
+          this.props.resetField('state');
+          this.props.resetField('city');
+          this.props.resetField('neighborhood');
+          this.props.resetField('address');
+        })
+        .then(() => {
           this.enableAddressFields();
         });
     }
   }
 
   initFormCounters() {
-    const { nameInputRef, occupationInputRef, rgInputRef }              = this;
-    const { rgIssuingAgencyInputRef, nationalityOtherInputRef }         = this;
-    const { placeOfBirthOtherInputRef, emailInputRef, cityInputRef }    = this;
-    const { neighborhoodInputRef, addressInputRef, complementInputRef } = this;
+    const elements = [
+      this.nameInputRef.current,
+      this.occupationInputRef.current,
+      this.rgInputRef.current,
+      this.rgIssuingAgencyInputRef.current,
+      this.nationalityOtherInputRef.current,
+      this.placeOfBirthOtherInputRef.current,
+      this.emailInputRef.current,
+      this.cityInputRef.current,
+      this.neighborhoodInputRef.current,
+      this.addressInputRef.current,
+      this.complementInputRef.current
+    ];
 
-    if (nameInputRef.current) {
-      window.M.CharacterCounter.init(nameInputRef.current);
-    }
-
-    if (occupationInputRef.current) {
-      window.M.CharacterCounter.init(occupationInputRef.current);
-    }
-
-    if (rgInputRef.current) {
-      window.M.CharacterCounter.init(rgInputRef.current);
-    }
-
-    if (rgIssuingAgencyInputRef.current) {
-      window.M.CharacterCounter.init(rgIssuingAgencyInputRef.current);
-    }
-
-    if (nationalityOtherInputRef.current) {
-      window.M.CharacterCounter.init(nationalityOtherInputRef.current);
-    }
-
-    if (placeOfBirthOtherInputRef.current) {
-      window.M.CharacterCounter.init(placeOfBirthOtherInputRef.current);
-    }
-
-    if (emailInputRef.current) {
-      window.M.CharacterCounter.init(emailInputRef.current);
-    }
-
-    if (cityInputRef.current) {
-      window.M.CharacterCounter.init(cityInputRef.current);
-    }
-
-    if (neighborhoodInputRef.current) {
-      window.M.CharacterCounter.init(neighborhoodInputRef.current);
-    }
-
-    if (addressInputRef.current) {
-      window.M.CharacterCounter.init(addressInputRef.current);
-    }
-
-    if (complementInputRef.current) {
-      window.M.CharacterCounter.init(complementInputRef.current);
-    }
+    elements.forEach(element => {
+      if (element) {
+        window.M.CharacterCounter.init(element);
+      }
+    });
   }
 
   initFormMasks() {
-    const { dateOfBirthInputRef, cpfInputRef, landlineInputRef } = this;
-    const { cellPhoneInputRef, workPhoneInputRef, cepInputRef }  = this;
+    const elements = [
+      {
+        element: this.dateOfBirthInputRef.current,
+        mask:    '99/99/9999'
+      }, {
+        element: this.cpfInputRef.current,
+        mask:    '999.999.999-99'
+      }, {
+        element: this.landlineInputRef.current,
+        mask:    ['(99) 9999-9999', '(99) 99999-9999']
+      }, {
+        element: this.cellPhoneInputRef.current,
+        mask:    ['(99) 9999-9999', '(99) 99999-9999']
+      }, {
+        element: this.workPhoneInputRef.current,
+        mask:    ['(99) 9999-9999', '(99) 99999-9999']
+      }, {
+        element: this.cepInputRef.current,
+        mask:    '99999-999'
+      }
+    ];
 
-    if (dateOfBirthInputRef.current) {
-      window.Inputmask({
-        mask: '99/99/9999',
-        showMaskOnHover: false
-      }).mask(dateOfBirthInputRef.current);
-    }
-
-    if (cpfInputRef.current) {
-      window.Inputmask({
-        mask: '999.999.999-99',
-        showMaskOnHover: false
-      }).mask(cpfInputRef.current);
-    }
-
-    if (landlineInputRef.current) {
-      window.Inputmask({
-        mask: ['(99) 9999-9999', '(99) 99999-9999'],
-        showMaskOnHover: false
-      }).mask(landlineInputRef.current);
-    }
-
-    if (cellPhoneInputRef.current) {
-      window.Inputmask({
-        mask: ['(99) 9999-9999', '(99) 99999-9999'],
-        showMaskOnHover: false
-      }).mask(cellPhoneInputRef.current);
-    }
-
-    if (workPhoneInputRef.current) {
-      window.Inputmask({
-        mask: ['(99) 9999-9999', '(99) 99999-9999'],
-        showMaskOnHover: false
-      }).mask(workPhoneInputRef.current);
-    }
-
-    if (cepInputRef.current) {
-      window.Inputmask({
-        mask: '99999-999',
-        showMaskOnHover: false
-      }).mask(cepInputRef.current);
-    }
+    elements.forEach(element => {
+      if (element.element) {
+        window.Inputmask({
+          mask: element.mask,
+          showMaskOnHover: false
+        }).mask(element.element);
+      }
+    });
   }
 
   initFormPickers() {
@@ -615,7 +579,7 @@ class Form extends Component {
     const { nationalitySelectRef, placeOfBirthSelectRef }       = this;
     const { stateSelectRef }                                    = this;
     const { shouldReset }                                       = this.props;
-    const { shouldResetSelects }                                   = this.state;
+    const { shouldResetSelects }                                = this.state;
 
     if (shouldReset || shouldResetSelects || (!genderSelectLoaded && genderSelectRef.current)) {
       window.M.FormSelect.init(genderSelectRef.current);
