@@ -163,6 +163,15 @@
           }
         }
 
+        .picker {
+          height: auto;
+          padding: 8px 10px;
+          position: absolute;
+          right: .75rem;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+
         .helper-text {
           color: $error-color;
           font-size: .84rem;
