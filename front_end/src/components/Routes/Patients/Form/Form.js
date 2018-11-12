@@ -61,7 +61,9 @@ class Form extends Component {
             className="col xl3 l4 m6 s12"
             autoComplete="off"
             reference={ this.dateOfBirthInputRef }
+            button={{ iconClass: 'fas fa-calendar-alt', onClick: this.initDatepicker.bind(this) }}
             component={ this.renderField }
+            onFocus={ this.onDateOfBirthFieldFocus.bind(this) }
           />
           <Field
             id="occupation"
@@ -282,11 +284,13 @@ class Form extends Component {
 
   renderField(field) {
     const { input, id, type, label, className, disabled } = field;
-    const { reference, style, maxLength }                 = field;
+    const { reference, style, maxLength, button }         = field;
     const { touched, active, error }                      = field.meta;
 
     const errorMessage = touched && !active ? error : '';
     const valid        = touched && !active && !errorMessage;
+
+    const btn = button ? <i className={ `picker btn-flat waves-effect ${button.iconClass}` } onClick={ button.onClick } /> : null;
 
     return (
       <div
@@ -302,6 +306,7 @@ class Form extends Component {
           data-length={ maxLength }
           disabled={ disabled }
         />
+        { btn }
         <label htmlFor={ id }>{ label }</label>
         <span className="helper-text">{ errorMessage }</span>
       </div>
@@ -393,6 +398,7 @@ class Form extends Component {
     this.maritalStatusSelectLoaded = false;
     this.nationalitySelectLoaded   = false;
     this.placeOfBirthSelectLoaded  = false;
+    this.datepicker                = null;
 
     this.landlineInputRef          = React.createRef();
     this.cellPhoneInputRef         = React.createRef();
@@ -411,7 +417,6 @@ class Form extends Component {
   componentDidMount() {
     this.initFormCounters();
     this.initFormMasks();
-    this.initFormPickers();
     this.initFormSelects();
   }
 
@@ -431,13 +436,23 @@ class Form extends Component {
   }
 
   onDatepickerSelect() {
-    this.fixDateDisplay();
-    this.fixYearsSelect();
+    this.onDatepickerClose();
   }
 
   onDatepickerDraw() {
     this.fixDateDisplay();
     this.fixYearsSelect();
+  }
+
+  onDatepickerClose() {
+    if (this.datepicker) {
+      this.datepicker.destroy();
+      this.datepicker = null;
+    }
+  }
+
+  onDateOfBirthFieldFocus() {
+    this.onDatepickerClose();
   }
 
   onNationalityChange({ target: { options } }) {
@@ -551,11 +566,15 @@ class Form extends Component {
     });
   }
 
-  initFormPickers() {
+  initDatepicker() {
     const { dateOfBirthInputRef } = this;
 
     if (dateOfBirthInputRef.current) {
-      window.M.Datepicker.init(dateOfBirthInputRef.current, {
+      const [ day, month, year ] = dateOfBirthInputRef.current.value.split('/');
+
+      dateOfBirthInputRef.current.value = `${month}/${day}/${year}`;
+
+      this.datepicker = window.M.Datepicker.init(dateOfBirthInputRef.current, {
         autoClose: true,
         format: 'dd/mm/yyyy',
         setDefaultDate: true,
@@ -566,8 +585,11 @@ class Form extends Component {
         container: document.getElementsByClassName('page-modal-container')[0],
         onOpen: this.onDatepickerOpen.bind(this),
         onSelect: this.onDatepickerSelect.bind(this),
-        onDraw: this.onDatepickerDraw.bind(this)
+        onDraw: this.onDatepickerDraw.bind(this),
+        onClose: this.onDatepickerClose.bind(this)
       });
+
+      this.datepicker.open();
     }
   }
 
