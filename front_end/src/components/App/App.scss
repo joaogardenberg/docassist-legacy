@@ -29,6 +29,10 @@ body {
     font-weight: bold;
     margin: 0 0 10px;
     text-align: center;
+
+    &:not(:first-child) {
+      margin-top: 10px;
+    }
   }
 
   p {
