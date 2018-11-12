@@ -154,9 +154,11 @@ function validateDateOfBirth(dateOfBirth) {
     return 'Data de nascimento inválida';
   }
 
-  const date = Date.parse(dateOfBirth);
+  const [ day, month, year ] = dateOfBirth.split('/');
 
-  if (!date || date > new Date().getTime()) {
+  const date = Date.parse(`${month}/${day}/${year}`);
+
+  if (!date || date > new Date()) {
     return 'Data de nascimento inválida';
   }
 
