@@ -9,7 +9,7 @@ const Multiple = props => {
   });
 
   temp.push(
-    <div key="temp" className="todo" onClick={ ({ target }) => target.closest('.todo').style = 'display: none' }>
+    <div key="temp" className="todo" onClick={ toggleTodo }>
       <h5>TODO</h5>
       <p>Terminar formulário do paciente</p>
       <p>Fazer página do paciente</p>
@@ -19,6 +19,14 @@ const Multiple = props => {
       <p>Fazer dashboard</p>
     </div>
   );
+
+  function toggleTodo({ target }) {
+    if (target.closest('.todo').offsetWidth === 70) {
+      target.closest('.todo').classList.add('show');
+    } else {
+      target.closest('.todo').classList.remove('show');
+    }
+  }
 
   return temp;
 }
