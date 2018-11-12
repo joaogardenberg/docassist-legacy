@@ -27,10 +27,10 @@ const Multiple = props => {
     if (close) {
       event.target.closest('.todo').classList.remove('show');
       event.target.closest('.todo').classList.add('closed');
-    } else if (event.target.closest('.todo').offsetWidth === 70) {
-      event.target.closest('.todo').classList.add('show');
-    } else {
+    } else if (event.target.classList.contains('show')) {
       event.target.closest('.todo').classList.remove('show');
+    } else {
+      event.target.closest('.todo').classList.add('show');
     }
   }
 
