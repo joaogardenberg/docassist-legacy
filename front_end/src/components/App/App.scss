@@ -31,6 +31,24 @@ body {
     bottom: 5px;
     top: auto;
     width: auto;
+
+    i {
+      display: block;
+    }
+  }
+
+  &.closed {
+    display: none;
+  }
+
+  i {
+    display: none;
+    font-size: 1.2rem;
+    line-height: .9rem;
+    padding: 10px;
+    position: absolute;
+    right: 0;
+    top: 0;
   }
 
   h5 {
@@ -39,7 +57,7 @@ body {
     margin: 0 0 10px;
     text-align: center;
 
-    &:not(:first-child) {
+    &:not(:first-of-type) {
       margin-top: 10px;
     }
   }

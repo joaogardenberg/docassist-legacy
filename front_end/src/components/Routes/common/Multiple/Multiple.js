@@ -10,6 +10,7 @@ const Multiple = props => {
 
   temp.push(
     <div key="temp" className="todo" onClick={ toggleTodo }>
+      <i className="fas fa-times" onClick={ event => toggleTodo(event, true) }/>
       <h5>TODO</h5>
       <p>Terminar formulário do paciente</p>
       <p>Fazer página do paciente</p>
@@ -20,11 +21,16 @@ const Multiple = props => {
     </div>
   );
 
-  function toggleTodo({ target }) {
-    if (target.closest('.todo').offsetWidth === 70) {
-      target.closest('.todo').classList.add('show');
+  function toggleTodo(event, close = false) {
+    event.stopPropagation();
+
+    if (close) {
+      event.target.closest('.todo').classList.remove('show');
+      event.target.closest('.todo').classList.add('closed');
+    } else if (event.target.closest('.todo').offsetWidth === 70) {
+      event.target.closest('.todo').classList.add('show');
     } else {
-      target.closest('.todo').classList.remove('show');
+      event.target.closest('.todo').classList.remove('show');
     }
   }
 
