@@ -19,7 +19,7 @@ const CurrentUserInfo = props => {
         alt="Foto do usuário"
         onError={ onImageError }
       />
-    <span className="name">Usuário atual</span>
+      <span className="name">Usuário atual</span>
       <span className="new badge" data-badge-caption="">Editar</span>
     </a>
   );
